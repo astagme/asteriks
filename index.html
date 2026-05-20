@@ -1,32 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Asteriks ✦ Furry Art Studio</title>
+<title>Asteriks ✦ Studio</title>
 
 <!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
 <!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
+/* ==================================================
+   ROOT
+================================================== */
+
 :root{
-    --pink:#FFD9E8;
-    --pink-dark:#F5BFD4;
-    --lav:#E7DEFF;
-    --blue:#DDEBFF;
-    --cream:#FFFDF9;
-    --text:#5E4A57;
+
+    --c1:#ABC0F6;
+    --c2:#C7D6F7;
+    --c3:#D5D9F2;
+    --c4:#E4E2F8;
+    --c5:#E1EDF6;
+
+    --text:#475069;
     --white:#ffffff;
+
+    --shadow:
+    0 15px 40px rgba(126,145,187,.12);
+
 }
 
-/* =========================
+/* ==================================================
    GLOBAL
-========================= */
+================================================== */
 
 *{
     margin:0;
@@ -39,471 +49,653 @@ html{
 }
 
 body{
-    background:var(--cream);
+
+    font-family:'Nunito',sans-serif;
     color:var(--text);
-    font-family:'Quicksand',sans-serif;
+
     overflow-x:hidden;
-    cursor:none;
-}
-
-/* =========================
-   ANIMATED BACKGROUND
-========================= */
-
-.bg{
-    position:fixed;
-    inset:0;
-    z-index:-5;
 
     background:
-    linear-gradient(
-    135deg,
-    #fffafc,
-    #ffe2ef,
-    #f4ecff,
-    #dde8ff,
-    #fffafc);
+    radial-gradient(circle at top left, rgba(255,255,255,.9), transparent 30%),
+    linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
 
-    background-size:400% 400%;
-    animation:bgMove 18s ease infinite;
+    min-height:100vh;
 }
 
-@keyframes bgMove{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
-}
+/* ==================================================
+   FLOATING BACKGROUND
+================================================== */
 
-/* floating blur blobs */
+.bg-bubble{
 
-.blob{
     position:fixed;
     border-radius:50%;
-    filter:blur(90px);
-    opacity:.4;
-    z-index:-4;
-    animation:floatBlob 14s ease-in-out infinite;
+    filter:blur(70px);
+
+    z-index:-5;
+    opacity:.55;
+
+    animation:float 10s ease-in-out infinite;
 }
 
-.blob1{
+.b1{
     width:300px;
     height:300px;
-    background:#ffd4ea;
+    background:var(--c1);
+
     top:-80px;
     left:-60px;
 }
 
-.blob2{
-    width:350px;
-    height:350px;
-    background:#d9e7ff;
-    bottom:-120px;
-    right:-80px;
-    animation-delay:3s;
+.b2{
+    width:420px;
+    height:420px;
+    background:var(--c4);
+
+    bottom:-160px;
+    right:-100px;
+
+    animation-delay:2s;
 }
 
-@keyframes floatBlob{
+.b3{
+    width:220px;
+    height:220px;
+    background:var(--c2);
+
+    top:45%;
+    left:55%;
+
+    animation-delay:4s;
+}
+
+@keyframes float{
+
     0%,100%{
         transform:translateY(0px);
     }
+
     50%{
-        transform:translateY(-40px);
+        transform:translateY(-25px);
     }
 }
 
-/* =========================
-   PARTICLES
-========================= */
-
-canvas{
-    position:fixed;
-    inset:0;
-    z-index:-3;
-    pointer-events:none;
-}
-
-/* =========================
-   CUSTOM CURSOR
-========================= */
-
-#cursor{
-    position:fixed;
-    width:24px;
-    height:24px;
-    border-radius:50%;
-    background:white;
-    border:2px solid var(--text);
-    transform:translate(-50%,-50%);
-    pointer-events:none;
-    z-index:99999;
-    box-shadow:0 0 15px rgba(255,255,255,.7);
-    transition:transform .15s ease;
-}
-
-/* =========================
+/* ==================================================
    NAVBAR
-========================= */
+================================================== */
 
 header{
+
     position:fixed;
     top:0;
+    left:0;
+
     width:100%;
+
     z-index:1000;
-    padding:18px 0;
+
+    padding:24px 0;
 }
 
 nav{
-    width:min(1200px,90%);
+
+    width:min(1200px,92%);
     margin:auto;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    background:rgba(255,255,255,.55);
-    border:2px solid rgba(255,255,255,.6);
+    padding:18px 26px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.5);
+
+    border:1px solid rgba(255,255,255,.8);
 
     backdrop-filter:blur(14px);
 
-    padding:16px 26px;
-    border-radius:999px;
-
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.05);
+    box-shadow:var(--shadow);
 }
 
 .logo{
-    font-family:'Comfortaa',sans-serif;
-    font-size:1.2rem;
-    font-weight:700;
+
+    font-family:'Fredoka',sans-serif;
+    font-size:1.5rem;
+    font-weight:600;
+
+    letter-spacing:1px;
 }
 
 .logo span{
-    color:#ff8ab3;
+    color:#7d95d8;
 }
 
 .nav-links{
+
     display:flex;
-    gap:25px;
+    gap:30px;
 }
 
 .nav-links a{
+
     text-decoration:none;
     color:var(--text);
+
     font-weight:700;
+
     transition:.3s;
 }
 
 .nav-links a:hover{
-    color:#ff8ab3;
+
+    color:#7d95d8;
 }
 
-/* =========================
+/* ==================================================
    HERO
-========================= */
+================================================== */
 
 .hero{
+
     min-height:100vh;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    text-align:center;
-    padding:140px 20px 80px;
+    padding:140px 7% 90px;
 }
 
-.hero-inner{
-    max-width:950px;
+.hero-grid{
+
+    width:100%;
+    max-width:1250px;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:60px;
+    align-items:center;
 }
 
-.stars{
-    font-size:1rem;
-    letter-spacing:6px;
-    margin-bottom:25px;
-    color:#ff94b8;
+.hero-text{
+
+    position:relative;
+}
+
+.hero-badge{
+
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    background:rgba(255,255,255,.75);
+
+    padding:14px 22px;
+
+    border-radius:999px;
+
+    margin-bottom:28px;
+
+    font-weight:700;
+
+    box-shadow:var(--shadow);
 }
 
 .hero h1{
-    font-family:'Comfortaa',sans-serif;
-    font-size:clamp(3.5rem,10vw,7rem);
-    line-height:1;
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:clamp(4rem,8vw,7rem);
+
+    line-height:.95;
 
     margin-bottom:25px;
 }
 
 .hero h1 span{
-    color:#ff9dc0;
+
+    color:#8ba3e6;
 }
 
 .hero p{
-    font-size:1.1rem;
+
+    max-width:650px;
+
+    font-size:1.15rem;
     line-height:1.9;
-    max-width:700px;
-    margin:auto;
+
+    margin-bottom:40px;
 }
 
 .hero-buttons{
+
     display:flex;
-    justify-content:center;
-    gap:20px;
+    gap:18px;
     flex-wrap:wrap;
-    margin-top:45px;
 }
 
 .btn{
+
     text-decoration:none;
+
+    padding:18px 34px;
+
+    border-radius:22px;
+
+    font-weight:800;
+
+    transition:.35s;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.btn-primary{
+
+    background:var(--white);
+
     color:var(--text);
 
-    padding:16px 34px;
+    box-shadow:
+    0 12px 25px rgba(126,145,187,.18);
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-6px) scale(1.02);
+}
+
+.btn-secondary{
+
+    background:rgba(255,255,255,.4);
+
+    backdrop-filter:blur(10px);
+
+    color:var(--text);
+
+    border:1px solid rgba(255,255,255,.7);
+}
+
+.btn-secondary:hover{
+
+    transform:translateY(-6px);
+}
+
+/* ==================================================
+   HERO VISUAL
+================================================== */
+
+.hero-visual{
+
+    position:relative;
+}
+
+.visual-card{
+
+    position:relative;
+
+    background:rgba(255,255,255,.55);
+
+    border-radius:40px;
+
+    padding:25px;
+
+    border:1px solid rgba(255,255,255,.8);
+
+    backdrop-filter:blur(16px);
+
+    box-shadow:var(--shadow);
+
+    transform:rotate(-2deg);
+}
+
+.visual-card img{
+
+    width:100%;
+    height:580px;
+
+    object-fit:cover;
+
+    border-radius:28px;
+}
+
+.float-tag{
+
+    position:absolute;
+
+    background:white;
+
+    padding:14px 18px;
+
+    border-radius:20px;
+
+    font-weight:800;
+
+    box-shadow:var(--shadow);
+
+    animation:bob 4s ease-in-out infinite;
+}
+
+.tag1{
+
+    top:-20px;
+    right:-20px;
+}
+
+.tag2{
+
+    bottom:30px;
+    left:-30px;
+
+    animation-delay:2s;
+}
+
+@keyframes bob{
+
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+}
+
+/* ==================================================
+   SECTIONS
+================================================== */
+
+section{
+
+    padding:120px 7%;
+}
+
+.section-top{
+
+    margin-bottom:55px;
+}
+
+.section-label{
+
+    display:inline-block;
+
+    background:rgba(255,255,255,.6);
+
+    padding:10px 16px;
 
     border-radius:999px;
 
-    background:white;
+    font-weight:800;
 
-    border:2px solid var(--text);
-
-    box-shadow:6px 6px 0 var(--pink);
-
-    font-weight:700;
-
-    transition:.3s;
-}
-
-.btn:hover{
-    transform:translateY(-6px);
-    box-shadow:10px 10px 0 var(--pink-dark);
-}
-
-/* =========================
-   AVATAR
-========================= */
-
-.avatar-wrap{
-    margin:55px auto 0;
-    width:220px;
-    height:220px;
-
-    border-radius:50%;
-
-    padding:10px;
-
-    background:white;
-
-    box-shadow:
-    0 0 0 5px white,
-    0 0 0 10px var(--pink),
-    0 20px 40px rgba(255,192,220,.4);
-
-    transition:.4s;
-}
-
-.avatar-wrap:hover{
-    transform:translateY(-12px) rotate(4deg);
-}
-
-.avatar-wrap img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:50%;
-}
-
-/* =========================
-   SECTION STYLES
-========================= */
-
-section{
-    padding:110px 8%;
-}
-
-.section-title{
-    font-family:'Comfortaa',sans-serif;
-    font-size:2.8rem;
     margin-bottom:18px;
 }
 
-.section-desc{
-    max-width:650px;
-    line-height:1.8;
-    margin-bottom:50px;
+.section-title{
+
+    font-family:'Fredoka',sans-serif;
+
+    font-size:3rem;
+
+    margin-bottom:18px;
 }
 
-/* =========================
+.section-text{
+
+    max-width:700px;
+
+    line-height:1.9;
+}
+
+/* ==================================================
    GALLERY
-========================= */
+================================================== */
 
 .gallery-grid{
+
     display:grid;
     grid-template-columns:repeat(4,1fr);
-    gap:25px;
+
+    gap:26px;
 }
 
-.card{
-    background:rgba(255,255,255,.65);
+.art-card{
 
-    backdrop-filter:blur(12px);
+    position:relative;
 
-    border-radius:28px;
+    border-radius:32px;
 
     overflow:hidden;
 
-    border:2px solid rgba(255,255,255,.8);
+    cursor:pointer;
 
     transition:.4s;
 
-    cursor:pointer;
+    background:white;
+
+    box-shadow:var(--shadow);
 }
 
-.card:hover{
+.art-card:hover{
+
     transform:
     translateY(-10px)
     rotate(1deg);
-
-    box-shadow:
-    0 20px 35px rgba(0,0,0,.08);
 }
 
-.card img{
+.art-card img{
+
     width:100%;
-    height:260px;
+    height:340px;
+
     object-fit:cover;
+
+    transition:.5s;
 }
 
-.card-content{
-    padding:22px;
+.art-card:hover img{
+
+    transform:scale(1.06);
 }
 
-.card-content h3{
-    margin-bottom:8px;
-    font-size:1.1rem;
+.art-info{
+
+    position:absolute;
+
+    left:18px;
+    right:18px;
+    bottom:18px;
+
+    background:rgba(255,255,255,.75);
+
+    backdrop-filter:blur(12px);
+
+    border-radius:22px;
+
+    padding:16px;
 }
 
-.tag{
-    display:inline-block;
-    margin-top:10px;
+.art-info h3{
 
-    background:var(--lav);
+    margin-bottom:5px;
 
-    padding:8px 14px;
-
-    border-radius:999px;
-
-    font-size:.8rem;
-    font-weight:700;
+    font-size:1rem;
 }
 
-/* =========================
+.art-info p{
+
+    font-size:.9rem;
+}
+
+/* ==================================================
    ABOUT
-========================= */
+================================================== */
 
-.about-box{
+.about-grid{
+
     display:grid;
     grid-template-columns:1fr 1fr;
+
     gap:30px;
 }
 
 .about-card{
-    background:rgba(255,255,255,.6);
-    backdrop-filter:blur(10px);
 
-    padding:35px;
+    background:rgba(255,255,255,.55);
 
-    border-radius:30px;
+    border-radius:34px;
 
-    border:2px solid rgba(255,255,255,.7);
+    padding:38px;
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    box-shadow:var(--shadow);
 }
 
 .about-card h3{
-    margin-bottom:15px;
-    font-family:'Comfortaa';
+
+    font-family:'Fredoka',sans-serif;
+
+    margin-bottom:16px;
+
+    font-size:1.5rem;
 }
 
-/* =========================
+/* ==================================================
    CONTACT
-========================= */
+================================================== */
 
-.contact{
+.contact-box{
+
     text-align:center;
+
+    background:rgba(255,255,255,.45);
+
+    border-radius:40px;
+
+    padding:60px 40px;
+
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.8);
+
+    box-shadow:var(--shadow);
 }
 
 .status{
+
     display:inline-block;
 
-    margin:25px 0;
+    margin:24px 0 35px;
 
-    background:#dfffe8;
+    background:#ffffff;
 
-    color:#2e7d48;
+    color:#6e89d6;
 
-    padding:12px 22px;
+    padding:14px 22px;
 
     border-radius:999px;
 
-    font-weight:700;
+    font-weight:800;
 }
 
 .socials{
+
     display:flex;
     justify-content:center;
     gap:18px;
-    flex-wrap:wrap;
 
-    margin-top:30px;
+    flex-wrap:wrap;
 }
 
 .socials a{
-    width:58px;
-    height:58px;
 
-    border-radius:50%;
+    width:65px;
+    height:65px;
 
-    background:white;
+    border-radius:24px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    text-decoration:none;
+    background:white;
+
     color:var(--text);
+
+    text-decoration:none;
 
     font-size:1.2rem;
 
-    border:2px solid rgba(255,255,255,.8);
+    transition:.35s;
 
-    transition:.3s;
+    box-shadow:
+    0 10px 25px rgba(126,145,187,.15);
 }
 
 .socials a:hover{
-    transform:translateY(-8px);
-    background:var(--pink);
+
+    transform:
+    translateY(-8px)
+    rotate(8deg);
+
+    background:var(--c2);
 }
 
-/* =========================
+.email-btn{
+
+    display:inline-block;
+
+    margin-top:35px;
+
+    text-decoration:none;
+
+    background:white;
+
+    color:var(--text);
+
+    padding:18px 30px;
+
+    border-radius:22px;
+
+    font-weight:800;
+
+    box-shadow:var(--shadow);
+}
+
+/* ==================================================
    FOOTER
-========================= */
+================================================== */
 
 footer{
+
+    padding:45px 20px;
+
     text-align:center;
-    padding:40px 20px;
-    font-size:.9rem;
+
+    font-size:.95rem;
 }
 
-/* =========================
+/* ==================================================
    LIGHTBOX
-========================= */
+================================================== */
 
 .lightbox{
+
     position:fixed;
     inset:0;
 
-    background:rgba(0,0,0,.7);
+    background:rgba(25,35,60,.7);
 
     display:none;
     align-items:center;
     justify-content:center;
 
-    padding:20px;
+    padding:25px;
 
     z-index:9999;
 }
@@ -512,8 +704,10 @@ footer{
     display:flex;
 }
 
-.lightbox-box{
-    width:min(850px,100%);
+.lightbox-inner{
+
+    width:min(900px,100%);
+
     background:white;
 
     border-radius:35px;
@@ -523,61 +717,74 @@ footer{
     position:relative;
 }
 
-.lightbox-box img{
+.lightbox-inner img{
+
     width:100%;
+
     max-height:70vh;
+
     object-fit:cover;
 }
 
 .lightbox-content{
-    padding:30px;
+
+    padding:35px;
 }
 
 .close{
-    position:absolute;
-    top:20px;
-    right:20px;
 
-    width:45px;
-    height:45px;
+    position:absolute;
+
+    top:18px;
+    right:18px;
+
+    width:48px;
+    height:48px;
 
     border:none;
-    border-radius:50%;
+
+    border-radius:18px;
 
     background:white;
+
+    font-size:1rem;
 
     cursor:pointer;
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* ==================================================
+   RESPONSIVE
+================================================== */
 
-@media(max-width:1000px){
+@media(max-width:1100px){
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
 
     .gallery-grid{
         grid-template-columns:repeat(2,1fr);
     }
 
-    .about-box{
+    .about-grid{
         grid-template-columns:1fr;
     }
 }
 
 @media(max-width:700px){
 
-    body{
-        cursor:auto;
-    }
-
-    #cursor{
-        display:none;
-    }
-
     nav{
+
         flex-direction:column;
-        gap:15px;
-        border-radius:30px;
+        gap:18px;
+    }
+
+    .nav-links{
+
+        gap:18px;
+
+        flex-wrap:wrap;
+        justify-content:center;
     }
 
     .gallery-grid{
@@ -589,7 +796,11 @@ footer{
     }
 
     .section-title{
-        font-size:2rem;
+        font-size:2.2rem;
+    }
+
+    .visual-card img{
+        height:420px;
     }
 }
 
@@ -598,150 +809,182 @@ footer{
 
 <body>
 
-<div class="bg"></div>
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
+<!-- Floating background -->
+<div class="bg-bubble b1"></div>
+<div class="bg-bubble b2"></div>
+<div class="bg-bubble b3"></div>
 
-<canvas id="particles"></canvas>
-
-<div id="cursor"></div>
-
-<!-- =========================
-     NAVBAR
-========================= -->
+<!-- ==================================================
+     NAV
+================================================== -->
 
 <header>
 
 <nav>
 
 <div class="logo">
-Asteriks <span>✦</span>
+Asteriks <span>*</span>
 </div>
 
 <div class="nav-links">
+
 <a href="#home">Home</a>
 <a href="#gallery">Gallery</a>
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
+
 </div>
 
 </nav>
 
 </header>
 
-<!-- =========================
+<!-- ==================================================
      HERO
-========================= -->
+================================================== -->
 
 <section class="hero" id="home">
 
-<div class="hero-inner">
+<div class="hero-grid">
 
-<div class="stars">
-✦ ✦ ✦
+<div class="hero-text">
+
+<div class="hero-badge">
+✦ Furry Art & Character Design Studio
 </div>
 
 <h1>
-Asteriks <span>*</span>
+Asteriks<span>*</span>
 </h1>
 
 <p>
-Dreamy furry artwork, character design, commissions,
-and visual storytelling created by a soft little
-two-person art studio.
+A dreamy two-person furry art studio creating expressive characters,
+soft visual storytelling, polished commissions,
+and memorable designs for clients around the world.
 </p>
 
 <div class="hero-buttons">
 
-<a href="#gallery" class="btn">
-Gallery
+<a href="#gallery" class="btn btn-primary">
+View Gallery
 </a>
 
-<a href="#contact" class="btn">
-Commissions
+<a href="#contact" class="btn btn-secondary">
+Commissions Open
 </a>
 
 </div>
 
-<div class="avatar-wrap">
-<img src="https://picsum.photos/500/500" alt="">
+</div>
+
+<div class="hero-visual">
+
+<div class="visual-card">
+
+<img src="https://picsum.photos/id/237/800/1000" alt="Artwork">
+
+</div>
+
+<div class="float-tag tag1">
+✦ Artist + Marketer
+</div>
+
+<div class="float-tag tag2">
+♡ International Studio
+</div>
+
 </div>
 
 </div>
 
 </section>
 
-<!-- =========================
+<!-- ==================================================
      GALLERY
-========================= -->
+================================================== -->
 
 <section id="gallery">
 
+<div class="section-top">
+
+<div class="section-label">
+✦ Featured Artwork
+</div>
+
 <h2 class="section-title">
-Gallery ✦
+Cute. Polished. Memorable.
 </h2>
 
-<p class="section-desc">
-A small collection of commissions,
-character sheets, portraits,
-and fluffy visual storytelling.
-Replace these placeholders with your own artwork later ♡
+<p class="section-text">
+A collection of commissions, fursona portraits,
+reference sheets, and expressive furry illustrations.
+Replace all placeholders later with your own artwork.
 </p>
+
+</div>
 
 <div class="gallery-grid">
 
-<div class="card"
-data-img="https://picsum.photos/id/1011/1000/700"
+<div class="art-card"
+data-img="https://picsum.photos/id/1011/1200/900"
 data-title="Fursona Portrait"
-data-desc="A soft painted furry commission with warm pastel lighting.">
+data-desc="Soft shaded portrait commission with dreamy colors and fluffy rendering.">
 
-<img src="https://picsum.photos/id/1011/500/500">
+<img src="https://picsum.photos/id/1011/600/700">
 
-<div class="card-content">
+<div class="art-info">
+
 <h3>Fursona Portrait</h3>
-<div class="tag">Commission</div>
-</div>
+<p>Commission Artwork</p>
 
 </div>
 
-<div class="card"
-data-img="https://picsum.photos/id/1025/1000/700"
+</div>
+
+<div class="art-card"
+data-img="https://picsum.photos/id/1025/1200/900"
 data-title="Character Sheet"
-data-desc="Full reference sheet with accessories and expressions.">
+data-desc="Detailed reference sheet with accessories and multiple expressions.">
 
-<img src="https://picsum.photos/id/1025/500/500">
+<img src="https://picsum.photos/id/1025/600/700">
 
-<div class="card-content">
+<div class="art-info">
+
 <h3>Character Sheet</h3>
-<div class="tag">Reference</div>
-</div>
+<p>Reference Design</p>
 
 </div>
 
-<div class="card"
-data-img="https://picsum.photos/id/1040/1000/700"
+</div>
+
+<div class="art-card"
+data-img="https://picsum.photos/id/1062/1200/900"
 data-title="Fantasy Design"
-data-desc="Fantasy inspired creature design with decorative elements.">
+data-desc="Fantasy inspired creature artwork with cinematic lighting.">
 
-<img src="https://picsum.photos/id/1040/500/500">
+<img src="https://picsum.photos/id/1062/600/700">
 
-<div class="card-content">
+<div class="art-info">
+
 <h3>Fantasy Design</h3>
-<div class="tag">Original</div>
-</div>
+<p>Original Character</p>
 
 </div>
 
-<div class="card"
-data-img="https://picsum.photos/id/1060/1000/700"
-data-title="Couple Artwork"
-data-desc="Cute emotional illustration commission with cinematic colors.">
+</div>
 
-<img src="https://picsum.photos/id/1060/500/500">
+<div class="art-card"
+data-img="https://picsum.photos/id/1074/1200/900"
+data-title="Couple Illustration"
+data-desc="Emotional illustration commission with warm soft atmosphere.">
 
-<div class="card-content">
-<h3>Couple Artwork</h3>
-<div class="tag">Illustration</div>
+<img src="https://picsum.photos/id/1074/600/700">
+
+<div class="art-info">
+
+<h3>Couple Illustration</h3>
+<p>Illustration</p>
+
 </div>
 
 </div>
@@ -750,27 +993,36 @@ data-desc="Cute emotional illustration commission with cinematic colors.">
 
 </section>
 
-<!-- =========================
+<!-- ==================================================
      ABOUT
-========================= -->
+================================================== -->
 
 <section id="about">
 
+<div class="section-top">
+
+<div class="section-label">
+✦ About The Studio
+</div>
+
 <h2 class="section-title">
-About Us ✦
+Two Artists, One Soft Vision
 </h2>
 
-<div class="about-box">
+</div>
+
+<div class="about-grid">
 
 <div class="about-card">
 
 <h3>Astagme</h3>
 
 <p>
-Marketing, branding, community management,
+Marketing, visual presentation,
+branding, communication,
 and occasional artwork.
-Focused on presentation, communication,
-and helping the studio grow.
+Focused on helping Asteriks grow
+while maintaining a polished client experience.
 </p>
 
 </div>
@@ -782,9 +1034,9 @@ and helping the studio grow.
 <p>
 The primary illustrator behind Asteriks —
 specializing in furry art,
-character design,
-commissions,
-and visual storytelling.
+expressive characters,
+commission work,
+and visual storytelling with soft emotional aesthetics.
 </p>
 
 </div>
@@ -793,19 +1045,28 @@ and visual storytelling.
 
 </section>
 
-<!-- =========================
+<!-- ==================================================
      CONTACT
-========================= -->
+================================================== -->
 
-<section class="contact" id="contact">
+<section id="contact">
+
+<div class="contact-box">
+
+<div class="section-label">
+✦ Contact
+</div>
 
 <h2 class="section-title">
-Contact ✦
+Let's Create Something Cute
 </h2>
 
-<p>
-Interested in commissions or collaborations?
-Feel free to reach out ♡
+<p class="section-text" style="margin:auto;">
+Available for commissions,
+commercial projects,
+branding art,
+character design,
+and collaborations ♡
 </p>
 
 <div class="status">
@@ -830,8 +1091,14 @@ Feel free to reach out ♡
 <i class="fab fa-tiktok"></i>
 </a>
 
-<a href="mailto:asteriks@email.com">
-<i class="fas fa-envelope"></i>
+<a href="#">
+<i class="fab fa-patreon"></i>
+</a>
+
+</div>
+
+<a href="mailto:asteriks@email.com" class="email-btn">
+asteriks@email.com
 </a>
 
 </div>
@@ -842,13 +1109,13 @@ Feel free to reach out ♡
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
 
-<!-- =========================
+<!-- ==================================================
      LIGHTBOX
-========================= -->
+================================================== -->
 
 <div class="lightbox" id="lightbox">
 
-<div class="lightbox-box">
+<div class="lightbox-inner">
 
 <button class="close" id="close">
 ✦
@@ -869,85 +1136,17 @@ Feel free to reach out ♡
 
 <script>
 
-/* =========================
-   PARTICLES
-========================= */
-
-const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
-
-function resizeCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-const particles = [];
-
-for(let i=0;i<120;i++){
-
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        size:Math.random()*2,
-        speed:Math.random()*0.4+0.1,
-        opacity:Math.random()*0.5
-    });
-
-}
-
-function animateParticles(){
-
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    particles.forEach(p=>{
-
-        p.y -= p.speed;
-
-        if(p.y < 0){
-            p.y = canvas.height;
-            p.x = Math.random()*canvas.width;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-
-        ctx.fillStyle = `rgba(255,255,255,${p.opacity})`;
-
-        ctx.fill();
-
-    });
-
-    requestAnimationFrame(animateParticles);
-}
-
-animateParticles();
-
-/* =========================
-   CURSOR
-========================= */
-
-const cursor = document.getElementById('cursor');
-
-window.addEventListener('mousemove',(e)=>{
-
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-
-});
-
-/* =========================
+/* ==================================================
    LIGHTBOX
-========================= */
+================================================== */
 
-const cards = document.querySelectorAll('.card');
+const cards = document.querySelectorAll('.art-card');
 
 const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxTitle = document.getElementById('lightbox-title');
-const lightboxDesc = document.getElementById('lightbox-desc');
+
+const img = document.getElementById('lightbox-img');
+const title = document.getElementById('lightbox-title');
+const desc = document.getElementById('lightbox-desc');
 
 cards.forEach(card=>{
 
@@ -955,9 +1154,9 @@ cards.forEach(card=>{
 
         lightbox.classList.add('active');
 
-        lightboxImg.src = card.dataset.img;
-        lightboxTitle.textContent = card.dataset.title;
-        lightboxDesc.textContent = card.dataset.desc;
+        img.src = card.dataset.img;
+        title.textContent = card.dataset.title;
+        desc.textContent = card.dataset.desc;
 
     });
 
