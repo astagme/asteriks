@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Asteriks ✦ Studio</title>
+<title>Asteriks ✦ Furry Art Studio</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -14,9 +15,9 @@
 
 <style>
 
-/* ==================================================
-   ROOT
-================================================== */
+/* ======================================================
+   ROOT COLORS
+====================================================== */
 
 :root{
 
@@ -26,17 +27,16 @@
     --c4:#E4E2F8;
     --c5:#E1EDF6;
 
-    --text:#475069;
+    --text:#48536A;
     --white:#ffffff;
 
     --shadow:
-    0 15px 40px rgba(126,145,187,.12);
-
+    0 15px 35px rgba(130,145,190,.12);
 }
 
-/* ==================================================
+/* ======================================================
    GLOBAL
-================================================== */
+====================================================== */
 
 *{
     margin:0;
@@ -56,57 +56,63 @@ body{
     overflow-x:hidden;
 
     background:
-    radial-gradient(circle at top left, rgba(255,255,255,.9), transparent 30%),
+    radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 30%),
     linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
 
     min-height:100vh;
 }
 
-/* ==================================================
-   FLOATING BACKGROUND
-================================================== */
+/* ======================================================
+   FLOATING BACKGROUND BLOBS
+====================================================== */
 
-.bg-bubble{
+.blob{
 
     position:fixed;
     border-radius:50%;
-    filter:blur(70px);
+    filter:blur(90px);
 
     z-index:-5;
-    opacity:.55;
+    opacity:.5;
 
-    animation:float 10s ease-in-out infinite;
+    animation:float 12s ease-in-out infinite;
 }
 
-.b1{
-    width:300px;
-    height:300px;
+.blob1{
+
+    width:320px;
+    height:320px;
+
     background:var(--c1);
 
     top:-80px;
-    left:-60px;
+    left:-80px;
 }
 
-.b2{
+.blob2{
+
     width:420px;
     height:420px;
+
     background:var(--c4);
 
-    bottom:-160px;
-    right:-100px;
+    bottom:-150px;
+    right:-120px;
 
-    animation-delay:2s;
+    animation-delay:3s;
 }
 
-.b3{
-    width:220px;
-    height:220px;
+.blob3{
+
+    width:250px;
+    height:250px;
+
     background:var(--c2);
 
-    top:45%;
+    top:40%;
     left:55%;
 
-    animation-delay:4s;
+    animation-delay:5s;
 }
 
 @keyframes float{
@@ -120,9 +126,9 @@ body{
     }
 }
 
-/* ==================================================
+/* ======================================================
    NAVBAR
-================================================== */
+====================================================== */
 
 header{
 
@@ -150,9 +156,9 @@ nav{
 
     border-radius:28px;
 
-    background:rgba(255,255,255,.5);
+    background:rgba(255,255,255,.45);
 
-    border:1px solid rgba(255,255,255,.8);
+    border:1px solid rgba(255,255,255,.75);
 
     backdrop-filter:blur(14px);
 
@@ -162,20 +168,18 @@ nav{
 .logo{
 
     font-family:'Fredoka',sans-serif;
-    font-size:1.5rem;
+    font-size:1.4rem;
     font-weight:600;
-
-    letter-spacing:1px;
 }
 
 .logo span{
-    color:#7d95d8;
+    color:#7A92D8;
 }
 
 .nav-links{
 
     display:flex;
-    gap:30px;
+    gap:28px;
 }
 
 .nav-links a{
@@ -190,12 +194,12 @@ nav{
 
 .nav-links a:hover{
 
-    color:#7d95d8;
+    color:#7A92D8;
 }
 
-/* ==================================================
+/* ======================================================
    HERO
-================================================== */
+====================================================== */
 
 .hero{
 
@@ -215,13 +219,9 @@ nav{
 
     display:grid;
     grid-template-columns:1.1fr .9fr;
-    gap:60px;
+
+    gap:70px;
     align-items:center;
-}
-
-.hero-text{
-
-    position:relative;
 }
 
 .hero-badge{
@@ -232,39 +232,48 @@ nav{
 
     background:rgba(255,255,255,.75);
 
-    padding:14px 22px;
+    padding:14px 20px;
 
     border-radius:999px;
 
-    margin-bottom:28px;
+    margin-bottom:30px;
 
-    font-weight:700;
+    font-weight:800;
 
     box-shadow:var(--shadow);
 }
 
-.hero h1{
+/* LOGO IMAGE */
 
-    font-family:'Fredoka',sans-serif;
+.main-logo{
 
-    font-size:clamp(4rem,8vw,7rem);
+    width:min(650px,100%);
 
-    line-height:.95;
+    margin-bottom:30px;
 
-    margin-bottom:25px;
+    filter:
+    drop-shadow(0 15px 30px rgba(130,145,190,.18));
+
+    animation:logoFloat 6s ease-in-out infinite;
 }
 
-.hero h1 span{
+@keyframes logoFloat{
 
-    color:#8ba3e6;
+    0%,100%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-8px);
+    }
 }
 
 .hero p{
 
-    max-width:650px;
-
     font-size:1.15rem;
     line-height:1.9;
+
+    max-width:650px;
 
     margin-bottom:40px;
 }
@@ -273,6 +282,7 @@ nav{
 
     display:flex;
     gap:18px;
+
     flex-wrap:wrap;
 }
 
@@ -280,43 +290,38 @@ nav{
 
     text-decoration:none;
 
-    padding:18px 34px;
+    padding:18px 32px;
 
     border-radius:22px;
 
     font-weight:800;
 
     transition:.35s;
-
-    position:relative;
-
-    overflow:hidden;
 }
 
 .btn-primary{
 
-    background:var(--white);
+    background:white;
 
     color:var(--text);
 
-    box-shadow:
-    0 12px 25px rgba(126,145,187,.18);
+    box-shadow:var(--shadow);
 }
 
 .btn-primary:hover{
 
-    transform:translateY(-6px) scale(1.02);
+    transform:translateY(-6px);
 }
 
 .btn-secondary{
 
     background:rgba(255,255,255,.4);
 
-    backdrop-filter:blur(10px);
-
     color:var(--text);
 
-    border:1px solid rgba(255,255,255,.7);
+    border:1px solid rgba(255,255,255,.8);
+
+    backdrop-filter:blur(10px);
 }
 
 .btn-secondary:hover{
@@ -324,9 +329,9 @@ nav{
     transform:translateY(-6px);
 }
 
-/* ==================================================
-   HERO VISUAL
-================================================== */
+/* ======================================================
+   HERO IMAGE CARD
+====================================================== */
 
 .hero-visual{
 
@@ -335,17 +340,15 @@ nav{
 
 .visual-card{
 
-    position:relative;
+    background:rgba(255,255,255,.5);
 
-    background:rgba(255,255,255,.55);
+    padding:24px;
 
-    border-radius:40px;
+    border-radius:38px;
 
-    padding:25px;
+    backdrop-filter:blur(14px);
 
     border:1px solid rgba(255,255,255,.8);
-
-    backdrop-filter:blur(16px);
 
     box-shadow:var(--shadow);
 
@@ -355,7 +358,7 @@ nav{
 .visual-card img{
 
     width:100%;
-    height:580px;
+    height:600px;
 
     object-fit:cover;
 
@@ -387,7 +390,7 @@ nav{
 
 .tag2{
 
-    bottom:30px;
+    bottom:20px;
     left:-30px;
 
     animation-delay:2s;
@@ -404,9 +407,9 @@ nav{
     }
 }
 
-/* ==================================================
-   SECTIONS
-================================================== */
+/* ======================================================
+   SECTION STYLES
+====================================================== */
 
 section{
 
@@ -422,15 +425,15 @@ section{
 
     display:inline-block;
 
-    background:rgba(255,255,255,.6);
+    background:rgba(255,255,255,.65);
 
     padding:10px 16px;
 
     border-radius:999px;
 
-    font-weight:800;
+    margin-bottom:20px;
 
-    margin-bottom:18px;
+    font-weight:800;
 }
 
 .section-title{
@@ -449,33 +452,33 @@ section{
     line-height:1.9;
 }
 
-/* ==================================================
+/* ======================================================
    GALLERY
-================================================== */
+====================================================== */
 
 .gallery-grid{
 
     display:grid;
     grid-template-columns:repeat(4,1fr);
 
-    gap:26px;
+    gap:25px;
 }
 
 .art-card{
 
     position:relative;
 
-    border-radius:32px;
-
     overflow:hidden;
 
-    cursor:pointer;
-
-    transition:.4s;
+    border-radius:30px;
 
     background:white;
 
     box-shadow:var(--shadow);
+
+    cursor:pointer;
+
+    transition:.4s;
 }
 
 .art-card:hover{
@@ -504,34 +507,27 @@ section{
 
     position:absolute;
 
-    left:18px;
-    right:18px;
-    bottom:18px;
+    left:16px;
+    right:16px;
+    bottom:16px;
 
     background:rgba(255,255,255,.75);
 
     backdrop-filter:blur(12px);
 
-    border-radius:22px;
+    border-radius:20px;
 
     padding:16px;
 }
 
 .art-info h3{
 
-    margin-bottom:5px;
-
-    font-size:1rem;
+    margin-bottom:4px;
 }
 
-.art-info p{
-
-    font-size:.9rem;
-}
-
-/* ==================================================
+/* ======================================================
    ABOUT
-================================================== */
+====================================================== */
 
 .about-grid{
 
@@ -545,13 +541,13 @@ section{
 
     background:rgba(255,255,255,.55);
 
-    border-radius:34px;
-
     padding:38px;
+
+    border-radius:34px;
 
     backdrop-filter:blur(12px);
 
-    border:1px solid rgba(255,255,255,.8);
+    border:1px solid rgba(255,255,255,.75);
 
     box-shadow:var(--shadow);
 }
@@ -560,14 +556,19 @@ section{
 
     font-family:'Fredoka',sans-serif;
 
-    margin-bottom:16px;
+    margin-bottom:15px;
 
     font-size:1.5rem;
 }
 
-/* ==================================================
+.about-card p{
+
+    line-height:1.9;
+}
+
+/* ======================================================
    CONTACT
-================================================== */
+====================================================== */
 
 .contact-box{
 
@@ -581,7 +582,7 @@ section{
 
     backdrop-filter:blur(14px);
 
-    border:1px solid rgba(255,255,255,.8);
+    border:1px solid rgba(255,255,255,.75);
 
     box-shadow:var(--shadow);
 }
@@ -590,11 +591,11 @@ section{
 
     display:inline-block;
 
-    margin:24px 0 35px;
+    margin:25px 0 35px;
 
-    background:#ffffff;
+    background:white;
 
-    color:#6e89d6;
+    color:#7290E0;
 
     padding:14px 22px;
 
@@ -607,6 +608,7 @@ section{
 
     display:flex;
     justify-content:center;
+
     gap:18px;
 
     flex-wrap:wrap;
@@ -614,10 +616,10 @@ section{
 
 .socials a{
 
-    width:65px;
-    height:65px;
+    width:64px;
+    height:64px;
 
-    border-radius:24px;
+    border-radius:22px;
 
     display:flex;
     align-items:center;
@@ -633,8 +635,7 @@ section{
 
     transition:.35s;
 
-    box-shadow:
-    0 10px 25px rgba(126,145,187,.15);
+    box-shadow:var(--shadow);
 }
 
 .socials a:hover{
@@ -667,29 +668,29 @@ section{
     box-shadow:var(--shadow);
 }
 
-/* ==================================================
+/* ======================================================
    FOOTER
-================================================== */
+====================================================== */
 
 footer{
 
-    padding:45px 20px;
-
     text-align:center;
+
+    padding:45px 20px;
 
     font-size:.95rem;
 }
 
-/* ==================================================
+/* ======================================================
    LIGHTBOX
-================================================== */
+====================================================== */
 
 .lightbox{
 
     position:fixed;
     inset:0;
 
-    background:rgba(25,35,60,.7);
+    background:rgba(30,40,70,.75);
 
     display:none;
     align-items:center;
@@ -747,14 +748,14 @@ footer{
 
     background:white;
 
-    font-size:1rem;
-
     cursor:pointer;
+
+    font-size:1rem;
 }
 
-/* ==================================================
+/* ======================================================
    RESPONSIVE
-================================================== */
+====================================================== */
 
 @media(max-width:1100px){
 
@@ -791,10 +792,6 @@ footer{
         grid-template-columns:1fr;
     }
 
-    .hero h1{
-        font-size:4rem;
-    }
-
     .section-title{
         font-size:2.2rem;
     }
@@ -805,18 +802,22 @@ footer{
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- Floating background -->
-<div class="bg-bubble b1"></div>
-<div class="bg-bubble b2"></div>
-<div class="bg-bubble b3"></div>
+<!-- ======================================================
+     BACKGROUND BLOBS
+====================================================== -->
 
-<!-- ==================================================
-     NAV
-================================================== -->
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
 
 <header>
 
@@ -839,9 +840,9 @@ Asteriks <span>*</span>
 
 </header>
 
-<!-- ==================================================
+<!-- ======================================================
      HERO
-================================================== -->
+====================================================== -->
 
 <section class="hero" id="home">
 
@@ -853,9 +854,12 @@ Asteriks <span>*</span>
 ✦ Furry Art & Character Design Studio
 </div>
 
-<h1>
-Asteriks<span>*</span>
-</h1>
+<!-- YOUR LOGO -->
+<img 
+src="asteriks.art/asterikslogo.png"
+alt="Asteriks Logo"
+class="main-logo"
+>
 
 <p>
 A dreamy two-person furry art studio creating expressive characters,
@@ -881,7 +885,7 @@ Commissions Open
 
 <div class="visual-card">
 
-<img src="https://picsum.photos/id/237/800/1000" alt="Artwork">
+<img src="asteriks.art/asteriks1.png" alt="Artwork">
 
 </div>
 
@@ -899,9 +903,9 @@ Commissions Open
 
 </section>
 
-<!-- ==================================================
+<!-- ======================================================
      GALLERY
-================================================== -->
+====================================================== -->
 
 <section id="gallery">
 
@@ -916,21 +920,24 @@ Cute. Polished. Memorable.
 </h2>
 
 <p class="section-text">
-A collection of commissions, fursona portraits,
-reference sheets, and expressive furry illustrations.
-Replace all placeholders later with your own artwork.
+A collection of commissions,
+character sheets,
+fursona portraits,
+and expressive furry illustrations.
 </p>
 
 </div>
 
 <div class="gallery-grid">
 
+<!-- ART 1 -->
+
 <div class="art-card"
-data-img="https://picsum.photos/id/1011/1200/900"
+data-img="asteriks.art/asteriks1.png"
 data-title="Fursona Portrait"
 data-desc="Soft shaded portrait commission with dreamy colors and fluffy rendering.">
 
-<img src="https://picsum.photos/id/1011/600/700">
+<img src="asteriks.art/asteriks1.png" alt="Artwork">
 
 <div class="art-info">
 
@@ -941,12 +948,14 @@ data-desc="Soft shaded portrait commission with dreamy colors and fluffy renderi
 
 </div>
 
-<div class="art-card"
-data-img="https://picsum.photos/id/1025/1200/900"
-data-title="Character Sheet"
-data-desc="Detailed reference sheet with accessories and multiple expressions.">
+<!-- ART 2 -->
 
-<img src="https://picsum.photos/id/1025/600/700">
+<div class="art-card"
+data-img="asteriks.art/asteriks2.png"
+data-title="Character Sheet"
+data-desc="Detailed reference sheet with expressions and accessories.">
+
+<img src="asteriks.art/asteriks2.png" alt="Artwork">
 
 <div class="art-info">
 
@@ -957,12 +966,14 @@ data-desc="Detailed reference sheet with accessories and multiple expressions.">
 
 </div>
 
+<!-- ART 3 -->
+
 <div class="art-card"
-data-img="https://picsum.photos/id/1062/1200/900"
+data-img="asteriks.art/asteriks3.png"
 data-title="Fantasy Design"
 data-desc="Fantasy inspired creature artwork with cinematic lighting.">
 
-<img src="https://picsum.photos/id/1062/600/700">
+<img src="asteriks.art/asteriks3.png" alt="Artwork">
 
 <div class="art-info">
 
@@ -973,12 +984,14 @@ data-desc="Fantasy inspired creature artwork with cinematic lighting.">
 
 </div>
 
-<div class="art-card"
-data-img="https://picsum.photos/id/1074/1200/900"
-data-title="Couple Illustration"
-data-desc="Emotional illustration commission with warm soft atmosphere.">
+<!-- ART 4 -->
 
-<img src="https://picsum.photos/id/1074/600/700">
+<div class="art-card"
+data-img="asteriks.art/asteriks4.png"
+data-title="Couple Illustration"
+data-desc="Cute emotional illustration with warm atmosphere.">
+
+<img src="asteriks.art/asteriks4.png" alt="Artwork">
 
 <div class="art-info">
 
@@ -993,9 +1006,9 @@ data-desc="Emotional illustration commission with warm soft atmosphere.">
 
 </section>
 
-<!-- ==================================================
+<!-- ======================================================
      ABOUT
-================================================== -->
+====================================================== -->
 
 <section id="about">
 
@@ -1018,11 +1031,12 @@ Two Artists, One Soft Vision
 <h3>Astagme</h3>
 
 <p>
-Marketing, visual presentation,
-branding, communication,
+Marketing, branding,
+community management,
+visual presentation,
 and occasional artwork.
 Focused on helping Asteriks grow
-while maintaining a polished client experience.
+while creating a polished client experience.
 </p>
 
 </div>
@@ -1034,9 +1048,9 @@ while maintaining a polished client experience.
 <p>
 The primary illustrator behind Asteriks —
 specializing in furry art,
-expressive characters,
+character design,
 commission work,
-and visual storytelling with soft emotional aesthetics.
+and expressive visual storytelling.
 </p>
 
 </div>
@@ -1045,9 +1059,9 @@ and visual storytelling with soft emotional aesthetics.
 
 </section>
 
-<!-- ==================================================
+<!-- ======================================================
      CONTACT
-================================================== -->
+====================================================== -->
 
 <section id="contact">
 
@@ -1063,9 +1077,9 @@ Let's Create Something Cute
 
 <p class="section-text" style="margin:auto;">
 Available for commissions,
-commercial projects,
 branding art,
 character design,
+commercial projects,
 and collaborations ♡
 </p>
 
@@ -1109,9 +1123,9 @@ asteriks@email.com
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
 
-<!-- ==================================================
+<!-- ======================================================
      LIGHTBOX
-================================================== -->
+====================================================== -->
 
 <div class="lightbox" id="lightbox">
 
@@ -1136,9 +1150,9 @@ asteriks@email.com
 
 <script>
 
-/* ==================================================
+/* ======================================================
    LIGHTBOX
-================================================== */
+====================================================== */
 
 const cards = document.querySelectorAll('.art-card');
 
