@@ -5,18 +5,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Asteriks ✦ </title>
+<title>Asteriks ✦ Furry Art Studio</title>
 
-<!-- Fonts -->
+<!-- FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Icons -->
+<!-- ICONS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
 
 /* ======================================================
-   ROOT COLORS
+   ROOT
 ====================================================== */
 
 :root{
@@ -27,11 +27,12 @@
     --c4:#E4E2F8;
     --c5:#E1EDF6;
 
-    --text:#48536A;
+    --dark:#55627C;
     --white:#ffffff;
 
     --shadow:
-    0 15px 35px rgba(130,145,190,.12);
+    0 20px 40px rgba(119,136,187,.15);
+
 }
 
 /* ======================================================
@@ -51,65 +52,68 @@ html{
 body{
 
     font-family:'Nunito',sans-serif;
-    color:var(--text);
+    color:var(--dark);
 
     overflow-x:hidden;
 
     background:
-    radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 30%),
+    radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
     linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
 
     min-height:100vh;
 }
 
 /* ======================================================
-   FLOATING BACKGROUND BLOBS
+   BACKGROUND BLOBS
 ====================================================== */
 
 .blob{
 
     position:fixed;
+
     border-radius:50%;
+
     filter:blur(90px);
 
-    z-index:-5;
-    opacity:.5;
+    z-index:-10;
 
-    animation:float 12s ease-in-out infinite;
+    opacity:.55;
+
+    animation:float 10s ease-in-out infinite;
 }
 
 .blob1{
 
-    width:320px;
-    height:320px;
+    width:350px;
+    height:350px;
 
     background:var(--c1);
 
-    top:-80px;
-    left:-80px;
+    top:-100px;
+    left:-100px;
 }
 
 .blob2{
 
-    width:420px;
-    height:420px;
+    width:450px;
+    height:450px;
 
     background:var(--c4);
 
+    right:-150px;
     bottom:-150px;
-    right:-120px;
 
-    animation-delay:3s;
+    animation-delay:2s;
 }
 
 .blob3{
 
-    width:250px;
-    height:250px;
+    width:260px;
+    height:260px;
 
     background:var(--c2);
 
-    top:40%;
+    top:45%;
     left:55%;
 
     animation-delay:5s;
@@ -122,7 +126,7 @@ body{
     }
 
     50%{
-        transform:translateY(-25px);
+        transform:translateY(-30px);
     }
 }
 
@@ -133,20 +137,17 @@ body{
 header{
 
     position:fixed;
-    top:0;
-    left:0;
+    top:20px;
+    left:50%;
 
-    width:100%;
+    transform:translateX(-50%);
 
-    z-index:1000;
+    width:min(1200px,92%);
 
-    padding:24px 0;
+    z-index:999;
 }
 
 nav{
-
-    width:min(1200px,92%);
-    margin:auto;
 
     display:flex;
     justify-content:space-between;
@@ -154,13 +155,13 @@ nav{
 
     padding:18px 26px;
 
-    border-radius:28px;
+    border-radius:30px;
 
     background:rgba(255,255,255,.45);
 
-    border:1px solid rgba(255,255,255,.75);
+    border:1px solid rgba(255,255,255,.7);
 
-    backdrop-filter:blur(14px);
+    backdrop-filter:blur(18px);
 
     box-shadow:var(--shadow);
 }
@@ -168,12 +169,13 @@ nav{
 .logo{
 
     font-family:'Fredoka',sans-serif;
-    font-size:1.4rem;
+
+    font-size:1.3rem;
     font-weight:600;
 }
 
 .logo span{
-    color:#7A92D8;
+    color:#7E98E7;
 }
 
 .nav-links{
@@ -185,7 +187,8 @@ nav{
 .nav-links a{
 
     text-decoration:none;
-    color:var(--text);
+
+    color:var(--dark);
 
     font-weight:700;
 
@@ -194,7 +197,35 @@ nav{
 
 .nav-links a:hover{
 
-    color:#7A92D8;
+    color:#7E98E7;
+}
+
+.commission-badge{
+
+    padding:12px 18px;
+
+    border-radius:999px;
+
+    background:white;
+
+    font-weight:800;
+
+    color:#7E98E7;
+
+    box-shadow:0 0 25px rgba(171,192,246,.5);
+
+    animation:pulse 2.5s infinite;
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
 }
 
 /* ======================================================
@@ -209,18 +240,18 @@ nav{
     align-items:center;
     justify-content:center;
 
-    padding:140px 7% 90px;
+    padding:160px 7% 100px;
 }
 
 .hero-grid{
 
     width:100%;
-    max-width:1250px;
+    max-width:1300px;
 
     display:grid;
     grid-template-columns:1.1fr .9fr;
 
-    gap:70px;
+    gap:80px;
     align-items:center;
 }
 
@@ -230,7 +261,7 @@ nav{
     align-items:center;
     gap:10px;
 
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.7);
 
     padding:14px 20px;
 
@@ -243,16 +274,14 @@ nav{
     box-shadow:var(--shadow);
 }
 
-/* LOGO IMAGE */
-
 .main-logo{
 
-    width:min(650px,100%);
+    width:min(700px,100%);
 
     margin-bottom:30px;
 
     filter:
-    drop-shadow(0 15px 30px rgba(130,145,190,.18));
+    drop-shadow(0 18px 35px rgba(126,152,231,.18));
 
     animation:logoFloat 6s ease-in-out infinite;
 }
@@ -271,6 +300,7 @@ nav{
 .hero p{
 
     font-size:1.15rem;
+
     line-height:1.9;
 
     max-width:650px;
@@ -290,9 +320,9 @@ nav{
 
     text-decoration:none;
 
-    padding:18px 32px;
+    padding:18px 34px;
 
-    border-radius:22px;
+    border-radius:24px;
 
     font-weight:800;
 
@@ -303,34 +333,38 @@ nav{
 
     background:white;
 
-    color:var(--text);
+    color:var(--dark);
 
     box-shadow:var(--shadow);
 }
 
 .btn-primary:hover{
 
-    transform:translateY(-6px);
+    transform:
+    translateY(-7px)
+    rotate(-1deg);
 }
 
 .btn-secondary{
 
-    background:rgba(255,255,255,.4);
+    background:rgba(255,255,255,.35);
 
-    color:var(--text);
+    color:var(--dark);
 
-    border:1px solid rgba(255,255,255,.8);
+    border:1px solid rgba(255,255,255,.7);
 
     backdrop-filter:blur(10px);
 }
 
 .btn-secondary:hover{
 
-    transform:translateY(-6px);
+    transform:
+    translateY(-7px)
+    rotate(1deg);
 }
 
 /* ======================================================
-   HERO IMAGE CARD
+   HERO ARTWORK
 ====================================================== */
 
 .hero-visual{
@@ -340,11 +374,11 @@ nav{
 
 .visual-card{
 
-    background:rgba(255,255,255,.5);
+    background:rgba(255,255,255,.45);
 
     padding:24px;
 
-    border-radius:38px;
+    border-radius:40px;
 
     backdrop-filter:blur(14px);
 
@@ -353,44 +387,56 @@ nav{
     box-shadow:var(--shadow);
 
     transform:rotate(-2deg);
+
+    transition:.4s;
+}
+
+.visual-card:hover{
+
+    transform:
+    rotate(0deg)
+    translateY(-10px);
 }
 
 .visual-card img{
 
     width:100%;
-    height:600px;
+
+    height:700px;
 
     object-fit:cover;
 
     border-radius:28px;
 }
 
-.float-tag{
+.float-card{
 
     position:absolute;
 
-    background:white;
+    background:rgba(255,255,255,.8);
 
-    padding:14px 18px;
+    backdrop-filter:blur(12px);
 
-    border-radius:20px;
+    padding:16px 18px;
 
-    font-weight:800;
+    border-radius:22px;
 
     box-shadow:var(--shadow);
+
+    font-weight:800;
 
     animation:bob 4s ease-in-out infinite;
 }
 
-.tag1{
+.float1{
 
     top:-20px;
     right:-20px;
 }
 
-.tag2{
+.float2{
 
-    bottom:20px;
+    bottom:30px;
     left:-30px;
 
     animation-delay:2s;
@@ -408,7 +454,7 @@ nav{
 }
 
 /* ======================================================
-   SECTION STYLES
+   SECTIONS
 ====================================================== */
 
 section{
@@ -418,16 +464,16 @@ section{
 
 .section-top{
 
-    margin-bottom:55px;
+    margin-bottom:60px;
 }
 
 .section-label{
 
     display:inline-block;
 
-    background:rgba(255,255,255,.65);
+    background:rgba(255,255,255,.7);
 
-    padding:10px 16px;
+    padding:12px 18px;
 
     border-radius:999px;
 
@@ -442,7 +488,7 @@ section{
 
     font-size:3rem;
 
-    margin-bottom:18px;
+    margin-bottom:20px;
 }
 
 .section-text{
@@ -453,103 +499,171 @@ section{
 }
 
 /* ======================================================
-   GALLERY
+   FEATURED ARTWORK
 ====================================================== */
 
-.gallery-grid{
+.feature-grid{
 
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
 
-    gap:25px;
+    gap:28px;
 }
 
-.art-card{
+.feature-card{
 
     position:relative;
 
     overflow:hidden;
 
-    border-radius:30px;
+    border-radius:34px;
 
     background:white;
 
     box-shadow:var(--shadow);
 
-    cursor:pointer;
-
     transition:.4s;
+
+    cursor:pointer;
 }
 
-.art-card:hover{
+.feature-card:hover{
 
     transform:
-    translateY(-10px)
+    translateY(-12px)
     rotate(1deg);
 }
 
-.art-card img{
+.feature-card img{
 
     width:100%;
-    height:340px;
+    height:500px;
 
     object-fit:cover;
 
     transition:.5s;
 }
 
-.art-card:hover img{
+.feature-card:hover img{
 
-    transform:scale(1.06);
+    transform:scale(1.08);
 }
 
-.art-info{
+.feature-overlay{
 
     position:absolute;
 
-    left:16px;
-    right:16px;
-    bottom:16px;
+    left:18px;
+    right:18px;
+    bottom:18px;
 
     background:rgba(255,255,255,.75);
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
 
-    border-radius:20px;
+    border-radius:22px;
 
-    padding:16px;
+    padding:18px;
 }
 
-.art-info h3{
+.feature-overlay h3{
 
-    margin-bottom:4px;
+    margin-bottom:6px;
+}
+
+/* ======================================================
+   SERVICES
+====================================================== */
+
+.services-grid{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+
+    gap:30px;
+}
+
+.service-card{
+
+    background:rgba(255,255,255,.45);
+
+    padding:40px 35px;
+
+    border-radius:34px;
+
+    backdrop-filter:blur(12px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+}
+
+.service-card:hover{
+
+    transform:translateY(-10px);
+}
+
+.service-icon{
+
+    width:70px;
+    height:70px;
+
+    border-radius:22px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:white;
+
+    margin-bottom:24px;
+
+    font-size:1.4rem;
+
+    box-shadow:var(--shadow);
+}
+
+.service-card h3{
+
+    font-family:'Fredoka',sans-serif;
+
+    margin-bottom:14px;
+
+    font-size:1.5rem;
+}
+
+.service-card p{
+
+    line-height:1.8;
 }
 
 /* ======================================================
    ABOUT
 ====================================================== */
 
+.about-box{
+
+    background:rgba(255,255,255,.45);
+
+    padding:60px;
+
+    border-radius:40px;
+
+    backdrop-filter:blur(14px);
+
+    border:1px solid rgba(255,255,255,.7);
+
+    box-shadow:var(--shadow);
+}
+
 .about-grid{
 
     display:grid;
     grid-template-columns:1fr 1fr;
 
-    gap:30px;
-}
-
-.about-card{
-
-    background:rgba(255,255,255,.55);
-
-    padding:38px;
-
-    border-radius:34px;
-
-    backdrop-filter:blur(12px);
-
-    border:1px solid rgba(255,255,255,.75);
-
-    box-shadow:var(--shadow);
+    gap:40px;
 }
 
 .about-card h3{
@@ -570,38 +684,44 @@ section{
    CONTACT
 ====================================================== */
 
-.contact-box{
+.contact{
 
     text-align:center;
+}
+
+.contact-box{
 
     background:rgba(255,255,255,.45);
 
-    border-radius:40px;
+    padding:70px 40px;
 
-    padding:60px 40px;
+    border-radius:42px;
 
     backdrop-filter:blur(14px);
 
-    border:1px solid rgba(255,255,255,.75);
+    border:1px solid rgba(255,255,255,.7);
 
     box-shadow:var(--shadow);
 }
 
-.status{
+.contact-status{
 
     display:inline-block;
 
-    margin:25px 0 35px;
+    margin:28px 0 36px;
 
     background:white;
 
-    color:#7290E0;
+    color:#7E98E7;
 
-    padding:14px 22px;
+    padding:16px 24px;
 
     border-radius:999px;
 
     font-weight:800;
+
+    box-shadow:
+    0 0 35px rgba(171,192,246,.4);
 }
 
 .socials{
@@ -627,7 +747,7 @@ section{
 
     background:white;
 
-    color:var(--text);
+    color:var(--dark);
 
     text-decoration:none;
 
@@ -657,15 +777,22 @@ section{
 
     background:white;
 
-    color:var(--text);
+    color:var(--dark);
 
-    padding:18px 30px;
+    padding:18px 32px;
 
-    border-radius:22px;
+    border-radius:24px;
 
     font-weight:800;
 
     box-shadow:var(--shadow);
+
+    transition:.35s;
+}
+
+.email-btn:hover{
+
+    transform:translateY(-6px);
 }
 
 /* ======================================================
@@ -676,95 +803,27 @@ footer{
 
     text-align:center;
 
-    padding:45px 20px;
+    padding:40px 20px;
 
     font-size:.95rem;
-}
-
-/* ======================================================
-   LIGHTBOX
-====================================================== */
-
-.lightbox{
-
-    position:fixed;
-    inset:0;
-
-    background:rgba(30,40,70,.75);
-
-    display:none;
-    align-items:center;
-    justify-content:center;
-
-    padding:25px;
-
-    z-index:9999;
-}
-
-.lightbox.active{
-    display:flex;
-}
-
-.lightbox-inner{
-
-    width:min(900px,100%);
-
-    background:white;
-
-    border-radius:35px;
-
-    overflow:hidden;
-
-    position:relative;
-}
-
-.lightbox-inner img{
-
-    width:100%;
-
-    max-height:70vh;
-
-    object-fit:cover;
-}
-
-.lightbox-content{
-
-    padding:35px;
-}
-
-.close{
-
-    position:absolute;
-
-    top:18px;
-    right:18px;
-
-    width:48px;
-    height:48px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:white;
-
-    cursor:pointer;
-
-    font-size:1rem;
 }
 
 /* ======================================================
    RESPONSIVE
 ====================================================== */
 
-@media(max-width:1100px){
+@media(max-width:1150px){
 
     .hero-grid{
         grid-template-columns:1fr;
     }
 
-    .gallery-grid{
-        grid-template-columns:repeat(2,1fr);
+    .feature-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .services-grid{
+        grid-template-columns:1fr;
     }
 
     .about-grid{
@@ -772,7 +831,7 @@ footer{
     }
 }
 
-@media(max-width:700px){
+@media(max-width:750px){
 
     nav{
 
@@ -782,13 +841,11 @@ footer{
 
     .nav-links{
 
-        gap:18px;
-
         flex-wrap:wrap;
         justify-content:center;
     }
 
-    .gallery-grid{
+    .feature-grid{
         grid-template-columns:1fr;
     }
 
@@ -797,7 +854,11 @@ footer{
     }
 
     .visual-card img{
-        height:420px;
+        height:500px;
+    }
+
+    .about-box{
+        padding:40px 28px;
     }
 }
 
@@ -807,17 +868,13 @@ footer{
 
 <body>
 
-<!-- ======================================================
-     BACKGROUND BLOBS
-====================================================== -->
+<!-- BACKGROUND -->
 
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
 
-<!-- ======================================================
-     NAVBAR
-====================================================== -->
+<!-- NAV -->
 
 <header>
 
@@ -830,31 +887,33 @@ Asteriks <span>*</span>
 <div class="nav-links">
 
 <a href="#home">Home</a>
-<a href="#gallery">Gallery</a>
+<a href="gallery.html">Gallery</a>
+<a href="#services">Services</a>
 <a href="#about">About</a>
 <a href="#contact">Contact</a>
 
+</div>
+
+<div class="commission-badge">
+OPEN COMMISSIONS
 </div>
 
 </nav>
 
 </header>
 
-<!-- ======================================================
-     HERO
-====================================================== -->
+<!-- HERO -->
 
 <section class="hero" id="home">
 
 <div class="hero-grid">
 
-<div class="hero-text">
+<div>
 
 <div class="hero-badge">
-✦ Art & Character Design 
+✦ Soft Aesthetic Furry Art Studio
 </div>
 
-<!-- YOUR LOGO -->
 <img 
 src="asteriks.art/asterikslogo.png"
 alt="Asteriks Logo"
@@ -862,17 +921,21 @@ class="main-logo"
 >
 
 <p>
-Expressive characters. Soft storytelling. Polished commissions. Memorable designs for clients worldwide.
+Custom furry illustrations,
+character design,
+reference sheets,
+and emotional artwork crafted for clients worldwide.
+Asteriks blends soft cinematic aesthetics with expressive storytelling.
 </p>
 
 <div class="hero-buttons">
 
-<a href="#gallery" class="btn btn-primary">
+<a href="gallery.html" class="btn btn-primary">
 View Gallery
 </a>
 
 <a href="#contact" class="btn btn-secondary">
-Commissions Open
+Commission Info
 </a>
 
 </div>
@@ -887,12 +950,12 @@ Commissions Open
 
 </div>
 
-<div class="float-tag tag1">
-✦ Unique artstyle
+<div class="float-card float1">
+✦ Artist + Marketer
 </div>
 
-<div class="float-tag tag2">
-♡ Custom design
+<div class="float-card float2">
+♡ International Studio
 </div>
 
 </div>
@@ -901,11 +964,9 @@ Commissions Open
 
 </section>
 
-<!-- ======================================================
-     GALLERY
-====================================================== -->
+<!-- FEATURED -->
 
-<section id="gallery">
+<section>
 
 <div class="section-top">
 
@@ -914,89 +975,54 @@ Commissions Open
 </div>
 
 <h2 class="section-title">
-Cute. Polished. Memorable.
+Expressive, Dreamy & Memorable
 </h2>
 
 <p class="section-text">
-A collection of commissions,
-character sheets,
-fursona portraits,
-and expressive furry illustrations.
+A curated selection of our strongest illustrations,
+designed to showcase emotional storytelling,
+stylized rendering,
+and character-focused composition.
 </p>
 
 </div>
 
-<div class="gallery-grid">
+<div class="feature-grid">
 
-<!-- ART 1 -->
+<div class="feature-card">
 
-<div class="art-card"
-data-img="asteriks.art/asteriks1.png"
-data-title="Fursona Portrait"
-data-desc="Soft shaded portrait commission with dreamy colors and fluffy rendering.">
+<img src="asteriks.art/asteriks1.png">
 
-<img src="asteriks.art/asteriks1.png" alt="Artwork">
+<div class="feature-overlay">
 
-<div class="art-info">
-
-<h3>Fully Rendered Fullbody</h3>
-<p>+ complex pose
-+ graphic background
-+ clothing details</p>
+<h3>Fursona Portrait</h3>
+<p>Soft cinematic illustration</p>
 
 </div>
 
 </div>
 
-<!-- ART 2 -->
+<div class="feature-card">
 
-<div class="art-card"
-data-img="asteriks.art/asteriks2.png"
-data-title="Character Sheet"
-data-desc="Detailed reference sheet with expressions and accessories.">
+<img src="asteriks.art/asteriks2.png">
 
-<img src="asteriks.art/asteriks2.png" alt="Artwork">
+<div class="feature-overlay">
 
-<div class="art-info">
-
-<h3>Character Sheet</h3>
-<p>Reference Design</p>
+<h3>Character Design</h3>
+<p>Reference & fashion styling</p>
 
 </div>
 
 </div>
 
-<!-- ART 3 -->
+<div class="feature-card">
 
-<div class="art-card"
-data-img="asteriks.art/asteriks3.png"
-data-title="Fantasy Design"
-data-desc="Fantasy inspired creature artwork with cinematic lighting.">
+<img src="asteriks.art/asteriks3.png">
 
-<img src="asteriks.art/asteriks3.png" alt="Artwork">
+<div class="feature-overlay">
 
-<div class="art-info">
-
-<h3>Fantasy Design</h3>
-<p>Original Character</p>
-
-</div>
-
-</div>
-
-<!-- ART 4 -->
-
-<div class="art-card"
-data-img="asteriks.art/asteriks4.png"
-data-title="Couple Illustration"
-data-desc="Cute emotional illustration with warm atmosphere.">
-
-<img src="asteriks.art/asteriks4.png" alt="Artwork">
-
-<div class="art-info">
-
-<h3>Couple Illustration</h3>
-<p>Illustration</p>
+<h3>Couple Artwork</h3>
+<p>Emotional storytelling piece</p>
 
 </div>
 
@@ -1006,20 +1032,92 @@ data-desc="Cute emotional illustration with warm atmosphere.">
 
 </section>
 
-<!-- ======================================================
-     ABOUT
-====================================================== -->
+<!-- SERVICES -->
 
-<section id="about">
+<section id="services">
 
 <div class="section-top">
 
 <div class="section-label">
-✦ About The Studio
+✦ Services
 </div>
 
 <h2 class="section-title">
-Two Artists, One Soft Vision
+Commission Types
+</h2>
+
+</div>
+
+<div class="services-grid">
+
+<div class="service-card">
+
+<div class="service-icon">
+✦
+</div>
+
+<h3>Character Design</h3>
+
+<p>
+Original characters,
+reference sheets,
+fashion concepts,
+and visual identity design for furry characters.
+</p>
+
+</div>
+
+<div class="service-card">
+
+<div class="service-icon">
+♡
+</div>
+
+<h3>Illustrations</h3>
+
+<p>
+Portraits,
+fullbody artwork,
+couple illustrations,
+and polished rendered commissions.
+</p>
+
+</div>
+
+<div class="service-card">
+
+<div class="service-icon">
+✧
+</div>
+
+<h3>Animated Edits</h3>
+
+<p>
+Short TikTok edits,
+motion graphics,
+and animated visual content for social media.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="about-box">
+
+<div class="section-top">
+
+<div class="section-label">
+✦ About Asteriks
+</div>
+
+<h2 class="section-title">
+Two Creators, One Vision
 </h2>
 
 </div>
@@ -1031,12 +1129,12 @@ Two Artists, One Soft Vision
 <h3>Astagme</h3>
 
 <p>
-Marketing, branding,
+Marketing,
+branding,
+presentation,
 community management,
-visual presentation,
 and occasional artwork.
-Focused on helping Asteriks grow
-while creating a polished client experience.
+Focused on creating a memorable experience for every client and growing the Asteriks identity.
 </p>
 
 </div>
@@ -1046,12 +1144,14 @@ while creating a polished client experience.
 <h3>Main Artist</h3>
 
 <p>
-The primary illustrator behind Asteriks —
+Primary illustrator behind Asteriks —
 specializing in furry art,
-character design,
-commission work,
-and expressive visual storytelling.
+expressive rendering,
+character illustration,
+and aesthetic visual storytelling.
 </p>
+
+</div>
 
 </div>
 
@@ -1059,11 +1159,9 @@ and expressive visual storytelling.
 
 </section>
 
-<!-- ======================================================
-     CONTACT
-====================================================== -->
+<!-- CONTACT -->
 
-<section id="contact">
+<section class="contact" id="contact">
 
 <div class="contact-box">
 
@@ -1072,19 +1170,18 @@ and expressive visual storytelling.
 </div>
 
 <h2 class="section-title">
-Let's Create Something Cute
+Let's Create Something Beautiful
 </h2>
 
 <p class="section-text" style="margin:auto;">
-Available for commissions,
-branding art,
-character design,
+Available for personal commissions,
 commercial projects,
-and collaborations ♡
+branding art,
+and collaborations worldwide.
 </p>
 
-<div class="status">
-✦ Commissions Open
+<div class="contact-status">
+✦ OPEN FOR COMMISSIONS
 </div>
 
 <div class="socials">
@@ -1119,80 +1216,11 @@ asteriks@email.com
 
 </section>
 
+<!-- FOOTER -->
+
 <footer>
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
-
-<!-- ======================================================
-     LIGHTBOX
-====================================================== -->
-
-<div class="lightbox" id="lightbox">
-
-<div class="lightbox-inner">
-
-<button class="close" id="close">
-✦
-</button>
-
-<img src="" id="lightbox-img">
-
-<div class="lightbox-content">
-
-<h2 id="lightbox-title"></h2>
-<p id="lightbox-desc"></p>
-
-</div>
-
-</div>
-
-</div>
-
-<script>
-
-/* ======================================================
-   LIGHTBOX
-====================================================== */
-
-const cards = document.querySelectorAll('.art-card');
-
-const lightbox = document.getElementById('lightbox');
-
-const img = document.getElementById('lightbox-img');
-const title = document.getElementById('lightbox-title');
-const desc = document.getElementById('lightbox-desc');
-
-cards.forEach(card=>{
-
-    card.addEventListener('click',()=>{
-
-        lightbox.classList.add('active');
-
-        img.src = card.dataset.img;
-        title.textContent = card.dataset.title;
-        desc.textContent = card.dataset.desc;
-
-    });
-
-});
-
-document.getElementById('close').onclick = ()=>{
-
-    lightbox.classList.remove('active');
-
-};
-
-lightbox.addEventListener('click',(e)=>{
-
-    if(e.target === lightbox){
-
-        lightbox.classList.remove('active');
-
-    }
-
-});
-
-</script>
 
 </body>
 </html>
