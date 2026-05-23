@@ -15,6 +15,9 @@
 
 <style>
 
+/* ======================================================
+   ROOT
+====================================================== */
 
 :root{
 
@@ -32,6 +35,9 @@
 
 }
 
+/* ======================================================
+   GLOBAL
+====================================================== */
 
 *{
     margin:0;
@@ -55,8 +61,29 @@ body{
     linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
 
     min-height:100vh;
+
+    animation:fadePage 1s ease;
+
+    user-select:none;
+    -webkit-user-select:none;
 }
 
+@keyframes fadePage{
+
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ======================================================
+   BACKGROUND BLOBS
+====================================================== */
 
 .blob{
 
@@ -121,6 +148,9 @@ body{
     }
 }
 
+/* ======================================================
+   NAVBAR
+====================================================== */
 
 header{
 
@@ -216,6 +246,9 @@ nav{
     }
 }
 
+/* ======================================================
+   HERO
+====================================================== */
 
 .hero{
 
@@ -269,6 +302,8 @@ nav{
     drop-shadow(0 18px 35px rgba(126,152,231,.18));
 
     animation:logoFloat 6s ease-in-out infinite;
+
+    pointer-events:none;
 }
 
 @keyframes logoFloat{
@@ -348,6 +383,9 @@ nav{
     rotate(1deg);
 }
 
+/* ======================================================
+   HERO ARTWORK
+====================================================== */
 
 .hero-visual{
 
@@ -389,6 +427,8 @@ nav{
     object-fit:cover;
 
     border-radius:28px;
+
+    pointer-events:none;
 }
 
 .float-card{
@@ -435,6 +475,9 @@ nav{
     }
 }
 
+/* ======================================================
+   SECTIONS
+====================================================== */
 
 section{
 
@@ -477,11 +520,14 @@ section{
     line-height:1.9;
 }
 
+/* ======================================================
+   FEATURED ARTWORK
+====================================================== */
 
 .feature-grid{
 
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2,1fr);
 
     gap:28px;
 }
@@ -499,8 +545,6 @@ section{
     box-shadow:var(--shadow);
 
     transition:.4s;
-
-    cursor:pointer;
 }
 
 .feature-card:hover{
@@ -513,16 +557,18 @@ section{
 .feature-card img{
 
     width:100%;
-    height:500px;
+    height:650px;
 
     object-fit:cover;
 
     transition:.5s;
+
+    pointer-events:none;
 }
 
 .feature-card:hover img{
 
-    transform:scale(1.08);
+    transform:scale(1.05);
 }
 
 .feature-overlay{
@@ -533,38 +579,48 @@ section{
     right:18px;
     bottom:18px;
 
-    background:rgba(255,255,255,.75);
+    background:rgba(255,255,255,.78);
 
     backdrop-filter:blur(14px);
 
     border-radius:22px;
 
-    padding:18px;
+    padding:22px;
 }
 
 .feature-overlay h3{
 
-    margin-bottom:6px;
+    margin-bottom:8px;
+
+    font-size:1.3rem;
 }
 
+.feature-overlay p{
 
-.services-grid{
+    line-height:1.7;
+}
+
+/* ======================================================
+   PRICING
+====================================================== */
+
+.pricing-grid{
 
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(4,1fr);
 
-    gap:30px;
+    gap:24px;
 }
 
-.service-card{
+.price-card{
 
     background:rgba(255,255,255,.45);
 
-    padding:40px 35px;
+    padding:40px 30px;
 
     border-radius:34px;
 
-    backdrop-filter:blur(12px);
+    backdrop-filter:blur(14px);
 
     border:1px solid rgba(255,255,255,.7);
 
@@ -573,83 +629,37 @@ section{
     transition:.35s;
 }
 
-.service-card:hover{
+.price-card:hover{
 
     transform:translateY(-10px);
 }
 
-.service-icon{
-
-    width:70px;
-    height:70px;
-
-    border-radius:22px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:white;
-
-    margin-bottom:24px;
-
-    font-size:1.4rem;
-
-    box-shadow:var(--shadow);
-}
-
-.service-card h3{
+.price-card h3{
 
     font-family:'Fredoka',sans-serif;
 
-    margin-bottom:14px;
-
-    font-size:1.5rem;
+    margin-bottom:16px;
 }
 
-.service-card p{
+.price{
+
+    font-size:2rem;
+
+    font-weight:900;
+
+    color:#7E98E7;
+
+    margin-bottom:16px;
+}
+
+.price-card p{
 
     line-height:1.8;
 }
 
-
-.about-box{
-
-    background:rgba(255,255,255,.45);
-
-    padding:60px;
-
-    border-radius:40px;
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.7);
-
-    box-shadow:var(--shadow);
-}
-
-.about-grid{
-
-    display:grid;
-    grid-template-columns:1fr 1fr;
-
-    gap:40px;
-}
-
-.about-card h3{
-
-    font-family:'Fredoka',sans-serif;
-
-    margin-bottom:15px;
-
-    font-size:1.5rem;
-}
-
-.about-card p{
-
-    line-height:1.9;
-}
-
+/* ======================================================
+   CONTACT
+====================================================== */
 
 .contact{
 
@@ -671,26 +681,6 @@ section{
     box-shadow:var(--shadow);
 }
 
-.contact-status{
-
-    display:inline-block;
-
-    margin:28px 0 36px;
-
-    background:white;
-
-    color:#7E98E7;
-
-    padding:16px 24px;
-
-    border-radius:999px;
-
-    font-weight:800;
-
-    box-shadow:
-    0 0 35px rgba(171,192,246,.4);
-}
-
 .socials{
 
     display:flex;
@@ -699,6 +689,8 @@ section{
     gap:18px;
 
     flex-wrap:wrap;
+
+    margin-top:35px;
 }
 
 .socials a{
@@ -734,34 +726,6 @@ section{
     background:var(--c2);
 }
 
-.email-btn{
-
-    display:inline-block;
-
-    margin-top:35px;
-
-    text-decoration:none;
-
-    background:white;
-
-    color:var(--dark);
-
-    padding:18px 32px;
-
-    border-radius:24px;
-
-    font-weight:800;
-
-    box-shadow:var(--shadow);
-
-    transition:.35s;
-}
-
-.email-btn:hover{
-
-    transform:translateY(-6px);
-}
-
 /* ======================================================
    FOOTER
 ====================================================== */
@@ -779,26 +743,26 @@ footer{
    RESPONSIVE
 ====================================================== */
 
-@media(max-width:1150px){
+@media(max-width:1200px){
+
+    .pricing-grid{
+        grid-template-columns:1fr 1fr;
+    }
 
     .hero-grid{
         grid-template-columns:1fr;
     }
-
-    .feature-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .services-grid{
-        grid-template-columns:1fr;
-    }
-
-    .about-grid{
-        grid-template-columns:1fr;
-    }
 }
 
-@media(max-width:750px){
+@media(max-width:850px){
+
+    .feature-grid{
+        grid-template-columns:1fr;
+    }
+
+    .pricing-grid{
+        grid-template-columns:1fr;
+    }
 
     nav{
 
@@ -812,20 +776,12 @@ footer{
         justify-content:center;
     }
 
-    .feature-grid{
-        grid-template-columns:1fr;
-    }
-
     .section-title{
         font-size:2.2rem;
     }
 
-    .visual-card img{
+    .feature-card img{
         height:500px;
-    }
-
-    .about-box{
-        padding:40px 28px;
     }
 }
 
@@ -835,7 +791,7 @@ footer{
 
 <body>
 
-<!-- BACKGROUND -->
+<!-- BLOBS -->
 
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
@@ -855,8 +811,7 @@ Asteriks <span>*</span>
 
 <a href="#home">Home</a>
 <a href="gallery.html">Gallery</a>
-<a href="#services">Services</a>
-<a href="#about">About</a>
+<a href="#pricing">Pricing</a>
 <a href="#contact">Contact</a>
 
 </div>
@@ -878,20 +833,21 @@ OPEN COMMISSIONS
 <div>
 
 <div class="hero-badge">
-Art & Character Design
+✦ Soft Aesthetic Furry Art Studio
 </div>
 
-<img 
+<img
 src="asteriks.art/asterikslogo.png"
 alt="Asteriks Logo"
 class="main-logo"
+draggable="false"
 >
 
 <p>
 Custom furry illustrations,
 character design,
 reference sheets,
-and emotional artwork crafted for clients worldwide.
+and cinematic artwork crafted for clients worldwide.
 </p>
 
 <div class="hero-buttons">
@@ -900,7 +856,7 @@ and emotional artwork crafted for clients worldwide.
 View Gallery
 </a>
 
-<a href="#contact" class="btn btn-secondary">
+<a href="#pricing" class="btn btn-secondary">
 Commission Info
 </a>
 
@@ -912,16 +868,20 @@ Commission Info
 
 <div class="visual-card">
 
-<img src="asteriks.art/asteriks1.png" alt="Artwork">
+<img
+src="asteriks.art/asteriks1.png"
+alt="Artwork"
+draggable="false"
+>
 
 </div>
 
 <div class="float-card float1">
-Unique artstyle
+✦ Artist + Marketer
 </div>
 
 <div class="float-card float2">
-Custom design
+♡ International Studio
 </div>
 
 </div>
@@ -930,7 +890,7 @@ Custom design
 
 </section>
 
-<!-- FEATURED -->
+<!-- FEATURED ARTWORK -->
 
 <section>
 
@@ -941,54 +901,60 @@ Custom design
 </div>
 
 <h2 class="section-title">
-Expressive, Dreamy & Memorable
+Dreamy Visual Storytelling
 </h2>
 
 <p class="section-text">
-A curated selection of our strongest illustrations,
-designed to showcase emotional storytelling,
-stylized rendering,
-and character-focused composition.
+A curated collection of expressive furry artwork,
+soft cinematic rendering,
+and emotionally driven character illustrations.
 </p>
 
 </div>
 
 <div class="feature-grid">
 
-<div class="feature-card">
-
-<img src="asteriks.art/asteriks1.png">
-
-<div class="feature-overlay">
-
-<h3>Fursona Portrait</h3>
-<p>+ complex pose + graphic background + clothing details</p>
-
-</div>
-
-</div>
+<!-- ART 1 -->
 
 <div class="feature-card">
 
-<img src="asteriks.art/asteriks2.png">
+<img
+src="asteriks.art/asteriks1.png"
+alt="Artwork"
+draggable="false"
+>
 
 <div class="feature-overlay">
 
-<h3>Character Design</h3>
-<p>Reference & fashion styling</p>
+<h3>Cinematic Fursona Portrait</h3>
+
+<p>
+Stylized furry illustration featuring soft cinematic lighting,
+atmospheric coloring and expressive character posing.
+</p>
 
 </div>
 
 </div>
+
+<!-- ART 2 -->
 
 <div class="feature-card">
 
-<img src="asteriks.art/asteriks3.png">
+<img
+src="asteriks.art/asteriks2.png"
+alt="Artwork"
+draggable="false"
+>
 
 <div class="feature-overlay">
 
-<h3>Couple Artwork</h3>
-<p>Emotional storytelling piece</p>
+<h3>Light Shading — Fullbody</h3>
+
+<p>
+Pastel-goth inspired furry fullbody illustration with soft rendering,
+expressive lighting and aesthetic floral composition.
+</p>
 
 </div>
 
@@ -998,126 +964,89 @@ and character-focused composition.
 
 </section>
 
-<!-- SERVICES -->
+<!-- PRICING -->
 
-<section id="services">
-
-<div class="section-top">
-
-<div class="section-label">
-✦ Services
-</div>
-
-<h2 class="section-title">
-Commission Types
-</h2>
-
-</div>
-
-<div class="services-grid">
-
-<div class="service-card">
-
-<div class="service-icon">
-✦
-</div>
-
-<h3>Character Design</h3>
-
-<p>
-Original characters,
-reference sheets,
-fashion concepts,
-and visual identity design for furry characters.
-</p>
-
-</div>
-
-<div class="service-card">
-
-<div class="service-icon">
-♡
-</div>
-
-<h3>Illustrations</h3>
-
-<p>
-Portraits,
-fullbody artwork,
-couple illustrations,
-and polished rendered commissions.
-</p>
-
-</div>
-
-<div class="service-card">
-
-<div class="service-icon">
-✧
-</div>
-
-<h3>Animated Edits</h3>
-
-<p>
-Short TikTok edits,
-motion graphics,
-and animated visual content for social media.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ABOUT -->
-
-<section id="about">
-
-<div class="about-box">
+<section id="pricing">
 
 <div class="section-top">
 
 <div class="section-label">
-✦ About Asteriks
+✦ Commission Types
 </div>
 
 <h2 class="section-title">
-Two Creators, One Vision
+Available Work
 </h2>
 
-</div>
-
-<div class="about-grid">
-
-<div class="about-card">
-
-<h3>Astagme</h3>
-
-<p>
-Marketing,
-branding,
-presentation,
-community management,
-and occasional artwork.
-Focused on creating a memorable experience for every client and growing the Asteriks identity.
+<p class="section-text">
+Commission pricing may vary depending on complexity,
+background details,
+accessories,
+and commercial usage.
 </p>
 
 </div>
 
-<div class="about-card">
+<div class="pricing-grid">
 
-<h3>Main Artist</h3>
+<div class="price-card">
+
+<h3>Sketch</h3>
+
+<div class="price">
+from $10+
+</div>
 
 <p>
-Primary illustrator behind Asteriks —
-specializing in furry art,
-expressive rendering,
-character illustration,
-and aesthetic visual storytelling.
+Simple sketch commissions for quick concepts,
+expressions,
+and character ideas.
 </p>
 
 </div>
+
+<div class="price-card">
+
+<h3>Flat Color</h3>
+
+<div class="price">
+from $14+
+</div>
+
+<p>
+Clean colored illustrations with simple shading
+and polished linework.
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>Light Shading</h3>
+
+<div class="price">
+from $25+
+</div>
+
+<p>
+Soft rendered artwork with lighting,
+atmosphere and detailed coloring.
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>Fully Rendered</h3>
+
+<div class="price">
+from $35+
+</div>
+
+<p>
+High-detail illustrations with cinematic rendering,
+effects and advanced composition.
+</p>
 
 </div>
 
@@ -1146,10 +1075,6 @@ branding art,
 and collaborations worldwide.
 </p>
 
-<div class="contact-status">
-✦ OPEN FOR COMMISSIONS
-</div>
-
 <div class="socials">
 
 <a href="#">
@@ -1174,10 +1099,6 @@ and collaborations worldwide.
 
 </div>
 
-<a href="mailto:asteriks@email.com" class="email-btn">
-asteriks@email.com
-</a>
-
 </div>
 
 </section>
@@ -1187,6 +1108,37 @@ asteriks@email.com
 <footer>
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
+
+<script>
+
+/* ======================================================
+   ANTI COPY
+====================================================== */
+
+document.addEventListener('contextmenu', e =>
+    e.preventDefault()
+);
+
+document.addEventListener('keydown', (e) => {
+
+    if (
+        e.ctrlKey &&
+        (
+            e.key === 'u' ||
+            e.key === 's' ||
+            e.key === 'c' ||
+            e.key === 'i'
+        )
+    ) {
+        e.preventDefault();
+    }
+
+    if (e.key === 'F12') {
+        e.preventDefault();
+    }
+});
+
+</script>
 
 </body>
 </html>
