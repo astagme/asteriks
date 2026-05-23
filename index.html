@@ -67,6 +67,26 @@ body{
     -webkit-user-select:none;
 }
 
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background-image:
+    radial-gradient(rgba(255,255,255,.4) 1px, transparent 1px);
+
+    background-size:40px 40px;
+
+    opacity:.5;
+
+    z-index:-20;
+
+    pointer-events:none;
+}
+
 /* ======================================================
    PAGE ANIMATION
 ====================================================== */
@@ -75,7 +95,7 @@ body{
 
     from{
         opacity:0;
-        transform:translateY(10px);
+        transform:translateY(12px);
     }
 
     to{
@@ -91,52 +111,37 @@ body{
 .blob{
 
     position:fixed;
-
     border-radius:50%;
-
     filter:blur(90px);
-
     z-index:-10;
-
     opacity:.55;
 
     animation:float 10s ease-in-out infinite;
 }
 
 .blob1{
-
     width:350px;
     height:350px;
-
     background:var(--c1);
-
     top:-100px;
     left:-100px;
 }
 
 .blob2{
-
     width:450px;
     height:450px;
-
     background:var(--c4);
-
     right:-150px;
     bottom:-150px;
-
     animation-delay:2s;
 }
 
 .blob3{
-
     width:260px;
     height:260px;
-
     background:var(--c2);
-
     top:45%;
     left:55%;
-
     animation-delay:5s;
 }
 
@@ -164,7 +169,6 @@ header{
     transform:translateX(-50%);
 
     width:min(1200px,92%);
-
     z-index:999;
 }
 
@@ -190,7 +194,6 @@ nav{
 .logo{
 
     font-family:'Fredoka',sans-serif;
-
     font-size:1.3rem;
     font-weight:600;
 }
@@ -208,7 +211,6 @@ nav{
 .nav-links a{
 
     text-decoration:none;
-
     color:var(--dark);
 
     font-weight:700;
@@ -453,16 +455,13 @@ nav{
 }
 
 .float1{
-
     top:-20px;
     right:-20px;
 }
 
 .float2{
-
     bottom:30px;
     left:-30px;
-
     animation-delay:2s;
 }
 
@@ -478,16 +477,14 @@ nav{
 }
 
 /* ======================================================
-   GENERAL SECTIONS
+   SECTIONS
 ====================================================== */
 
 section{
-
     padding:120px 7%;
 }
 
 .section-top{
-
     margin-bottom:60px;
 }
 
@@ -553,6 +550,9 @@ section{
 
 .feature-card:hover{
 
+    box-shadow:
+    0 25px 60px rgba(126,152,231,.25);
+
     transform:
     translateY(-12px)
     rotate(1deg);
@@ -599,190 +599,78 @@ section{
     font-size:1.3rem;
 }
 
-.feature-overlay p{
+/* ======================================================
+   PRICING
+====================================================== */
 
-    line-height:1.7;
+.pricing-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(4,1fr);
+
+    gap:24px;
 }
 
-<!-- ======================================================
-     UPDATED PREMIUM PRICING
-====================================================== -->
+.price-card{
 
-<section id="pricing">
+    background:
+    rgba(255,255,255,.55);
 
-<div class="section-top">
+    border:
+    1px solid rgba(255,255,255,.8);
 
-<div class="section-label">
-✦ Commission Info
-</div>
+    backdrop-filter:blur(14px);
 
-<h2 class="section-title">
-Commission Types
-</h2>
+    border-radius:32px;
 
-<p class="section-text">
-Final pricing may vary depending on character complexity,
-background details,
-commercial usage,
-props,
-and accessories.
-</p>
+    padding:34px 28px;
 
-</div>
+    box-shadow:var(--shadow);
 
-<div class="pricing-grid">
+    transition:.35s;
+}
 
-<!-- LINE ART -->
+.price-card:hover{
 
-<div class="price-card">
+    transform:
+    translateY(-10px)
+    rotate(1deg);
 
-<h3>✦ Line Art</h3>
+    background:white;
+}
 
-<div class="price">
-Head — $8
-</div>
+.price-card h3{
 
-<p>
-Torso — $15<br>
-Fullbody — $22
-</p>
+    font-family:'Fredoka',sans-serif;
 
-</div>
+    margin-bottom:18px;
 
-<!-- FLAT COLOR -->
+    font-size:1.25rem;
+}
 
-<div class="price-card">
+.price{
 
-<h3>✦ Flat Color</h3>
+    font-size:1.5rem;
 
-<div class="price">
-Head — $15
-</div>
+    font-weight:800;
 
-<p>
-Torso — $22<br>
-Fullbody — $35
-</p>
+    color:#7E98E7;
 
-</div>
+    margin-bottom:14px;
+}
 
-<!-- LIGHT SHADING -->
+.price-card p{
 
-<div class="price-card">
-
-<h3>✦ Light Shading</h3>
-
-<div class="price">
-Head — $28
-</div>
-
-<p>
-Torso — $40<br>
-Fullbody — $60+
-</p>
-
-</div>
-
-<!-- FULL RENDER -->
-
-<div class="price-card">
-
-<h3>✦ Fully Rendered</h3>
-
-<div class="price">
-Head — $45
-</div>
-
-<p>
-Torso — $70<br>
-Fullbody — $95+
-</p>
-
-</div>
-
-<!-- CHIBI -->
-
-<div class="price-card">
-
-<h3>✦ Chibi</h3>
-
-<div class="price">
-from $25+
-</div>
-
-<p>
-Fully rendered chibi artwork with expressive posing,
-soft rendering,
-and aesthetic coloring.
-</p>
-
-</div>
-
-<!-- EDITS -->
-
-<div class="price-card">
-
-<h3>✦ TikTok / Meme Edits</h3>
-
-<div class="price">
-from $40+
-</div>
-
-<p>
-Animated edits up to 30 seconds with transitions,
-effects,
-and social-media-ready formatting.
-</p>
-
-</div>
-
-<!-- CHARACTER DESIGN -->
-
-<div class="price-card">
-
-<h3>✦ Character Design</h3>
-
-<div class="price">
-Custom Pricing
-</div>
-
-<p>
-Species concepts,
-fashion design,
-reference sheets,
-and complete OC development.
-</p>
-
-</div>
-
-<!-- TERMS -->
-
-<div class="price-card">
-
-<h3>✦ Terms & Extras</h3>
-
-<div class="price">
-+ Accessories
-</div>
-
-<p>
-Accessories and complex details start from $5+.<br><br>
-
-50% upfront payment required before work begins.
-</p>
-
-</div>
-
-</div>
-
-</section>
+    line-height:1.8;
+}
 
 /* ======================================================
    CONTACT
 ====================================================== */
 
 .contact{
-
     text-align:center;
 }
 
@@ -799,6 +687,17 @@ Accessories and complex details start from $5+.<br><br>
     border:1px solid rgba(255,255,255,.7);
 
     box-shadow:var(--shadow);
+}
+
+.discord-user{
+
+    margin-top:20px;
+
+    font-weight:800;
+
+    font-size:1.05rem;
+
+    color:#7E98E7;
 }
 
 .socials{
@@ -904,8 +803,6 @@ Accessories and complex details start from $5+.<br><br>
     color:white;
 
     cursor:pointer;
-
-    font-weight:200;
 }
 
 /* ======================================================
@@ -973,13 +870,9 @@ footer{
 
 <body>
 
-<!-- BLOBS -->
-
 <div class="blob blob1"></div>
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
-
-<!-- NAVIGATION -->
 
 <header>
 
@@ -1006,8 +899,6 @@ OPEN COMMISSIONS
 
 </header>
 
-<!-- HERO -->
-
 <section class="hero" id="home">
 
 <div class="hero-grid">
@@ -1026,9 +917,11 @@ draggable="false"
 >
 
 <p>
-Custom illustrations,
-character design and
-reference sheets for clients worldwide.
+Soft cinematic furry artwork,
+character design,
+reference sheets
+and aesthetic visual storytelling
+for clients worldwide.
 </p>
 
 <div class="hero-buttons">
@@ -1071,234 +964,6 @@ Custom design
 
 </section>
 
-<!-- FEATURED -->
-
-<section>
-
-<div class="section-top">
-
-<div class="section-label">
-Featured Artwork
-</div>
-
-<h2 class="section-title">
-Dreamy Visual Storytelling
-</h2>
-
-<p class="section-text">
-A curated collection of expressive furry artwork,
-soft cinematic rendering,
-and emotionally driven character illustrations.
-</p>
-
-</div>
-
-<div class="feature-grid">
-
-<!-- ART 1 -->
-
-<div class="feature-card">
-
-<img
-src="asteriks.art/asteriks1.png"
-alt="Artwork"
-draggable="false"
-class="gallery-img"
->
-
-<div class="feature-overlay">
-
-<h3>Cinematic Fursona Portrait</h3>
-
-<p>
-Stylized furry illustration featuring soft cinematic lighting,
-atmospheric coloring and expressive character posing.
-</p>
-
-</div>
-
-</div>
-
-<!-- ART 2 -->
-
-<div class="feature-card">
-
-<img
-src="asteriks.art/asteriks2.png"
-alt="Artwork"
-draggable="false"
-class="gallery-img"
->
-
-<div class="feature-overlay">
-
-<h3>Light Shading — Fullbody</h3>
-
-<p>
-Pastel-goth inspired furry fullbody illustration with soft rendering,
-expressive lighting and aesthetic floral composition.
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- PRICING -->
-
-<section id="pricing">
-
-<div class="section-top">
-
-<div class="section-label">
-✦ Commission Info
-</div>
-
-<h2 class="section-title">
-Commission Types
-</h2>
-
-<p class="section-text">
-Final pricing may vary depending on character complexity,
-background details,
-commercial usage,
-and accessories.
-</p>
-
-</div>
-
-<div class="pricing-grid">
-
-<div class="price-card">
-
-<h3>✦ Line Art</h3>
-
-<div class="price">
-Head — $4
-</div>
-
-<p>
-Torso — $6<br>
-Fullbody — $10
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Flat Color</h3>
-
-<div class="price">
-Head — $6
-</div>
-
-<p>
-Torso — $10<br>
-Fullbody — $14
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Light Shading</h3>
-
-<div class="price">
-Head — $15
-</div>
-
-<p>
-Torso — $20<br>
-Fullbody — $25
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Fully Rendered</h3>
-
-<div class="price">
-Head — $28
-</div>
-
-<p>
-Torso — $35<br>
-Fullbody — $45
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Chibi</h3>
-
-<div class="price">
-from $10+
-</div>
-
-<p>
-Fully rendered chibi artwork with expressive posing
-and aesthetic coloring.
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ TikTok / Meme Edits</h3>
-
-<div class="price">
-from $40+
-</div>
-
-<p>
-Short animated edits up to 30 seconds.
-Additional editing fees may apply.
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Character Design</h3>
-
-<div class="price">
-Custom Pricing
-</div>
-
-<p>
-Species design,
-fashion concepts,
-reference sheets
-and OC development.
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Additional Info</h3>
-
-<div class="price">
-+ Accessories
-</div>
-
-<p>
-Extra accessories start from $2.<br><br>
-
-50% upfront payment required before work begins.
-</p>
-
-</div>
-
-</div>
-
-</section>
-
 <!-- CONTACT -->
 
 <section class="contact" id="contact">
@@ -1320,29 +985,29 @@ branding art,
 and collaborations worldwide.
 </p>
 
+<p class="discord-user">
+Discord: astagme
+</p>
+
 <div class="socials">
 
-<a href="https://www.instagram.com/asteriks.art/">
+<a href="https://www.instagram.com/asteriks.art/" target="_blank">
 <i class="fab fa-instagram"></i>
 </a>
 
-<a href="https://discordapp.com/users/astagme" target="_blank" title="astagme">
-<i class="fab fa-discord"></i>
-</a>
-
-<a href="https://pinterest.com/astamge/">
+<a href="https://www.pinterest.com/astagme/" target="_blank">
 <i class="fab fa-pinterest"></i>
 </a>
 
-<a href="mailto:astagme@gmail.com" target="_blank" title="astagme@gmail.com">
+<a href="mailto:astagme@gmail.com">
 <i class="fas fa-envelope"></i>
 </a>
-   
-<a href="#">
+
+<a href="https://www.tiktok.com/" target="_blank">
 <i class="fab fa-tiktok"></i>
 </a>
 
-<a href="#">
+<a href="https://www.patreon.com/" target="_blank">
 <i class="fab fa-patreon"></i>
 </a>
 
@@ -1352,87 +1017,9 @@ and collaborations worldwide.
 
 </section>
 
-<!-- LIGHTBOX -->
-
-<div class="lightbox" id="lightbox">
-
-<span class="close-lightbox">&times;</span>
-
-<img id="lightbox-img">
-
-</div>
-
-<!-- FOOTER -->
-
 <footer>
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
-
-<script>
-
-/* ======================================================
-   ANTI COPY
-====================================================== */
-
-document.addEventListener('contextmenu', e =>
-    e.preventDefault()
-);
-
-document.addEventListener('keydown', (e) => {
-
-    if (
-        e.ctrlKey &&
-        (
-            e.key === 'u' ||
-            e.key === 's' ||
-            e.key === 'c' ||
-            e.key === 'i'
-        )
-    ) {
-        e.preventDefault();
-    }
-
-    if (e.key === 'F12') {
-        e.preventDefault();
-    }
-});
-
-/* ======================================================
-   LIGHTBOX
-====================================================== */
-
-const lightbox =
-document.getElementById('lightbox');
-
-const lightboxImg =
-document.getElementById('lightbox-img');
-
-document.querySelectorAll('.gallery-img').forEach(img => {
-
-    img.addEventListener('click', () => {
-
-        lightbox.classList.add('active');
-
-        lightboxImg.src = img.src;
-    });
-
-});
-
-document.querySelector('.close-lightbox')
-.addEventListener('click', () => {
-
-    lightbox.classList.remove('active');
-});
-
-lightbox.addEventListener('click', (e) => {
-
-    if(e.target === lightbox){
-
-        lightbox.classList.remove('active');
-    }
-});
-
-</script>
 
 </body>
 </html>
