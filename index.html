@@ -477,7 +477,7 @@ nav{
 }
 
 /* ======================================================
-   SECTIONS
+   GENERAL SECTIONS
 ====================================================== */
 
 section{
@@ -964,6 +964,168 @@ Custom design
 
 </section>
 
+<!-- FEATURED -->
+
+<section>
+
+<div class="section-top">
+
+<div class="section-label">
+Featured Artwork
+</div>
+
+<h2 class="section-title">
+Dreamy Visual Storytelling
+</h2>
+
+<p class="section-text">
+A curated collection of expressive furry artwork,
+soft cinematic rendering,
+and emotionally driven character illustrations.
+</p>
+
+</div>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+
+<img
+src="asteriks.art/asteriks1.png"
+alt="Artwork"
+draggable="false"
+class="gallery-img"
+>
+
+<div class="feature-overlay">
+
+<h3>Cinematic Fursona Portrait</h3>
+
+<p>
+Stylized furry illustration featuring soft cinematic lighting,
+atmospheric coloring and expressive character posing.
+</p>
+
+</div>
+
+</div>
+
+<div class="feature-card">
+
+<img
+src="asteriks.art/asteriks2.png"
+alt="Artwork"
+draggable="false"
+class="gallery-img"
+>
+
+<div class="feature-overlay">
+
+<h3>Light Shading — Fullbody</h3>
+
+<p>
+Pastel-goth inspired furry fullbody illustration with soft rendering,
+expressive lighting and aesthetic floral composition.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PRICING -->
+
+<section id="pricing">
+
+<div class="section-top">
+
+<div class="section-label">
+✦ Commission Info
+</div>
+
+<h2 class="section-title">
+Commission Types
+</h2>
+
+<p class="section-text">
+Final pricing may vary depending on character complexity,
+background details,
+commercial usage,
+props,
+and accessories.
+</p>
+
+</div>
+
+<div class="pricing-grid">
+
+<div class="price-card">
+
+<h3>✦ Line Art</h3>
+
+<div class="price">
+Head — $8
+</div>
+
+<p>
+Torso — $15<br>
+Fullbody — $22
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Flat Color</h3>
+
+<div class="price">
+Head — $15
+</div>
+
+<p>
+Torso — $22<br>
+Fullbody — $35
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Light Shading</h3>
+
+<div class="price">
+Head — $28
+</div>
+
+<p>
+Torso — $40<br>
+Fullbody — $60+
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Fully Rendered</h3>
+
+<div class="price">
+Head — $45
+</div>
+
+<p>
+Torso — $70<br>
+Fullbody — $95+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
 <!-- CONTACT -->
 
 <section class="contact" id="contact">
@@ -1003,23 +1165,91 @@ Discord: astagme
 <i class="fas fa-envelope"></i>
 </a>
 
-<a href="https://www.tiktok.com/" target="_blank">
-<i class="fab fa-tiktok"></i>
-</a>
-
-<a href="https://www.patreon.com/" target="_blank">
-<i class="fab fa-patreon"></i>
-</a>
-
 </div>
 
 </div>
 
 </section>
 
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+<span class="close-lightbox">&times;</span>
+
+<img id="lightbox-img">
+
+</div>
+
 <footer>
 © 2026 Asteriks ✦ All Rights Reserved
 </footer>
+
+<script>
+
+/* ======================================================
+   ANTI COPY
+====================================================== */
+
+document.addEventListener('contextmenu', e =>
+    e.preventDefault()
+);
+
+document.addEventListener('keydown', (e) => {
+
+    if (
+        e.ctrlKey &&
+        (
+            e.key === 'u' ||
+            e.key === 's' ||
+            e.key === 'c' ||
+            e.key === 'i'
+        )
+    ) {
+        e.preventDefault();
+    }
+
+    if (e.key === 'F12') {
+        e.preventDefault();
+    }
+});
+
+/* ======================================================
+   LIGHTBOX
+====================================================== */
+
+const lightbox =
+document.getElementById('lightbox');
+
+const lightboxImg =
+document.getElementById('lightbox-img');
+
+document.querySelectorAll('.gallery-img').forEach(img => {
+
+    img.addEventListener('click', () => {
+
+        lightbox.classList.add('active');
+
+        lightboxImg.src = img.src;
+    });
+
+});
+
+document.querySelector('.close-lightbox')
+.addEventListener('click', () => {
+
+    lightbox.classList.remove('active');
+});
+
+lightbox.addEventListener('click', (e) => {
+
+    if(e.target === lightbox){
+
+        lightbox.classList.remove('active');
+    }
+});
+
+</script>
 
 </body>
 </html>
