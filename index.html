@@ -7,10 +7,10 @@
 
 <title>Asteriks ✦ Furry Art Studio</title>
 
-<!-- FONTS -->
+<!-- GOOGLE FONTS -->
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-<!-- ICONS -->
+<!-- FONT AWESOME -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
@@ -32,7 +32,6 @@
 
     --shadow:
     0 20px 40px rgba(119,136,187,.15);
-
 }
 
 /* ======================================================
@@ -68,6 +67,10 @@ body{
     -webkit-user-select:none;
 }
 
+/* ======================================================
+   PAGE ANIMATION
+====================================================== */
+
 @keyframes fadePage{
 
     from{
@@ -82,7 +85,7 @@ body{
 }
 
 /* ======================================================
-   BACKGROUND BLOBS
+   BLOBS
 ====================================================== */
 
 .blob{
@@ -149,7 +152,7 @@ body{
 }
 
 /* ======================================================
-   NAVBAR
+   NAVIGATION
 ====================================================== */
 
 header{
@@ -384,7 +387,7 @@ nav{
 }
 
 /* ======================================================
-   HERO ARTWORK
+   HERO IMAGE
 ====================================================== */
 
 .hero-visual{
@@ -421,7 +424,6 @@ nav{
 .visual-card img{
 
     width:100%;
-
     height:700px;
 
     object-fit:cover;
@@ -476,7 +478,7 @@ nav{
 }
 
 /* ======================================================
-   SECTIONS
+   GENERAL SECTIONS
 ====================================================== */
 
 section{
@@ -545,6 +547,8 @@ section{
     box-shadow:var(--shadow);
 
     transition:.4s;
+
+    cursor:pointer;
 }
 
 .feature-card:hover{
@@ -627,6 +631,8 @@ section{
     box-shadow:var(--shadow);
 
     transition:.35s;
+
+    min-height:260px;
 }
 
 .price-card:hover{
@@ -727,6 +733,68 @@ section{
 }
 
 /* ======================================================
+   LIGHTBOX
+====================================================== */
+
+.lightbox{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(10,10,20,.92);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:.4s;
+
+    z-index:99999;
+
+    padding:40px;
+}
+
+.lightbox.active{
+
+    opacity:1;
+    pointer-events:auto;
+}
+
+.lightbox img{
+
+    max-width:90%;
+    max-height:90vh;
+
+    object-fit:contain;
+
+    border-radius:24px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+}
+
+.close-lightbox{
+
+    position:absolute;
+
+    top:30px;
+    right:40px;
+
+    font-size:3rem;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:200;
+}
+
+/* ======================================================
    FOOTER
 ====================================================== */
 
@@ -797,7 +865,7 @@ footer{
 <div class="blob blob2"></div>
 <div class="blob blob3"></div>
 
-<!-- NAV -->
+<!-- NAVIGATION -->
 
 <header>
 
@@ -890,7 +958,7 @@ draggable="false"
 
 </section>
 
-<!-- FEATURED ARTWORK -->
+<!-- FEATURED -->
 
 <section>
 
@@ -922,6 +990,7 @@ and emotionally driven character illustrations.
 src="asteriks.art/asteriks1.png"
 alt="Artwork"
 draggable="false"
+class="gallery-img"
 >
 
 <div class="feature-overlay">
@@ -945,6 +1014,7 @@ atmospheric coloring and expressive character posing.
 src="asteriks.art/asteriks2.png"
 alt="Artwork"
 draggable="false"
+class="gallery-img"
 >
 
 <div class="feature-overlay">
@@ -971,18 +1041,18 @@ expressive lighting and aesthetic floral composition.
 <div class="section-top">
 
 <div class="section-label">
-✦ Commission Types
+✦ Commission Info
 </div>
 
 <h2 class="section-title">
-Available Work
+Commission Types
 </h2>
 
 <p class="section-text">
-Commission pricing may vary depending on complexity,
+Final pricing may vary depending on character complexity,
 background details,
-accessories,
-and commercial usage.
+commercial usage,
+and accessories.
 </p>
 
 </div>
@@ -991,61 +1061,123 @@ and commercial usage.
 
 <div class="price-card">
 
-<h3>Sketch</h3>
+<h3>✦ Line Art</h3>
+
+<div class="price">
+Head — $4
+</div>
+
+<p>
+Torso — $6<br>
+Fullbody — $10
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Flat Color</h3>
+
+<div class="price">
+Head — $6
+</div>
+
+<p>
+Torso — $10<br>
+Fullbody — $14
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Light Shading</h3>
+
+<div class="price">
+Head — $15
+</div>
+
+<p>
+Torso — $20<br>
+Fullbody — $25
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Fully Rendered</h3>
+
+<div class="price">
+Head — $28
+</div>
+
+<p>
+Torso — $35<br>
+Fullbody — $45
+</p>
+
+</div>
+
+<div class="price-card">
+
+<h3>✦ Chibi</h3>
 
 <div class="price">
 from $10+
 </div>
 
 <p>
-Simple sketch commissions for quick concepts,
-expressions,
-and character ideas.
+Fully rendered chibi artwork with expressive posing
+and aesthetic coloring.
 </p>
 
 </div>
 
 <div class="price-card">
 
-<h3>Flat Color</h3>
+<h3>✦ TikTok / Meme Edits</h3>
 
 <div class="price">
-from $14+
+from $40+
 </div>
 
 <p>
-Clean colored illustrations with simple shading
-and polished linework.
+Short animated edits up to 30 seconds.
+Additional editing fees may apply.
 </p>
 
 </div>
 
 <div class="price-card">
 
-<h3>Light Shading</h3>
+<h3>✦ Character Design</h3>
 
 <div class="price">
-from $25+
+Custom Pricing
 </div>
 
 <p>
-Soft rendered artwork with lighting,
-atmosphere and detailed coloring.
+Species design,
+fashion concepts,
+reference sheets
+and OC development.
 </p>
 
 </div>
 
 <div class="price-card">
 
-<h3>Fully Rendered</h3>
+<h3>✦ Additional Info</h3>
 
 <div class="price">
-from $35+
++ Accessories
 </div>
 
 <p>
-High-detail illustrations with cinematic rendering,
-effects and advanced composition.
+Extra accessories start from $2.<br><br>
+
+50% upfront payment required before work begins.
 </p>
 
 </div>
@@ -1103,6 +1235,16 @@ and collaborations worldwide.
 
 </section>
 
+<!-- LIGHTBOX -->
+
+<div class="lightbox" id="lightbox">
+
+<span class="close-lightbox">&times;</span>
+
+<img id="lightbox-img">
+
+</div>
+
 <!-- FOOTER -->
 
 <footer>
@@ -1135,6 +1277,41 @@ document.addEventListener('keydown', (e) => {
 
     if (e.key === 'F12') {
         e.preventDefault();
+    }
+});
+
+/* ======================================================
+   LIGHTBOX
+====================================================== */
+
+const lightbox =
+document.getElementById('lightbox');
+
+const lightboxImg =
+document.getElementById('lightbox-img');
+
+document.querySelectorAll('.gallery-img').forEach(img => {
+
+    img.addEventListener('click', () => {
+
+        lightbox.classList.add('active');
+
+        lightboxImg.src = img.src;
+    });
+
+});
+
+document.querySelector('.close-lightbox')
+.addEventListener('click', () => {
+
+    lightbox.classList.remove('active');
+});
+
+lightbox.addEventListener('click', (e) => {
+
+    if(e.target === lightbox){
+
+        lightbox.classList.remove('active');
     }
 });
 
