@@ -39,7 +39,7 @@
             scroll-behavior: smooth;
         }
 
-       body {
+        body {
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
@@ -56,7 +56,7 @@
             -ms-user-select: none;
             user-select: none;
 
-            /* НАСТРОЙКА ПЛАВНОСТИ СТРАНИЦЫ: */
+            /* НАСТРОЙКА ПЛАВНОСТИ СТРАНИЦЫ */
             opacity: 0; 
             transition: opacity 0.5s ease-in-out; 
         }
@@ -69,12 +69,6 @@
         /* Курсор-лапка для всех кликабельных элементов */
         a, button, .filter-btn, .art-card, .close-btn {
             cursor: url('asteriks.art/paw.png') 16 16, pointer !important;
-        }
-
-        /* Анимация плавного появления */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         /* ======================================================
@@ -151,6 +145,8 @@
             font-family: 'Fredoka', sans-serif;
             font-size: 1.3rem;
             font-weight: 600;
+            text-decoration: none; /* Чтобы ссылка-логотип не подчеркивалась */
+            color: var(--dark);
         }
 
         .logo img {
@@ -444,6 +440,7 @@
                 height: auto;
             }
 
+            /* Эти классы не используются в HTML, но если пригодятся — пусть будут */
             .lightbox-info {
                 flex-direction: column;
                 align-items: flex-start;
@@ -473,9 +470,9 @@
 
     <header>
         <nav>
-            <div class="logo">
+            <a href="index.html" class="logo">
                 Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
-            </div>
+            </a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="gallery.html">Gallery</a>
@@ -563,6 +560,7 @@
     </footer>
 
     <script>
+        // Блокировка стандартного контекстного меню и перетаскивания картинок
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('dragstart', event => {
             if (event.target.tagName === 'IMG') event.preventDefault();
@@ -584,15 +582,12 @@
                 let visibleIndex = 0;
 
                 cards.forEach((card) => {
-                    // Сначала мягко убираем класс появления
                     card.classList.remove('show');
                     
-                    // Ждем окончания CSS перехода угасания (400ms) перед тем как перестроить сетку
                     setTimeout(() => {
                         if (filter === 'all' || card.dataset.category === filter) {
                             card.style.display = 'block';
                             
-                            // Каскадное появление отфильтрованных элементов
                             setTimeout(() => {
                                 card.classList.add('show');
                             }, visibleIndex * 80); 
@@ -605,8 +600,12 @@
             });
         });
 
-        // Анимация при первой загрузке страницы
-        window.addEventListener('load', () => {
+        // СИНХРОНИЗАЦИЯ: Плавное появление фона и карточек одновременно
+        window.addEventListener('DOMContentLoaded', () => {
+            // Включаем видимость body
+            document.body.classList.add('visible');
+            
+            // Запускаем каскадное появление карточек
             cards.forEach((card, index) => {
                 card.style.display = 'block';
                 setTimeout(() => {
@@ -633,29 +632,23 @@
                 lightbox.classList.remove('active');
             }
         });
-        // 1. Плавное появление при загрузке
-window.addEventListener('DOMContentLoaded', () => {
-    document.body.classList.add('visible');
-});
 
-// 2. Плавное исчезновение при переходе по ссылкам
-document.querySelectorAll('.nav-links a, .nav-header a').forEach(link => {
-    link.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        
-        // Проверяем, что ссылка ведет на внутреннюю страницу (не '#' и не внешняя ссылка)
-        if (href && href !== '#' && !href.startsWith('http')) {
-            e.preventDefault(); // Временно отменяем переход
-            
-            document.body.classList.remove('visible'); // Запускаем скрытие страницы
-            
-            // Переходим на новую страницу ровно тогда, когда закончится анимация (500мс)
-            setTimeout(() => {
-                window.location.href = href;
-            }, 500); 
-        }
-    });
-});
+        // Плавное исчезновение при переходе по ссылкам (включая логотип)
+        document.querySelectorAll('.nav-links a, .logo').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                
+                if (href && href !== '#' && !href.startsWith('http')) {
+                    e.preventDefault(); 
+                    
+                    document.body.classList.remove('visible'); 
+                    
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 500); 
+                }
+            });
+        });
     </script>
 </body>
 </html>
