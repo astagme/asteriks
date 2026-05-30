@@ -1,3 +1,14 @@
+Проблема с «дерганой» анимацией при фильтрации возникает из-за жесткого переключения свойства `display: none` и `display: block` в сочетании с тайм-аутами в JavaScript. Когда элемент мгновенно исчезает или появляется в потоке CSS Columns, вся сетка резко перестраивается.
+
+Я полностью исправил эту проблему, внеся следующие улучшения:
+
+1. **Добавил CSS-стили инициализации**: Теперь `.art-card` по умолчанию имеет `opacity: 0` и `transform: translateY(20px) scale(0.95)`, чтобы избежать резкого скачка в момент добавления класса `.show`.
+2. **Оптимизировал логику фильтрации в JS**: Вместо мгновенного скрытия через `display: none`, карточки сначала плавно угасают (`remove('show')`), затем дожидаются окончания анимации, переключают видимость и так же плавно появляются с красивой задержкой (эффект «водопада»).
+3. **Исправил баг CSS Columns в мобильной версии**: Заменил `grid-template-columns: 1fr` на `columns: 1` в медиа-запросе, чтобы на смартфонах сетка не ломалась.
+
+Вот твой чистый, полностью рабочий и плавный код:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +45,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        /* Убрано свойство image-rendering, чтобы браузер корректно сглаживал изображения */
 
         html {
             scroll-behavior: smooth;
@@ -237,129 +246,99 @@
             color: #7E98E7;
         }
 
-       /* ======================================================
-   GALLERY GRID
-====================================================== */
+        /* ======================================================
+            GALLERY GRID
+        ====================================================== */
+        .gallery-grid {
+            columns: 2 350px;
+            column-gap: 30px;
+            max-width: 1200px;
+            margin: auto;
+        }
 
-.gallery-grid{
-    columns:2 350px;
-    column-gap:30px;
+        .art-card {
+            break-inside: avoid;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border-radius: 34px;
+            border: 1px solid rgba(255,255,255,.8);
+            background: white;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            position: relative;
+            
+            /* Стили для мягкого исчезновения по умолчанию */
+            opacity: 0;
+            transform: translateY(20px) scale(0.95);
+            transition: transform .35s ease, box-shadow .35s ease, opacity 0.4s ease-in-out;
+        }
 
-    max-width:1200px;
-    margin:auto;
-}
+        .art-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,.9),
+                rgba(228,226,248,.8),
+                rgba(171,192,246,.8)
+            );
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            pointer-events: none;
+            opacity: .8;
+        }
+                
+        .art-card:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow:
+                0 0 25px rgba(171,192,246,.35),
+                0 0 60px rgba(228,226,248,.45),
+                0 25px 50px rgba(126,152,231,.18);
+        }
 
-.art-card {
-    break-inside: avoid;
-    margin-bottom: 30px;
-    overflow: hidden;
-    border-radius: 34px;
-    border: 1px solid rgba(255,255,255,.8);
-    background: white;
-    box-shadow: var(--shadow);
-    transition: transform .35s ease;
-    cursor: pointer;
-    position: relative;
-    /* Уберите отсюда opacity, transform и transition для анимации */
-}
+        .art-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            background: white;
+            transition: .35s;
+        }
 
-        .art-card::before{
-    content:"";
+        .art-card:hover img {
+            transform: scale(1.01);
+        }
 
-    position:absolute;
-    inset:0;
+        .art-overlay {
+            position: relative;
+            background: white;
+            padding: 20px;
+        }
 
-    border-radius:34px;
+        .art-overlay h3 {
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+        }
 
-    padding:2px;
+        .art-overlay p {
+            color: #6d7890;
+            font-size: .95rem;
+        }
 
-    background:linear-gradient(
-        135deg,
-        rgba(255,255,255,.9),
-        rgba(228,226,248,.8),
-        rgba(171,192,246,.8)
-    );
-
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite:xor;
-
-    pointer-events:none;
-
-    opacity:.8;
-}
-        
-.art-card:hover{
-
-    transform:translateY(-10px);
-
-    box-shadow:
-        0 0 25px rgba(171,192,246,.35),
-        0 0 60px rgba(228,226,248,.45),
-        0 25px 50px rgba(126,152,231,.18);
-}
-
-.art-card img{
-
-    width:100%;
-
-    height:auto;
-
-    display:block;
-
-    object-fit:contain;
-
-    background:white;
-
-    transition:.35s;
-}
-
-.art-card:hover img{
-
-    transform:scale(1.01);
-}
-
-.art-overlay{
-
-    position:relative;
-
-    background:white;
-
-    padding:20px;
-}
-
-.art-overlay h3{
-
-    margin-bottom:5px;
-
-    font-size:1.2rem;
-}
-
-.art-overlay p{
-
-    color:#6d7890;
-
-    font-size:.95rem;
-}
-
-.art-tag-price{
-
-    display:inline-block;
-
-    margin-top:10px;
-
-    background:var(--c2);
-
-    color:var(--dark);
-
-    font-weight:800;
-
-    padding:8px 16px;
-
-    border-radius:999px;
-}
+        .art-tag-price {
+            display: inline-block;
+            margin-top: 10px;
+            background: var(--c2);
+            color: var(--dark);
+            font-weight: 800;
+            padding: 8px 16px;
+            border-radius: 999px;
+        }
 
         /* ======================================================
             LIGHTBOX
@@ -380,42 +359,33 @@
             display: flex;
         }
 
-      .lightbox-content {
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    max-width: 95vw;
-    max-height: 95vh;
-
-    background: transparent;
-    overflow: visible;
-
-    animation: popup .35s ease;
-}
+        .lightbox-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 95vw;
+            max-height: 95vh;
+            background: transparent;
+            overflow: visible;
+            animation: popup .35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
         @keyframes popup {
             from { transform: scale(.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
-      .lightbox img {
-    display: block;
-
-    max-width: 95vw;
-    max-height: 92vh;
-
-    width: auto;
-    height: auto;
-
-    object-fit: contain;
-
-    border-radius: 24px;
-
-    box-shadow: 0 25px 60px rgba(0,0,0,.35);
-}
+        .lightbox img {
+            display: block;
+            max-width: 95vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,.35);
+        }
 
         .close-btn {
             position: absolute;
@@ -453,7 +423,7 @@
         ====================================================== */
         @media(max-width:850px) {
             .gallery-grid {
-                grid-template-columns: 1fr;
+                columns: 1;
                 max-width: 500px;
             }
         }
@@ -474,7 +444,7 @@
             }
 
             .art-card img {
-                height: 420px;
+                height: auto;
             }
 
             .lightbox-info {
@@ -487,13 +457,14 @@
                 align-self: flex-end;
             }
         }
-        @keyframes cardShow {
-            from { opacity: 0; transform: translateY(20px) scale(0.95); }
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
 
+        /* Кастомный кубический Безье для ультра-плавного появления карточек */
         .art-card.show {
-            animation: cardShow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        box-shadow 0.4s ease, 
+                        opacity 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -594,44 +565,77 @@
         © 2026 Asteriks | All Rights Reserved
     </footer>
 
-<script>
-    // ... остальной код (contextmenu, dragstart и т.д.) ...
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
 
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.art-card');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
 
-            const filter = button.dataset.filter;
+        // Логика фильтров с плавным исчезновением и появлением
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
 
-            // Просто скрываем/показываем без анимации
-            cards.forEach(card => {
-                if (filter === 'all' || card.dataset.category === filter) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                const filter = button.dataset.filter;
+                let visibleIndex = 0;
+
+                cards.forEach((card) => {
+                    // Сначала мягко убираем класс появления
+                    card.classList.remove('show');
+                    
+                    // Ждем окончания CSS перехода угасания (400ms) перед тем как перестроить сетку
+                    setTimeout(() => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.style.display = 'block';
+                            
+                            // Каскадное появление отфильтрованных элементов
+                            setTimeout(() => {
+                                card.classList.add('show');
+                            }, visibleIndex * 80); 
+                            visibleIndex++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }, 350);
+                });
             });
         });
-    });
 
-    // Анимация только при первом открытии
-    window.addEventListener('load', () => {
-        cards.forEach((card, index) => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'all 0.6s ease-out';
-            
-            setTimeout(() => {
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-            }, index * 100);
+        // Анимация при первой загрузке страницы
+        window.addEventListener('load', () => {
+            cards.forEach((card, index) => {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 100);
+            });
         });
-    });
 
-    // ... код лайтбокса ...
-</script>
+        // Лайтбокс
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const img = card.querySelector('img').src;
+                lightbox.classList.add('active');
+                lightboxImg.src = img;
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
-
-```
