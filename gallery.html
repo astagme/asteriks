@@ -39,7 +39,7 @@
             scroll-behavior: smooth;
         }
 
-        body {
+       body {
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
@@ -51,11 +51,19 @@
             /* Устанавливаем основной курсор */
             cursor: url('asteriks.art/paw.png') 16 16, auto;
             
-            animation: fadeIn 0.6s ease-in-out forwards;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+
+            /* НАСТРОЙКА ПЛАВНОСТИ СТРАНИЦЫ: */
+            opacity: 0; 
+            transition: opacity 0.5s ease-in-out; 
+        }
+
+        /* Состояние после загрузки — страница плавно проявится */
+        body.visible {
+            opacity: 1;
         }
 
         /* Курсор-лапка для всех кликабельных элементов */
@@ -625,6 +633,29 @@
                 lightbox.classList.remove('active');
             }
         });
+        // 1. Плавное появление при загрузке
+window.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('visible');
+});
+
+// 2. Плавное исчезновение при переходе по ссылкам
+document.querySelectorAll('.nav-links a, .nav-header a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        
+        // Проверяем, что ссылка ведет на внутреннюю страницу (не '#' и не внешняя ссылка)
+        if (href && href !== '#' && !href.startsWith('http')) {
+            e.preventDefault(); // Временно отменяем переход
+            
+            document.body.classList.remove('visible'); // Запускаем скрытие страницы
+            
+            // Переходим на новую страницу ровно тогда, когда закончится анимация (500мс)
+            setTimeout(() => {
+                window.location.href = href;
+            }, 500); 
+        }
+    });
+});
     </script>
 </body>
 </html>
