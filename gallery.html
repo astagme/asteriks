@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
     <style>
+        /* ======================================================
+            ROOT
+        ====================================================== */
         :root {
             --c1: #ABC0F6;
             --c2: #C7D6F7;
@@ -23,32 +26,54 @@
             --shadow: 0 20px 40px rgba(119,136,187,.15);
         }
 
+        /* ======================================================
+            GLOBAL
+        ====================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html { scroll-behavior: smooth; }
+        /* Убрано свойство image-rendering, чтобы браузер корректно сглаживал изображения */
+
+        html {
+            scroll-behavior: smooth;
+        }
 
         body {
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
-            background:
+            background: 
                 radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
                 linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
             min-height: 100vh;
+            
+            /* Устанавливаем основной курсор */
             cursor: url('asteriks.art/paw.png') 16 16, auto;
+            
             animation: fadeIn 0.6s ease-in-out forwards;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
             user-select: none;
         }
 
+        /* Курсор-лапка для всех кликабельных элементов */
+        a, button, .filter-btn, .art-card, .close-btn {
+            cursor: url('asteriks.art/paw.png') 16 16, pointer !important;
+        }
+
+        /* Анимация плавного появления */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
+        /* ======================================================
+            BACKGROUND BLOBS
+        ====================================================== */
         .blob {
             position: fixed;
             border-radius: 50%;
@@ -58,11 +83,40 @@
             animation: float 10s ease-in-out infinite;
         }
 
+        .blob1 {
+            width: 350px;
+            height: 350px;
+            background: var(--c1);
+            top: -120px;
+            left: -100px;
+        }
+
+        .blob2 {
+            width: 450px;
+            height: 450px;
+            background: var(--c4);
+            right: -150px;
+            bottom: -150px;
+            animation-delay: 2s;
+        }
+
+        .blob3 {
+            width: 250px;
+            height: 250px;
+            background: var(--c2);
+            top: 50%;
+            left: 50%;
+            animation-delay: 5s;
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-30px); }
         }
 
+        /* ======================================================
+            NAVBAR
+        ====================================================== */
         header {
             position: fixed;
             top: 20px;
@@ -84,6 +138,28 @@
             box-shadow: var(--shadow);
         }
 
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .logo img {
+            height: 2.2rem;
+            width: auto;
+            object-fit: contain;
+            margin-left: 2px;
+            pointer-events: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+        }
+
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
@@ -91,13 +167,47 @@
             transition: .3s;
         }
 
-        .nav-links a:hover { color: #7E98E7; }
+        .nav-links a:hover {
+            color: #7E98E7;
+        }
 
+        /* ======================================================
+            HERO
+        ====================================================== */
         .gallery-hero {
             padding: 110px 7% 40px;
             text-align: center;
         }
 
+        .gallery-logo {
+            width: min(500px, 90%);
+            margin-bottom: 10px;
+            filter: drop-shadow(0 18px 35px rgba(126,152,231,.18));
+            animation: logoFloat 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .gallery-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .gallery-text {
+            max-width: 700px;
+            margin: auto;
+            line-height: 1.9;
+            font-size: 1.05rem;
+        }
+
+        /* ======================================================
+            FILTERS
+        ====================================================== */
         .filters {
             display: flex;
             justify-content: center;
@@ -112,72 +222,157 @@
             backdrop-filter: blur(12px);
             padding: 14px 22px;
             border-radius: 999px;
+            font-family: 'Nunito', sans-serif;
             font-weight: 800;
-            transition: .3s ease;
+            color: var(--dark);
+            cursor: pointer;
+            transition: .3s;
             box-shadow: var(--shadow);
         }
 
         .filter-btn:hover,
         .filter-btn.active {
-            transform: translateY(-4px);
             background: white;
+            transform: translateY(-5px);
             color: #7E98E7;
         }
 
-        /* =========================
-           GRID
-        ========================= */
-        .gallery-grid {
-            columns: 2 350px;
-            column-gap: 30px;
-            max-width: 1200px;
-            margin: auto;
-        }
+       /* ======================================================
+   GALLERY GRID
+====================================================== */
 
-        /* ===== FIXED CARD ANIMATION ===== */
-        .art-card {
-            break-inside: avoid;
-            margin-bottom: 30px;
-            border-radius: 34px;
-            overflow: hidden;
-            background: white;
-            box-shadow: var(--shadow);
-            position: relative;
+.gallery-grid{
+    columns:2 350px;
+    column-gap:30px;
 
-            /* ключевой фикс */
-            opacity: 0;
-            transform: translateY(18px) scale(0.98);
-            transition:
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.35s ease;
-        }
+    max-width:1200px;
+    margin:auto;
+}
 
-        .art-card.show {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+.art-card{
 
-        .art-card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 25px 60px rgba(126,152,231,.2);
-        }
+    break-inside:avoid;
 
-        .art-card img {
-            width: 100%;
-            display: block;
-            transition: transform .5s ease;
-        }
+    margin-bottom:30px;
 
-        .art-card:hover img {
-            transform: scale(1.03);
-        }
+    overflow:hidden;
 
-        .art-overlay {
-            padding: 20px;
-            background: white;
-        }
+    border-radius:34px;
 
+    border:1px solid rgba(255,255,255,.8);
+
+    background:white;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+    cursor:pointer;
+
+    position:relative;
+}
+
+        .art-card::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:34px;
+
+    padding:2px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.9),
+        rgba(228,226,248,.8),
+        rgba(171,192,246,.8)
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+    opacity:.8;
+}
+        
+.art-card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 0 25px rgba(171,192,246,.35),
+        0 0 60px rgba(228,226,248,.45),
+        0 25px 50px rgba(126,152,231,.18);
+}
+
+.art-card img{
+
+    width:100%;
+
+    height:auto;
+
+    display:block;
+
+    object-fit:contain;
+
+    background:white;
+
+    transition:.35s;
+}
+
+.art-card:hover img{
+
+    transform:scale(1.01);
+}
+
+.art-overlay{
+
+    position:relative;
+
+    background:white;
+
+    padding:20px;
+}
+
+.art-overlay h3{
+
+    margin-bottom:5px;
+
+    font-size:1.2rem;
+}
+
+.art-overlay p{
+
+    color:#6d7890;
+
+    font-size:.95rem;
+}
+
+.art-tag-price{
+
+    display:inline-block;
+
+    margin-top:10px;
+
+    background:var(--c2);
+
+    color:var(--dark);
+
+    font-weight:800;
+
+    padding:8px 16px;
+
+    border-radius:999px;
+}
+
+        /* ======================================================
+            LIGHTBOX
+        ====================================================== */
         .lightbox {
             position: fixed;
             inset: 0;
@@ -186,24 +381,50 @@
             display: none;
             align-items: center;
             justify-content: center;
+            z-index: 99999;
+            padding: 30px;
         }
 
-        .lightbox.active { display: flex; }
-
-        .lightbox-content {
-            animation: popup .35s ease;
+        .lightbox.active {
+            display: flex;
         }
+
+      .lightbox-content {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 95vw;
+    max-height: 95vh;
+
+    background: transparent;
+    overflow: visible;
+
+    animation: popup .35s ease;
+}
 
         @keyframes popup {
             from { transform: scale(.85); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
 
-        .lightbox img {
-            max-width: 95vw;
-            max-height: 92vh;
-            border-radius: 24px;
-        }
+      .lightbox img {
+    display: block;
+
+    max-width: 95vw;
+    max-height: 92vh;
+
+    width: auto;
+    height: auto;
+
+    object-fit: contain;
+
+    border-radius: 24px;
+
+    box-shadow: 0 25px 60px rgba(0,0,0,.35);
+}
 
         .close-btn {
             position: absolute;
@@ -214,121 +435,238 @@
             border: none;
             border-radius: 14px;
             background: white;
+            color: var(--dark);
+            font-size: 1.1rem;
             cursor: pointer;
+            box-shadow: var(--shadow);
             transition: .3s;
+            z-index: 10;
         }
 
-        .close-btn:hover { transform: rotate(90deg); }
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: #f5f7fb;
+        }
 
+        /* ======================================================
+            FOOTER
+        ====================================================== */
         footer {
             text-align: center;
             padding: 40px 20px;
+            font-size: .95rem;
+        }
+
+        /* ======================================================
+            RESPONSIVE
+        ====================================================== */
+        @media(max-width:850px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        @media(max-width:700px) {
+            nav {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .gallery-title {
+                font-size: 2.2rem;
+            }
+
+            .art-card img {
+                height: 420px;
+            }
+
+            .lightbox-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .lightbox-price-display {
+                align-self: flex-end;
+            }
+        }
+        @keyframes cardShow {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .art-card.show {
+            animation: cardShow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
     </style>
 </head>
-
 <body>
 
-<header>
-    <nav>
-        <div class="logo">Asteriks</div>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Gallery</a>
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="#">Pricing</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="gallery-hero">
+        <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
+        <h1 class="gallery-title">Artwork Gallery</h1>
+        <p class="gallery-text">
+            A collection of character illustrations, reference sheets, emotional artwork, and cinematic furry commissions created by Asteriks.
+        </p>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="portrait">Portraits</button>
+            <button class="filter-btn" data-filter="fullbody">Fullbody</button>
+            <button class="filter-btn" data-filter="couple">Couple Art</button>
         </div>
-    </nav>
-</header>
+    </section>
 
-<section class="gallery-hero">
+    <section class="gallery">
+        <div class="gallery-grid">
 
-    <div class="filters">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="portrait">Portraits</button>
-        <button class="filter-btn" data-filter="fullbody">Fullbody</button>
-        <button class="filter-btn" data-filter="couple">Couple</button>
+            <div class="art-card" data-category="portrait" data-price="$60">
+                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Portrait">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Pastel Necomimi</h3>
+                        <p>Light Shading | Torso</p>
+                    </div>
+                    <div class="art-tag-price">$60</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="couple" data-price="$90">
+                <img src="asteriks.art/asteriks4.png" alt="City Nights Glossy Duo">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>City Nights Duo</h3>
+                        <p>Multi-character; Light Shading | Torso</p>
+                    </div>
+                    <div class="art-tag-price">$90</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody" data-price="$100">
+                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Pastel Goth OC</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$100</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody" data-price="$100+">
+                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Asteriks Identity</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$80</div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <img id="lightboxImg" src="" alt="Popup Preview">
+        </div>
     </div>
-</section>
 
-<section class="gallery">
-    <div class="gallery-grid">
+    <footer>
+        © 2026 Asteriks | All Rights Reserved
+    </footer>
 
-        <div class="art-card" data-category="portrait">
-            <img src="asteriks.art/asteriks3.png">
-            <div class="art-overlay">Pastel Necomimi</div>
-        </div>
-
-        <div class="art-card" data-category="couple">
-            <img src="asteriks.art/asteriks4.png">
-            <div class="art-overlay">City Duo</div>
-        </div>
-
-        <div class="art-card" data-category="fullbody">
-            <img src="asteriks.art/asteriks2.png">
-            <div class="art-overlay">Goth OC</div>
-        </div>
-
-        <div class="art-card" data-category="fullbody">
-            <img src="asteriks.art/asteriks1.png">
-            <div class="art-overlay">Identity</div>
-        </div>
-
-    </div>
-</section>
-
-<div class="lightbox" id="lightbox">
-    <div class="lightbox-content">
-        <button class="close-btn" id="closeBtn">✕</button>
-        <img id="lightboxImg">
-    </div>
-</div>
-
-<script>
-const filterButtons = document.querySelectorAll('.filter-btn');
-const cards = document.querySelectorAll('.art-card');
-
-function showCards(list) {
-    list.forEach((card, i) => {
-        card.hidden = false;
-        requestAnimationFrame(() => {
-            setTimeout(() => {
-                card.classList.add('show');
-            }, i * 80);
+  <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
         });
-    });
-}
 
-function hideCard(card) {
-    card.classList.remove('show');
-    setTimeout(() => {
-        card.hidden = true;
-    }, 400);
-}
+        // 1. Определение всех переменных в начале
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.art-card');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
 
-filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+        // 2. Логика фильтров
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
 
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+                const filter = button.dataset.filter;
 
-        const filter = btn.dataset.filter;
+                cards.forEach((card, index) => {
+                    card.classList.remove('show');
+                    card.style.display = 'none';
 
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.classList.add('show');
+                        }, index * 100); 
+                    }
+                });
+            });
+        });
+
+        // 3. Анимация при первой загрузке
+        window.addEventListener('load', () => {
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 100);
+            });
+        });
+
+        // 4. Лайтбокс
         cards.forEach(card => {
-            const match = filter === 'all' || card.dataset.category === filter;
+            card.addEventListener('click', () => {
+                const img = card.querySelector('img').src;
+                lightbox.classList.add('active');
+                lightboxImg.src = img;
+            });
+        });
 
-            if (match) {
-                card.hidden = false;
-                requestAnimationFrame(() => card.classList.add('show'));
-            } else {
-                hideCard(card);
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
             }
         });
-    });
-});
-
-window.addEventListener('load', () => {
-    showCards(Array.from(cards));
-});
-</script>
-
+    </script>
 </body>
 </html>
+
+```
