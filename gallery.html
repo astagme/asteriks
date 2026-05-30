@@ -355,19 +355,18 @@
             display: flex;
         }
 
-        .lightbox-content {
-
+      .lightbox-content {
     position: relative;
 
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     max-width: 95vw;
-
     max-height: 95vh;
 
+    background: transparent;
     overflow: visible;
-
-    box-shadow: none;
 
     animation: popup .35s ease;
 }
@@ -378,55 +377,20 @@
         }
 
       .lightbox img {
-
     display: block;
 
-    width: auto;
-
-    height: auto;
-
     max-width: 95vw;
+    max-height: 92vh;
 
-    max-height: 90vh;
+    width: auto;
+    height: auto;
 
     object-fit: contain;
 
     border-radius: 24px;
 
-    background: white;
-
     box-shadow: 0 25px 60px rgba(0,0,0,.35);
 }
-
-        .lightbox-info {
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: white;
-            border-top: 1px solid #f0f2f7;
-        }
-
-        .lightbox-meta h2 {
-            font-family: 'Fredoka', sans-serif;
-            margin-bottom: 6px;
-            color: var(--dark);
-        }
-
-        .lightbox-meta p {
-            font-size: 1rem;
-            color: #77849c;
-        }
-
-        .lightbox-price-display {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #7E98E7;
-            background: var(--c5);
-            padding: 10px 22px;
-            border-radius: 20px;
-            white-space: nowrap;
-        }
 
         .close-btn {
             position: absolute;
@@ -590,13 +554,6 @@
         <div class="lightbox-content">
             <button class="close-btn" id="closeBtn">✕</button>
             <img id="lightboxImg" src="" alt="Popup Preview">
-            <div class="lightbox-info">
-                <div class="lightbox-meta">
-                    <h2 id="lightboxTitle"></h2>
-                    <p id="lightboxDesc"></p>
-                </div>
-                <div class="lightbox-price-display" id="lightboxPrice"></div>
-            </div>
         </div>
     </div>
 
@@ -630,26 +587,30 @@
             });
         });
 
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const lightboxTitle = document.getElementById('lightboxTitle');
-        const lightboxDesc = document.getElementById('lightboxDesc');
-        const lightboxPrice = document.getElementById('lightboxPrice');
-        const closeBtn = document.getElementById('closeBtn');
+       const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const closeBtn = document.getElementById('closeBtn');
 
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const img = card.querySelector('img').src;
-                const title = card.querySelector('h3').textContent;
-                const desc = card.querySelector('p').textContent;
-                const price = card.dataset.price;
+cards.forEach(card => {
+    card.addEventListener('click', () => {
 
-                lightbox.classList.add('active');
-                lightboxImg.src = img;
-                lightboxTitle.textContent = title;
-                lightboxDesc.textContent = desc;
-                lightboxPrice.textContent = price;
-            });
+        const img = card.querySelector('img').src;
+
+        lightbox.classList.add('active');
+        lightboxImg.src = img;
+
+    });
+});
+
+closeBtn.addEventListener('click', () => {
+    lightbox.classList.remove('active');
+});
+
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+    }
+});
         });
 
         closeBtn.addEventListener('click', () => {
