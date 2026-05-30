@@ -43,15 +43,19 @@
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
-            background:
+            background: 
                 radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
                 linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
             min-height: 100vh;
             
-            /* Плавное открытие страницы */
-            animation: fadeIn 0.6s ease-in-out forwards;
+            /* Добавь эту строку */
+            cursor: url('asteriks.art/paw.png') 16 16, auto;
+            /* Курсор-лапка для всех кликабельных элементов */
+        a, button, .filter-btn, .art-card, .close-btn {
+            cursor: url('asteriks.art/paw.png') 16 16, pointer !important;
+        }
             
-            /* Защита от выделения текста */
+            animation: fadeIn 0.6s ease-in-out forwards;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
