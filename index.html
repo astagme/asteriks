@@ -1,1242 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Asteriks ✦ Furry Art Studio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
-<style>
-
-/* ======================================================
-   ROOT
-====================================================== */
-
-:root{
-
-    --c1:#ABC0F6;
-    --c2:#C7D6F7;
-    --c3:#D5D9F2;
-    --c4:#E4E2F8;
-    --c5:#E1EDF6;
-
-    --dark:#55627C;
-    --white:#ffffff;
-
-    --shadow:
-    0 20px 40px rgba(119,136,187,.15);
-}
-
-/* ======================================================
-   GLOBAL
-====================================================== */
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-
-    font-family:'Nunito',sans-serif;
-    color:var(--dark);
-
-    overflow-x:hidden;
-
-    background:
-    radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
-    linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
-
-    min-height:100vh;
-
-    animation:fadePage 1s ease;
-
-    user-select:none;
-    -webkit-user-select:none;
-}
-
-body::before{
-
-    content:"";
-
-    position:fixed;
-
-    inset:0;
-
-    background-image:
-    radial-gradient(rgba(255,255,255,.4) 1px, transparent 1px);
-
-    background-size:40px 40px;
-
-    opacity:.5;
-
-    z-index:-20;
-
-    pointer-events:none;
-}
-
-/* ======================================================
-   PAGE ANIMATION
-====================================================== */
-
-@keyframes fadePage{
-
-    from{
-        opacity:0;
-        transform:translateY(12px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* ======================================================
-   BLOBS
-====================================================== */
-
-.blob{
-
-    position:fixed;
-    border-radius:50%;
-    filter:blur(90px);
-    z-index:-10;
-    opacity:.55;
-
-    animation:float 10s ease-in-out infinite;
-}
-
-.blob1{
-    width:350px;
-    height:350px;
-    background:var(--c1);
-    top:-100px;
-    left:-100px;
-}
-
-.blob2{
-    width:450px;
-    height:450px;
-    background:var(--c4);
-    right:-150px;
-    bottom:-150px;
-    animation-delay:2s;
-}
-
-.blob3{
-    width:260px;
-    height:260px;
-    background:var(--c2);
-    top:45%;
-    left:55%;
-    animation-delay:5s;
-}
-
-@keyframes float{
-
-    0%,100%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-30px);
-    }
-}
-
-/* ======================================================
-   NAVIGATION
-====================================================== */
-
-header{
-
-    position:fixed;
-    top:20px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    width:min(1200px,92%);
-    z-index:999;
-}
-
-nav{
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:18px 26px;
-
-    border-radius:30px;
-
-    background:rgba(255,255,255,.45);
-
-    border:1px solid rgba(255,255,255,.7);
-
-    backdrop-filter:blur(18px);
-
-    box-shadow:var(--shadow);
-}
-
-.logo{
-
-    font-family:'Fredoka',sans-serif;
-    font-size:1.3rem;
-    font-weight:600;
-}
-
-.logo span{
-    color:#7E98E7;
-}
-
-.nav-links{
-
-    display:flex;
-    gap:28px;
-}
-
-.nav-links a{
-
-    text-decoration:none;
-    color:var(--dark);
-
-    font-weight:700;
-
-    transition:.3s;
-}
-
-.nav-links a:hover{
-
-    color:#7E98E7;
-}
-
-.commission-badge{
-
-    padding:12px 18px;
-
-    border-radius:999px;
-
-    background:white;
-
-    font-weight:800;
-
-    color:#7E98E7;
-
-    box-shadow:0 0 25px rgba(171,192,246,.5);
-
-    animation:pulse 2.5s infinite;
-}
-
-@keyframes pulse{
-
-    0%,100%{
-        transform:scale(1);
-    }
-
-    50%{
-        transform:scale(1.05);
-    }
-}
-
-/* ======================================================
-   HERO
-====================================================== */
-
-.hero{
-
-    min-height:100vh;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    padding:160px 7% 100px;
-}
-
-.hero-grid{
-
-    width:100%;
-    max-width:1300px;
-
-    display:grid;
-    grid-template-columns:1.1fr .9fr;
-
-    gap:80px;
-    align-items:center;
-}
-
-.hero-badge{
-
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-
-    background:rgba(255,255,255,.7);
-
-    padding:14px 20px;
-
-    border-radius:999px;
-
-    margin-bottom:30px;
-
-    font-weight:800;
-
-    box-shadow:var(--shadow);
-}
-
-.main-logo{
-
-    width:min(700px,100%);
-
-    margin-bottom:30px;
-
-    filter:
-    drop-shadow(0 18px 35px rgba(126,152,231,.18));
-
-    animation:logoFloat 6s ease-in-out infinite;
-
-    pointer-events:none;
-}
-
-@keyframes logoFloat{
-
-    0%,100%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-8px);
-    }
-}
-
-.hero p{
-
-    font-size:1.15rem;
-
-    line-height:1.9;
-
-    max-width:650px;
-
-    margin-bottom:40px;
-}
-
-.hero-buttons{
-
-    display:flex;
-    gap:18px;
-
-    flex-wrap:wrap;
-}
-
-.btn{
-
-    text-decoration:none;
-
-    padding:18px 34px;
-
-    border-radius:24px;
-
-    font-weight:800;
-
-    transition:.35s;
-}
-
-.btn-primary{
-
-    background:white;
-
-    color:var(--dark);
-
-    box-shadow:var(--shadow);
-}
-
-.btn-primary:hover{
-
-    transform:
-    translateY(-7px)
-    rotate(-1deg);
-}
-
-.btn-secondary{
-
-    background:rgba(255,255,255,.35);
-
-    color:var(--dark);
-
-    border:1px solid rgba(255,255,255,.7);
-
-    backdrop-filter:blur(10px);
-}
-
-.btn-secondary:hover{
-
-    transform:
-    translateY(-7px)
-    rotate(1deg);
-}
-
-/* ======================================================
-   HERO IMAGE
-====================================================== */
-
-.hero-visual{
-
-    position:relative;
-}
-
-.visual-card{
-
-    background:rgba(255,255,255,.45);
-
-    padding:24px;
-
-    border-radius:40px;
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.8);
-
-    box-shadow:var(--shadow);
-
-    transform:rotate(-2deg);
-
-    transition:.4s;
-}
-
-.visual-card:hover{
-
-    transform:
-    rotate(0deg)
-    translateY(-10px);
-}
-
-.visual-card img{
-
-    width:100%;
-    height:700px;
-
-    object-fit:cover;
-
-    border-radius:28px;
-
-    pointer-events:none;
-}
-
-.float-card{
-
-    position:absolute;
-
-    background:rgba(255,255,255,.8);
-
-    backdrop-filter:blur(12px);
-
-    padding:16px 18px;
-
-    border-radius:22px;
-
-    box-shadow:var(--shadow);
-
-    font-weight:800;
-
-    animation:bob 4s ease-in-out infinite;
-}
-
-.float1{
-    top:-20px;
-    right:-20px;
-}
-
-.float2{
-    bottom:30px;
-    left:-30px;
-    animation-delay:2s;
-}
-
-@keyframes bob{
-
-    0%,100%{
-        transform:translateY(0px);
-    }
-
-    50%{
-        transform:translateY(-10px);
-    }
-}
-
-/* ======================================================
-   GENERAL SECTIONS
-====================================================== */
-
-section{
-    padding:120px 7%;
-}
-
-.section-top{
-    margin-bottom:60px;
-}
-
-.section-label{
-
-    display:inline-block;
-
-    background:rgba(255,255,255,.7);
-
-    padding:12px 18px;
-
-    border-radius:999px;
-
-    margin-bottom:20px;
-
-    font-weight:800;
-}
-
-.section-title{
-
-    font-family:'Fredoka',sans-serif;
-
-    font-size:3rem;
-
-    margin-bottom:20px;
-}
-
-.section-text{
-
-    max-width:700px;
-
-    line-height:1.9;
-}
-
-/* ======================================================
-   FEATURED ARTWORK
-====================================================== */
-
-.feature-grid{
-
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-
-    gap:28px;
-}
-
-.feature-card{
-
-    position:relative;
-
-    overflow:hidden;
-
-    border-radius:34px;
-
-    background:white;
-
-    box-shadow:var(--shadow);
-
-    transition:.4s;
-
-    cursor:pointer;
-}
-
-.feature-card:hover{
-
-    box-shadow:
-    0 25px 60px rgba(126,152,231,.25);
-
-    transform:
-    translateY(-12px)
-    rotate(1deg);
-}
-
-.feature-card img{
-
-    width:100%;
-    height:650px;
-
-    object-fit:cover;
-
-    transition:.5s;
-
-    pointer-events:none;
-}
-
-.feature-card:hover img{
-
-    transform:scale(1.05);
-}
-
-.feature-overlay{
-
-    position:absolute;
-
-    left:18px;
-    right:18px;
-    bottom:18px;
-
-    background:rgba(255,255,255,.78);
-
-    backdrop-filter:blur(14px);
-
-    border-radius:22px;
-
-    padding:22px;
-}
-
-.feature-overlay h3{
-
-    margin-bottom:8px;
-
-    font-size:1.3rem;
-}
-
-/* ======================================================
-   PRICING
-====================================================== */
-
-.pricing-grid{
-
-    display:grid;
-
-    grid-template-columns:
-    repeat(4,1fr);
-
-    gap:24px;
-}
-
-.price-card{
-
-    background:
-    rgba(255,255,255,.55);
-
-    border:
-    1px solid rgba(255,255,255,.8);
-
-    backdrop-filter:blur(14px);
-
-    border-radius:32px;
-
-    padding:34px 28px;
-
-    box-shadow:var(--shadow);
-
-    transition:.35s;
-}
-
-.price-card:hover{
-
-    transform:
-    translateY(-10px)
-    rotate(1deg);
-
-    background:white;
-}
-
-.price-card h3{
-
-    font-family:'Fredoka',sans-serif;
-
-    margin-bottom:18px;
-
-    font-size:1.25rem;
-}
-
-.price{
-
-    font-size:1.5rem;
-
-    font-weight:800;
-
-    color:#7E98E7;
-
-    margin-bottom:14px;
-}
-
-.price-card p{
-
-    line-height:1.8;
-}
-
-/* ======================================================
-   CONTACT
-====================================================== */
-
-.contact{
-    text-align:center;
-}
-
-.contact-box{
-
-    background:rgba(255,255,255,.45);
-
-    padding:70px 40px;
-
-    border-radius:42px;
-
-    backdrop-filter:blur(14px);
-
-    border:1px solid rgba(255,255,255,.7);
-
-    box-shadow:var(--shadow);
-}
-
-.discord-user{
-
-    margin-top:20px;
-
-    font-weight:800;
-
-    font-size:1.05rem;
-
-    color:#7E98E7;
-}
-
-.socials{
-
-    display:flex;
-    justify-content:center;
-
-    gap:18px;
-
-    flex-wrap:wrap;
-
-    margin-top:35px;
-}
-
-.socials a{
-
-    width:64px;
-    height:64px;
-
-    border-radius:22px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:white;
-
-    color:var(--dark);
-
-    text-decoration:none;
-
-    font-size:1.2rem;
-
-    transition:.35s;
-
-    box-shadow:var(--shadow);
-}
-
-.socials a:hover{
-
-    transform:
-    translateY(-8px)
-    rotate(8deg);
-
-    background:var(--c2);
-}
-
-/* ======================================================
-   LIGHTBOX
-====================================================== */
-
-.lightbox{
-
-    position:fixed;
-
-    inset:0;
-
-    background:rgba(10,10,20,.92);
-
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    opacity:0;
-    pointer-events:none;
-
-    transition:.4s;
-
-    z-index:99999;
-
-    padding:40px;
-}
-
-.lightbox.active{
-
-    opacity:1;
-    pointer-events:auto;
-}
-
-.lightbox img{
-
-    max-width:90%;
-    max-height:90vh;
-
-    object-fit:contain;
-
-    border-radius:24px;
-
-    box-shadow:
-    0 20px 60px rgba(0,0,0,.45);
-}
-
-.close-lightbox{
-
-    position:absolute;
-
-    top:30px;
-    right:40px;
-
-    font-size:3rem;
-
-    color:white;
-
-    cursor:pointer;
-}
-
-/* ======================================================
-   FOOTER
-====================================================== */
-
-footer{
-
-    text-align:center;
-
-    padding:40px 20px;
-
-    font-size:.95rem;
-}
-
-/* ======================================================
-   RESPONSIVE
-====================================================== */
-
-@media(max-width:1200px){
-
-    .pricing-grid{
-        grid-template-columns:1fr 1fr;
-    }
-
-    .hero-grid{
-        grid-template-columns:1fr;
-    }
-}
-
-@media(max-width:850px){
-
-    .feature-grid{
-        grid-template-columns:1fr;
-    }
-
-    .pricing-grid{
-        grid-template-columns:1fr;
-    }
-
-    nav{
-
-        flex-direction:column;
-        gap:18px;
-    }
-
-    .nav-links{
-
-        flex-wrap:wrap;
-        justify-content:center;
-    }
-
-    .section-title{
-        font-size:2.2rem;
-    }
-
-    .feature-card img{
-        height:500px;
-    }
-}
-
-</style>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Asteriks ✦ Furry Art Studio</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+    <style>
+        /* ======================================================
+           ROOT
+        ====================================================== */
+        :root{
+            --c1:#ABC0F6;
+            --c2:#C7D6F7;
+            --c3:#D5D9F2;
+            --c4:#E4E2F8;
+            --c5:#E1EDF6;
+            --dark:#55627C;
+            --white:#ffffff;
+            --shadow: 0 20px 40px rgba(119,136,187,.15);
+        }
+
+        /* ======================================================
+           GLOBAL
+        ====================================================== */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Nunito',sans-serif;
+            color:var(--dark);
+            overflow-x:hidden;
+            background:
+                radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
+                linear-gradient(135deg,var(--c5),var(--c4),var(--c2));
+            min-height:100vh;
+            animation:fadePage 0.6s ease-in-out forwards;
+            
+            /* Защита от выделения текста */
+            user-select:none;
+            -webkit-user-select:none;
+            -moz-user-select:none;
+            -ms-user-select:none;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background-image: radial-gradient(rgba(255,255,255,.4) 1px, transparent 1px);
+            background-size:40px 40px;
+            opacity:.5;
+            z-index:-20;
+            pointer-events:none;
+        }
+
+        /* ======================================================
+           PAGE ANIMATION
+        ====================================================== */
+        @keyframes fadePage{
+            from{
+                opacity:0;
+                transform:translateY(12px);
+            }
+            to{
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        /* ======================================================
+           BLOBS
+        ====================================================== */
+        .blob{
+            position:fixed;
+            border-radius:50%;
+            filter:blur(90px);
+            z-index:-10;
+            opacity:.55;
+            animation:float 10s ease-in-out infinite;
+        }
+
+        .blob1{
+            width:350px;
+            height:350px;
+            background:var(--c1);
+            top:-100px;
+            left:-100px;
+        }
+
+        .blob2{
+            width:450px;
+            height:450px;
+            background:var(--c4);
+            right:-150px;
+            bottom:-150px;
+            animation-delay:2s;
+        }
+
+        .blob3{
+            width:260px;
+            height:260px;
+            background:var(--c2);
+            top:45%;
+            left:55%;
+            animation-delay:5s;
+        }
+
+        @keyframes float{
+            0%,100%{ transform:translateY(0px); }
+            50%{ transform:translateY(-30px); }
+        }
+
+        /* ======================================================
+           NAVIGATION
+        ====================================================== */
+        header{
+            position:fixed;
+            top:20px;
+            left:50%;
+            transform:translateX(-50%);
+            width:min(1200px,92%);
+            z-index:999;
+        }
+
+        nav{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:18px 26px;
+            border-radius:30px;
+            background:rgba(255,255,255,.45);
+            border:1px solid rgba(255,255,255,.7);
+            backdrop-filter:blur(18px);
+            box-shadow:var(--shadow);
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:6px;
+            font-family:'Fredoka',sans-serif;
+            font-size:1.3rem;
+            font-weight:600;
+        }
+
+        .logo img{
+            height:1.4rem;
+            width:auto;
+            object-fit:contain;
+        }
+
+        .nav-links{
+            display:flex;
+            gap:28px;
+        }
+
+        .nav-links a{
+            text-decoration:none;
+            color:var(--dark);
+            font-weight:700;
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#7E98E7;
+        }
+
+        .commission-badge{
+            padding:12px 18px;
+            border-radius:999px;
+            background:white;
+            font-weight:800;
+            color:#7E98E7;
+            box-shadow:0 0 25px rgba(171,192,246,.5);
+            animation:pulse 2.5s infinite;
+        }
+
+        @keyframes pulse{
+            0%,100%{ transform:scale(1); }
+            50%{ transform:scale(1.05); }
+        }
+
+        /* ======================================================
+           HERO
+        ====================================================== */
+        .hero{
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:160px 7% 100px;
+        }
+
+        .hero-grid{
+            width:100%;
+            max-width:1300px;
+            display:grid;
+            grid-template-columns:1.1fr .9fr;
+            gap:80px;
+            align-items:center;
+        }
+
+        .hero-badge{
+            display:inline-flex;
+            align-items:center;
+            gap:10px;
+            background:rgba(255,255,255,.7);
+            padding:14px 20px;
+            border-radius:999px;
+            margin-bottom:30px;
+            font-weight:800;
+            box-shadow:var(--shadow);
+        }
+
+        .main-logo{
+            width:min(700px,100%);
+            margin-bottom:30px;
+            filter: drop-shadow(0 18px 35px rgba(126,152,231,.18));
+            animation:logoFloat 6s ease-in-out infinite;
+            pointer-events:none;
+        }
+
+        @keyframes logoFloat{
+            0%,100%{ transform:translateY(0px); }
+            50%{ transform:translateY(-8px); }
+        }
+
+        .hero p{
+            font-size:1.15rem;
+            line-height:1.9;
+            max-width:650px;
+            margin-bottom:40px;
+        }
+
+        .hero-buttons{
+            display:flex;
+            gap:18px;
+            flex-wrap:wrap;
+        }
+
+        .btn{
+            text-decoration:none;
+            padding:18px 34px;
+            border-radius:24px;
+            font-weight:800;
+            transition:.35s;
+        }
+
+        .btn-primary{
+            background:white;
+            color:var(--dark);
+            box-shadow:var(--shadow);
+        }
+
+        .btn-primary:hover{
+            transform: translateY(-7px);
+        }
+
+        .btn-secondary{
+            background:rgba(255,255,255,.35);
+            color:var(--dark);
+            border:1px solid rgba(255,255,255,.7);
+            backdrop-filter:blur(10px);
+        }
+
+        .btn-secondary:hover{
+            transform: translateY(-7px);
+        }
+
+        /* ======================================================
+           HERO IMAGE (Убрана косая анимация)
+        ====================================================== */
+        .hero-visual{
+            position:relative;
+        }
+
+        .visual-card{
+            background:rgba(255,255,255,.45);
+            padding:24px;
+            border-radius:40px;
+            backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,.8);
+            box-shadow:var(--shadow);
+            transform: rotate(0deg); /* ИСПРАВЛЕНО: Убран начальный наклон */
+            transition:.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .visual-card:hover{
+            transform: translateY(-10px); /* ИСПРАВЛЕНО: Ровный подъём вверх */
+        }
+
+        .visual-card img{
+            width:100%;
+            height:700px;
+            object-fit:cover;
+            border-radius:28px;
+            pointer-events:none;
+        }
+
+        .float-card{
+            position:absolute;
+            background:rgba(255,255,255,.8);
+            backdrop-filter:blur(12px);
+            padding:16px 18px;
+            border-radius:22px;
+            box-shadow:var(--shadow);
+            font-weight:800;
+            animation:bob 4s ease-in-out infinite;
+        }
+
+        .float1{
+            top:-20px;
+            right:-20px;
+        }
+
+        .float2{
+            bottom:30px;
+            left:-30px;
+            animation-delay:2s;
+        }
+
+        @keyframes bob{
+            0%,100%{ transform:translateY(0px); }
+            50%{ transform:translateY(-10px); }
+        }
+
+        /* ======================================================
+           GENERAL SECTIONS
+        ====================================================== */
+        section{
+            padding:120px 7%;
+        }
+
+        .section-top{
+            margin-bottom:60px;
+        }
+
+        .section-label{
+            display:inline-block;
+            background:rgba(255,255,255,.7);
+            padding:12px 18px;
+            border-radius:999px;
+            margin-bottom:20px;
+            font-weight:800;
+        }
+
+        .section-title{
+            font-family:'Fredoka',sans-serif;
+            font-size:3rem;
+            margin-bottom:20px;
+        }
+
+        .section-text{
+            max-width:700px;
+            line-height:1.9;
+        }
+
+        /* ======================================================
+           FEATURED ARTWORK (Убраны наклоны на ховере)
+        ====================================================== */
+        .feature-grid{
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:28px;
+        }
+
+        .feature-card{
+            position:relative;
+            overflow:hidden;
+            border-radius:34px;
+            background:white;
+            box-shadow:var(--shadow);
+            transition:.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            cursor:pointer;
+        }
+
+        .feature-card:hover{
+            box-shadow: 0 25px 60px rgba(126,152,231,.25);
+            transform: translateY(-12px); /* ИСПРАВЛЕНО: Убран наклон rotate(1deg) */
+        }
+
+        .feature-card img{
+            width:100%;
+            height:650px;
+            object-fit:cover;
+            transition:.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            pointer-events:none;
+        }
+
+        .feature-card:hover img{
+            transform:scale(1.03);
+        }
+
+        .feature-overlay{
+            position:absolute;
+            left:18px;
+            right:18px;
+            bottom:18px;
+            background:rgba(255,255,255,.78);
+            backdrop-filter:blur(14px);
+            border-radius:22px;
+            padding:22px;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        .feature-overlay h3{
+            margin-bottom:8px;
+            font-size:1.3rem;
+            font-weight: 700;
+        }
+
+        /* ======================================================
+           PRICING
+        ====================================================== */
+        .pricing-grid{
+            display:grid;
+            grid-template-columns: repeat(4,1fr);
+            gap:24px;
+        }
+
+        .price-card{
+            background: rgba(255,255,255,.55);
+            border: 1px solid rgba(255,255,255,.8);
+            backdrop-filter:blur(14px);
+            border-radius:32px;
+            padding:34px 28px;
+            box-shadow:var(--shadow);
+            transition:.35s;
+        }
+
+        .price-card:hover{
+            transform: translateY(-10px); /* ИСПРАВЛЕНО: Убран наклон карточек цен */
+            background:white;
+        }
+
+        .price-card h3{
+            font-family:'Fredoka',sans-serif;
+            margin-bottom:18px;
+            font-size:1.25rem;
+        }
+
+        .price{
+            font-size:1.5rem;
+            font-weight:800;
+            color:#7E98E7;
+            margin-bottom:14px;
+        }
+
+        .price-card p{
+            line-height:1.8;
+        }
+
+        /* ======================================================
+           CONTACT
+        ====================================================== */
+        .contact{
+            text-align:center;
+        }
+
+        .contact-box{
+            background:rgba(255,255,255,.45);
+            padding:70px 40px;
+            border-radius:42px;
+            backdrop-filter:blur(14px);
+            border:1px solid rgba(255,255,255,.7);
+            box-shadow:var(--shadow);
+        }
+
+        .discord-user{
+            margin-top:20px;
+            font-weight:800;
+            font-size:1.05rem;
+            color:#7E98E7;
+        }
+
+        .socials{
+            display:flex;
+            justify-content:center;
+            gap:18px;
+            flex-wrap:wrap;
+            margin-top:35px;
+        }
+
+        .socials a{
+            width:64px;
+            height:64px;
+            border-radius:22px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:white;
+            color:var(--dark);
+            text-decoration:none;
+            font-size:1.2rem;
+            transition:.35s;
+            box-shadow:var(--shadow);
+        }
+
+        .socials a:hover{
+            transform: translateY(-8px) rotate(8deg);
+            background:var(--c2);
+        }
+
+        /* ======================================================
+           LIGHTBOX
+        ====================================================== */
+        .lightbox{
+            position:fixed;
+            inset:0;
+            background:rgba(10,10,20,.85);
+            backdrop-filter: blur(10px);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            opacity:0;
+            pointer-events:none;
+            transition:.4s;
+            z-index:99999;
+            padding:40px;
+        }
+
+        .lightbox.active{
+            opacity:1;
+            pointer-events:auto;
+        }
+
+        .lightbox img{
+            max-width:90%;
+            max-height:85vh;
+            object-fit:contain;
+            border-radius:24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,.45);
+        }
+
+        .close-lightbox{
+            position:absolute;
+            top:30px;
+            right:40px;
+            font-size:3rem;
+            color:white;
+            cursor:pointer;
+            transition: .3s;
+        }
+
+        .close-lightbox:hover {
+            transform: scale(1.1);
+        }
+
+        /* ======================================================
+           FOOTER
+        ====================================================== */
+        footer{
+            text-align:center;
+            padding:40px 20px;
+            font-size:.95rem;
+        }
+
+        /* ======================================================
+           RESPONSIVE
+        ====================================================== */
+        @media(max-width:1200px){
+            .pricing-grid{
+                grid-template-columns:1fr 1fr;
+            }
+            .hero-grid{
+                grid-template-columns:1fr;
+            }
+        }
+
+        @media(max-width:850px){
+            .feature-grid{
+                grid-template-columns:1fr;
+            }
+            .pricing-grid{
+                grid-template-columns:1fr;
+            }
+            nav{
+                flex-direction:column;
+                gap:18px;
+            }
+            .nav-links{
+                flex-wrap:wrap;
+                justify-content:center;
+            }
+            .section-title{
+                font-size:2.2rem;
+            }
+            .feature-card img{
+                height:500px;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="blob blob1"></div>
-<div class="blob blob2"></div>
-<div class="blob blob3"></div>
-
-<header>
-
-<nav>
-
-<div class="logo">
-Asteriks <span>*</span>
-</div>
-
-<div class="nav-links">
-
-<a href="#home">Home</a>
-<a href="gallery.html">Gallery</a>
-<a href="#pricing">Pricing</a>
-<a href="#contact">Contact</a>
-
-</div>
-
-<div class="commission-badge">
-OPEN COMMISSIONS
-</div>
-
-</nav>
-
-</header>
-
-<section class="hero" id="home">
-
-<div class="hero-grid">
-
-<div>
-
-<div class="hero-badge">
-Digital art & designs
-</div>
-
-<img
-src="asteriks.art/asterikslogo.png"
-alt="Asteriks Logo"
-class="main-logo"
-draggable="false"
->
-
-<p>
-Furry artworks,
-character design,
-reference sheets, stickers 
-and so on!  
-</p>
-
-<div class="hero-buttons">
-
-<a href="gallery.html" class="btn btn-primary">
-View Gallery
-</a>
-
-<a href="#pricing" class="btn btn-secondary">
-Commission Info
-</a>
-
-</div>
-
-</div>
-
-<div class="hero-visual">
-
-<div class="visual-card">
-
-<img
-src="asteriks.art/asteriks1.png"
-alt="Artwork"
-draggable="false"
-class="gallery-img"
->
-
-</div>
-
-<div class="float-card float1">
-Unique style
-</div>
-
-<div class="float-card float2">
-Custom design
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section>
-
-<div class="section-top">
-
-<div class="section-label">
-Featured Artwork
-</div>
-
-<h2 class="section-title">
-Main Showcase
-</h2>
-
-<p class="section-text">
-Recent artworks
-</p>
-
-</div>
-
-<div class="feature-grid">
-
-<div class="feature-card">
-
-<img
-src="asteriks.art/asteriks1.png"
-alt="Artwork"
-draggable="false"
-class="gallery-img"
->
-
-<div class="feature-overlay">
-
-<h3>Light Shading - Fullbody</h3>
-
-<p>
-Soft lighting, pastel colors for Asteriks identity
-</p>
-
-</div>
-
-</div>
-
-<div class="feature-card">
-
-<img
-src="asteriks.art/asteriks2.png"
-alt="Artwork"
-draggable="false"
-class="gallery-img"
->
-
-<div class="feature-overlay">
-
-<h3>Light Shading — Fullbody</h3>
-
-<p>
-Pastel-goth style furry with soft rendering
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="pricing">
-
-<div class="section-top">
-
-<div class="section-label">
-Commission Info
-</div>
-
-<h2 class="section-title">
-Commission Types
-</h2>
-
-<p class="section-text">
-Final pricing may vary depending on character complexity,
-background details,
-commercial usage,
-props,
-and accessories.
-</p>
-
-</div>
-
-<div class="pricing-grid">
-
-<div class="price-card">
-
-<h3> Line Art</h3>
-
-<div class="price">
-Head — $15
-</div>
-
-<p>
-Torso — $25<br>
-Fullbody — $40
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3> Flat Color</h3>
-
-<div class="price">
-Head — $25
-</div>
-
-<p>
-Torso — $45<br>
-Fullbody — $60
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Light Shading</h3>
-
-<div class="price">
-Head — $35
-</div>
-
-<p>
-Torso — $60<br>
-Fullbody — 80$-$100+
-</p>
-
-</div>
-
-<div class="price-card">
-
-<h3>✦ Fully Rendered</h3>
-
-<div class="price">
-Head — $40
-</div>
-
-<p>
-Torso — $80<br>
-Fullbody — $120+
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="contact" id="contact">
-
-<div class="contact-box">
-
-<div class="section-label">
-Contact
-</div>
-
-<h2 class="section-title">
-Contact Asteriks ! 
-</h2>
-
-<p class="section-text" style="margin:auto;">
-Available for personal commissions,
-commercial projects,
-branding art,
-and collaborations worldwide.
-</p>
-
-<p class="discord-user">
-asteriks.art@gmail.com
-</p>
-
-<div class="socials">
-
-<a href="https://www.instagram.com/asteriks.art/" target="_blank">
-<i class="fab fa-instagram"></i>
-</a>
-
-<a href="https://pinterest.com/astamge/asteriks/" target="_blank">
-<i class="fab fa-pinterest"></i>
-</a>
-
-<a href="https://www.tiktok.com/@asteriksart?_r=1&_t=ZN-96kCOzPp0qc" target="_blank">
-<i class="fab fa-tiktok"></i>
-</a>
-
-</div>
-
-</div>
-
-</section>
-
-<div class="lightbox" id="lightbox">
-
-<span class="close-lightbox">&times;</span>
-
-<img id="lightbox-img" alt="Enlarged View">
-
-</div>
-
-<footer>
-© 2026 Asteriks | All Rights Reserved
-</footer>
-
-<script>
-
-/* ======================================================
-   ANTI COPY
-====================================================== */
-
-document.addEventListener('contextmenu', e =>
-    e.preventDefault()
-);
-
-document.addEventListener('keydown', (e) => {
-
-    if (
-        e.ctrlKey &&
-        (
-            e.key === 'u' ||
-            e.key === 's' ||
-            e.key === 'c' ||
-            e.key === 'i'
-        )
-    ) {
-        e.preventDefault();
-    }
-
-    if (e.key === 'F12') {
-        e.preventDefault();
-    }
-});
-
-/* ======================================================
-   LIGHTBOX
-====================================================== */
-
-const lightbox =
-document.getElementById('lightbox');
-
-const lightboxImg =
-document.getElementById('lightbox-img');
-
-document.querySelectorAll('.gallery-img').forEach(img => {
-
-    img.addEventListener('click', () => {
-
-        lightbox.classList.add('active');
-
-        lightboxImg.src = img.src;
-    });
-
-});
-
-document.querySelector('.close-lightbox')
-.addEventListener('click', () => {
-
-    lightbox.classList.remove('active');
-});
-
-/* ИСПРАВЛЕНО: Закрытие работает корректно как при клике на фон, так и при клике на саму картинку */
-lightbox.addEventListener('click', (e) => {
-
-    if(e.target === lightbox || e.target === lightboxImg){
-
-        lightbox.classList.remove('active');
-    }
-});
-
-</script>
-
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
+
+    <header>
+        <nav>
+            <div class="logo">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
+            </div>
+            <div class="nav-links">
+                <a href="#home">Home</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="commission-badge">
+                OPEN COMMISSIONS
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-grid">
+            <div>
+                <div class="hero-badge">
+                    Digital art & designs
+                </div>
+                <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="main-logo">
+                <p>
+                    Furry artworks, character design, reference sheets, stickers and so on!  
+                </p>
+                <div class="hero-buttons">
+                    <a href="gallery.html" class="btn btn-primary">View Gallery</a>
+                    <a href="#pricing" class="btn btn-secondary">Commission Info</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <img src="asteriks.art/asteriks1.png" alt="Artwork" class="gallery-img">
+                </div>
+                <div class="float-card float1">Unique style</div>
+                <div class="float-card float2">Custom design</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="section-top">
+            <div class="section-label">Featured Artwork</div>
+            <h2 class="section-title">Main Showcase</h2>
+            <p class="section-text">Recent artworks</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo" class="gallery-img">
+                <div class="feature-overlay">
+                    <h3>City Nights Duo</h3>
+                    <p>Multi-character; Light Shading | Torso</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi" class="gallery-img">
+                <div class="feature-overlay">
+                    <h3>Pastel Necomimi</h3>
+                    <p>Light Shading | Torso</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing">
+        <div class="section-top">
+            <div class="section-label">Commission Info</div>
+            <h2 class="section-title">Commission Types</h2>
+            <p class="section-text">
+                Final pricing may vary depending on character complexity, background details, commercial usage, props, and accessories.
+            </p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card">
+                <h3>Line Art</h3>
+                <div class="price">Head — $15</div>
+                <p>Torso — $25<br>Fullbody — $40</p>
+            </div>
+
+            <div class="price-card">
+                <h3>Flat Color</h3>
+                <div class="price">Head — $25</div>
+                <p>Torso — $45<br>Fullbody — $60</p>
+            </div>
+
+            <div class="price-card">
+                <h3>✦ Light Shading</h3>
+                <div class="price">Head — $35</div>
+                <p>Torso — $60<br>Fullbody — $80-$100+</p>
+            </div>
+
+            <div class="price-card">
+                <h3>✦ Fully Rendered</h3>
+                <div class="price">Head — $40</div>
+                <p>Torso — $80<br>Fullbody — $120+</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="contact-box">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">Contact Asteriks ! </h2>
+            <p class="section-text" style="margin:auto;">
+                Available for personal commissions, commercial projects, branding art, and collaborations worldwide.
+            </p>
+            <p class="discord-user">asteriks.art@gmail.com</p>
+
+            <div class="socials">
+                <a href="https://www.instagram.com/asteriks.art/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://pinterest.com/astamge/asteriks/" target="_blank">
+                    <i class="fab fa-pinterest"></i>
+                </a>
+                <a href="https://www.tiktok.com/@asteriksart?_r=1&_t=ZN-96kCOzPp0qc" target="_blank">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-lightbox">&times;</span>
+        <img id="lightbox-img" alt="Enlarged View">
+    </div>
+
+    <footer>
+        © 2026 Asteriks | All Rights Reserved
+    </footer>
+
+    <script>
+        /* ======================================================
+           ANTI COPY & DRAG (Защита контента)
+        ====================================================== */
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('dragstart', e => {
+            if (e.target.tagName === 'IMG') e.preventDefault();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'c' || e.key === 'i')) {
+                e.preventDefault();
+            }
+            if (e.key === 'F12') {
+                e.preventDefault();
+            }
+        });
+
+        /* ======================================================
+           LIGHTBOX
+        ====================================================== */
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        document.querySelectorAll('.gallery-img').forEach(img => {
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                lightboxImg.src = img.src;
+            });
+        });
+
+        document.querySelector('.close-lightbox').addEventListener('click', () => {
+            lightbox.classList.remove('active');
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if(e.target === lightbox || e.target === lightboxImg){
+                lightbox.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
