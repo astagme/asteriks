@@ -100,7 +100,7 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: min(1200px,92%);
+            width: min(1200px, 92%);
             z-index: 999;
         }
 
@@ -110,8 +110,8 @@
             align-items: center;
             padding: 18px 26px;
             border-radius: 30px;
-            background: rgba(255,255,255,.45);
-            border: 1px solid rgba(255,255,255,.7);
+            background: rgba(255, 255, 255, .45);
+            border: 1px solid rgba(255, 255, 255, .7);
             backdrop-filter: blur(18px);
             box-shadow: var(--shadow);
         }
@@ -188,7 +188,7 @@
 
         .filter-btn {
             border: none;
-            background: rgba(255,255,255,.65);
+            background: rgba(255, 255, 255, .65);
             backdrop-filter: blur(12px);
             padding: 14px 22px;
             border-radius: 999px;
@@ -216,8 +216,10 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr); /* Сделал 2 колонки, так как у нас 4 картинки, смотрится аккуратнее */
             gap: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .art-card {
@@ -236,13 +238,13 @@
 
         .art-card img {
             width: 100%;
-            height: 500px;
+            height: 550px;
             object-fit: cover;
             transition: .5s;
         }
 
         .art-card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.04);
         }
 
         .art-overlay {
@@ -250,13 +252,14 @@
             left: 18px;
             right: 18px;
             bottom: 18px;
-            background: rgba(255,255,255,.85);
+            background: rgba(255, 255, 255, .85);
             backdrop-filter: blur(14px);
             border-radius: 22px;
-            padding: 18px;
+            padding: 18px 22px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.6);
         }
 
         .art-details {
@@ -265,23 +268,25 @@
 
         .art-overlay h3 {
             margin-bottom: 4px;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
+            font-weight: 700;
         }
 
         .art-overlay p {
-            font-size: .9rem;
+            font-size: .95rem;
             opacity: 0.8;
         }
 
         .art-tag-price {
             background: #7E98E7;
             color: white;
-            padding: 6px 14px;
+            padding: 6px 16px;
             border-radius: 999px;
             font-weight: 800;
-            font-size: 0.95rem;
-            margin-left: 10px;
+            font-size: 1rem;
+            margin-left: 15px;
             white-space: nowrap;
+            box-shadow: 0 4px 10px rgba(126, 152, 231, 0.3);
         }
 
         /* ======================================================
@@ -304,7 +309,7 @@
         }
 
         .lightbox-content {
-            max-width: 900px;
+            max-width: 850px;
             width: 100%;
             background: white;
             border-radius: 40px;
@@ -347,12 +352,13 @@
         }
 
         .lightbox-price-display {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: #7E98E7;
             background: var(--c5);
             padding: 10px 22px;
             border-radius: 20px;
+            white-space: nowrap;
         }
 
         .close-btn {
@@ -389,9 +395,10 @@
         /* ======================================================
            RESPONSIVE
         ====================================================== */
-        @media(max-width:1100px) {
+        @media(max-width:850px) {
             .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns: 1fr;
+                max-width: 500px;
             }
         }
 
@@ -404,10 +411,6 @@
             .nav-links {
                 flex-wrap: wrap;
                 justify-content: center;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
             }
 
             .gallery-title {
