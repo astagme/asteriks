@@ -259,6 +259,8 @@
 
     border-radius:34px;
 
+    border:1px solid rgba(255,255,255,.8);
+
     background:white;
 
     box-shadow:var(--shadow);
@@ -266,14 +268,46 @@
     transition:.35s;
 
     cursor:pointer;
+
+    position:relative;
 }
 
+        .art-card::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    border-radius:34px;
+
+    padding:2px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.9),
+        rgba(228,226,248,.8),
+        rgba(171,192,246,.8)
+    );
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+
+    pointer-events:none;
+
+    opacity:.8;
+}
+        
 .art-card:hover{
 
-    transform:translateY(-8px);
+    transform:translateY(-10px);
 
     box-shadow:
-    0 25px 50px rgba(126,152,231,.22);
+        0 0 25px rgba(171,192,246,.35),
+        0 0 60px rgba(228,226,248,.45),
+        0 25px 50px rgba(126,152,231,.18);
 }
 
 .art-card img{
@@ -611,17 +645,6 @@ lightbox.addEventListener('click', (e) => {
         lightbox.classList.remove('active');
     }
 });
-        });
-
-        closeBtn.addEventListener('click', () => {
-            lightbox.classList.remove('active');
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) {
-                lightbox.classList.remove('active');
-            }
-        });
     </script>
 </body>
 </html>
