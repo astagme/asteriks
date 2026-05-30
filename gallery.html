@@ -35,6 +35,14 @@
             box-sizing: border-box;
         }
 
+        img {
+    /* Это заставляет браузер использовать алгоритм для сохранения четкости пикселей */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: pixelated; 
+}
+
         html {
             scroll-behavior: smooth;
         }
