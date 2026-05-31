@@ -45,7 +45,6 @@
             overflow-x: hidden;
             background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
             min-height: 100vh;
-            cursor: url('/asteriks.art/paw.png') 16 16, auto;
             opacity: 0; 
             animation: pageFadeIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             display: flex;
@@ -53,14 +52,27 @@
             justify-content: space-between;
         }
 
-        /* ======================================================
-           ГЕНЕРАЦИЯ ПАТТЕРНА ЛАПОК (SVG BEHIND THE SCENES)
-        ====================================================== */
+        /* Кастомный курсор только для десктопов */
+        @media (hover: hover) {
+            body {
+                cursor: url('/asteriks.art/paw.png') 16 16, auto;
+            }
+            a, button, .btn, .price-card, .badge-btn, .commission-badge {
+                cursor: url('/asteriks.art/paw-pointer.png') 16 16, pointer !important;
+            }
+            a:active, button:active, .btn:active, .price-card:active, .badge-btn:active, .commission-badge:active {
+                cursor: url('/asteriks.art/paw-pointer.png') 12 12, pointer !important;
+            }
+            .info-subcard {
+                cursor: url('/asteriks.art/paw.png') 16 16, auto !important;
+            }
+        }
+
+        /* ГЕНЕРАЦИЯ ПАТТЕРНА ЛАПОК */
         body::before {
             content: "";
             position: fixed;
             inset: 0;
-            /* Генерируем бесшовную сетку из милых следов лапок средствами CSS/SVG */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%237E98E7' fill-opacity='0.07'%3E%3Cpath d='M25 28c1.38 0 2.5-1.57 2.5-3.5S26.38 21 25 21s-2.5 1.57-2.5 3.5 1.12 3.5 2.5 3.5zm7.5-2.5c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm-15 0c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm7.5 13.5c3.58 0 6.5-2.46 6.5-5.5 0-1.8-1.02-3.37-2.57-4.32-.93-.57-2.43-.68-3.93-.68s-3 .11-3.93.68C19.52 30.63 18.5 32.2 18.5 34c0 3.04 2.92 5.5 6.5 5.5zM65 68c1.38 0 2.5-1.57 2.5-3.5S66.38 61 65 61s-2.5 1.57-2.5 3.5 1.12 3.5 2.5 3.5zm7.5-2.5c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm-15 0c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm7.5 13.5c3.58 0 6.5-2.46 6.5-5.5 0-1.8-1.02-3.37-2.57-4.32-.93-.57-2.43-.68-3.93-.68s-3 .11-3.93.68C59.52 70.63 58.5 72.2 58.5 74c0 3.04 2.92 5.5 6.5 5.5z'/%3E%3C/g%3E%3C/svg%3E");
             background-size: 80px 80px; 
             z-index: -20;
@@ -84,20 +96,7 @@
             pointer-events: none;
         }
 
-        /* Курсоры */
-        a, button, .btn, .price-card, .badge-btn, .commission-badge {
-            cursor: url('/asteriks.art/paw-pointer.png') 16 16, pointer !important;
-        }
-        a:active, button:active, .btn:active, .price-card:active, .badge-btn:active, .commission-badge:active {
-            cursor: url('/asteriks.art/paw-pointer.png') 12 12, pointer !important;
-        }
-        .info-subcard {
-            cursor: url('/asteriks.art/paw.png') 16 16, auto !important;
-        }
-
-        /* ======================================================
-           BLOBS
-        ====================================================== */
+        /* BLOBS */
         .blob {
             position: fixed;
             border-radius: 50%;
@@ -114,9 +113,7 @@
             50% { transform: translateY(-25px) scale(1.03); }
         }
 
-        /* ======================================================
-           NAVIGATION
-        ====================================================== */
+        /* NAVIGATION */
         header {
             width: min(1200px, 92%);
             margin: 25px auto 0;
@@ -178,9 +175,7 @@
             box-shadow: 0 14px 28px rgba(140,164,232,.45);
         }
 
-        /* ======================================================
-           DASHBOARD CONTAINER
-        ====================================================== */
+        /* DASHBOARD CONTAINER */
         .dashboard-container {
             width: min(1200px, 92%);
             margin: 30px auto 40px;
@@ -189,9 +184,7 @@
             gap: 24px;
         }
 
-        /* ======================================================
-           ROW 1: HERO BANNER 
-        ====================================================== */
+        /* HERO BANNER */
         .hero-banner {
             background: var(--white); 
             border: 2px solid var(--border-color); 
@@ -214,6 +207,19 @@
         }
 
         .hero-info { display: flex; flex-direction: column; justify-content: center; }
+        
+        /* Скрытый заголовок для SEO */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
         .main-title-img {
             max-width: 340px;
             width: 100%;
@@ -282,9 +288,7 @@
         }
         .info-subcard p { font-size: 0.88rem; color: #7A879E; line-height: 1.4; }
 
-        /* ======================================================
-           ROW 2: PRICING GRID 
-        ====================================================== */
+        /* PRICING GRID */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -327,9 +331,7 @@
             font-weight: 600;
         }
 
-        /* ======================================================
-           ROW 3: BOTTOM GRID 
-        ====================================================== */
+        /* BOTTOM GRID */
         .bottom-grid {
             display: grid;
             grid-template-columns: 1.2fr 1fr;
@@ -391,9 +393,7 @@
             border-color: rgba(140, 164, 232, 0.6);
         }
 
-        /* ======================================================
-           FOOTER COPYRIGHT
-        ====================================================== */
+        /* FOOTER COPYRIGHT */
         footer {
             text-align: center;
             padding: 20px;
@@ -407,9 +407,7 @@
         }
         footer img { height: 1.1rem; width: auto; }
 
-        /* ======================================================
-           RESPONSIVE
-        ====================================================== */
+        /* RESPONSIVE */
         @media(max-width: 1024px) {
             .hero-banner { grid-template-columns: 1fr 1fr; padding: 40px; }
             .hero-avatar-wrapper { display: none; }
@@ -454,6 +452,7 @@
         <!-- РЯД 1: ГЛАВНЫЙ БАННЕР -->
         <section class="hero-banner">
             <div class="hero-info">
+                <h1 class="visually-hidden">Asteriks Furry Art Studio</h1>
                 <img src="/asteriks.art/asterikslogo.png" alt="Asteriks Studio Logo" class="main-title-img">
                 <p>
                     A collection of character illustrations, reference sheets and furry commissions created by Asteriks.
@@ -468,11 +467,11 @@
             <div class="hero-subcards">
                 <div class="info-subcard">
                     <h4><span>+</span> Unique style</h4>
-                    <p>Unique style, character illustration and designs.</p>
+                    <p>Character illustrations, custom concepts, and unique vibrant designs.</p>
                 </div>
                 <div class="info-subcard">
                     <h4><span>+</span> Custom design</h4>
-                    <p>Custom design and our tailored custom style.</p>
+                    <p>Tailored reference sheets and high-quality artwork made for you.</p>
                 </div>
             </div>
         </section>
@@ -515,14 +514,14 @@
             <div class="footer-card">
                 <h3>Social Media</h3>
                 <div class="socials-flex">
-                    <a href="https://www.instagram.com/asteriks.art/" target="_blank" class="badge-btn">
-                        <i class="fab fa-instagram"></i> Instagram
+                    <a href="https://www.instagram.com/asteriks.art/" target="_blank" class="badge-btn" aria-label="Instagram">
+                        <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
                     </a>
-                    <a href="https://pinterest.com/astamge/asteriks/" target="_blank" class="badge-btn">
-                        <i class="fab fa-pinterest"></i> Pinterest
+                    <a href="https://pinterest.com/about/asteriks/" target="_blank" class="badge-btn" aria-label="Pinterest">
+                        <i class="fab fa-pinterest" aria-hidden="true"></i> Pinterest
                     </a>
-                    <a href="https://www.tiktok.com/@asteriksart" target="_blank" class="badge-btn">
-                        <i class="fab fa-tiktok"></i> TikTok
+                    <a href="https://www.tiktok.com/@asteriksart" target="_blank" class="badge-btn" aria-label="TikTok">
+                        <i class="fab fa-tiktok" aria-hidden="true"></i> TikTok
                     </a>
                 </div>
             </div>
@@ -551,12 +550,13 @@
             }
         });
 
-        /* ПЛАВНЫЕ ПЕРЕХОДЫ */
-        document.querySelectorAll('.nav-links a, .logo, .commission-badge').forEach(link => {
+        /* ПЛАВНЫЕ ПЕРЕХОДЫ (Универсальный и чистый вариант) */
+        document.querySelectorAll('a[href]').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 
-                if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('http')) {
+                // Проверяем, что ссылка ведет на другую страницу проекта
+                if (href && href.endsWith('.html') && !href.startsWith('http')) {
                     e.preventDefault(); 
                     document.body.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
                     document.body.style.opacity = '0';
