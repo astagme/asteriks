@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asteriks | Art Studio</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="asteriksfav.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/asteriks.art/asteriksfav.png">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
@@ -45,8 +45,7 @@
             overflow-x: hidden;
             background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
             min-height: 100vh;
-            /* ИСПРАВЛЕНО: Относительный путь к курсору лапки */
-            cursor: url('paw.png') 16 16, auto;
+            cursor: url('/asteriks.art/paw.png') 16 16, auto;
             opacity: 0; 
             animation: pageFadeIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             display: flex;
@@ -85,15 +84,14 @@
         }
 
         /* Курсоры */
-        /* ИСПРАВЛЕНО: Относительный путь к активному курсору лапки */
         a, button, .btn, .price-card, .badge-btn, .commission-badge {
-            cursor: url('paw-pointer.png') 16 16, pointer !important;
+            cursor: url('/asteriks.art/paw-pointer.png') 16 16, pointer !important;
         }
         a:active, button:active, .btn:active, .price-card:active, .badge-btn:active, .commission-badge:active {
-            cursor: url('paw-pointer.png') 12 12, pointer !important;
+            cursor: url('/asteriks.art/paw-pointer.png') 12 12, pointer !important;
         }
         .info-subcard {
-            cursor: url('paw.png') 16 16, auto !important;
+            cursor: url('/asteriks.art/paw.png') 16 16, auto !important;
         }
 
         /* ======================================================
@@ -150,7 +148,7 @@
         .logo:hover { transform: scale(1.03); }
         .logo img { height: 2rem; width: auto; pointer-events: none; }
 
-        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links { display: flex; gap: 24px; }
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
@@ -431,14 +429,15 @@
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
 
+    <!-- НАВИГАЦИЯ -->
     <header>
         <nav>
             <a href="index.html" class="logo">
-                Asteriks <img src="asteriksfav.png" alt="" aria-hidden="true">
+                Asteriks <img src="/asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
             </a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="gallery/index.html">Gallery</a>
+                <a href="gallery.html">Gallery</a>
                 <a href="pricing.html">Pricing</a>
                 <a href="about.html">About</a>
             </div>
@@ -448,11 +447,13 @@
         </nav>
     </header>
 
+    <!-- ОСНОВНОЙ КОНТЕЙНЕР ДЕШБОРДА -->
     <main class="dashboard-container">
 
+        <!-- РЯД 1: ГЛАВНЫЙ БАННЕР -->
         <section class="hero-banner">
             <div class="hero-info">
-                <img src="asterikslogo.png" alt="Asteriks Studio Logo" class="main-title-img">
+                <img src="/asteriks.art/asterikslogo.png" alt="Asteriks Studio Logo" class="main-title-img">
                 <p>
                     A collection of character illustrations, reference sheets and furry commissions created by Asteriks.
                 </p>
@@ -460,7 +461,7 @@
 
             <div class="hero-avatar-wrapper">
                 <div class="avatar-circle-bg"></div>
-                <img src="asteriksfav.png" alt="Asteriks Mascot Illustration">
+                <img src="/asteriks.art/asteriksfav.png" alt="Asteriks Mascot Illustration">
             </div>
 
             <div class="hero-subcards">
@@ -475,6 +476,7 @@
             </div>
         </section>
 
+        <!-- РЯД 2: СЕТКА С ПРАЙС-ЛИСТОМ -->
         <section class="pricing-grid">
             <div class="price-card">
                 <h3>Line Art</h3>
@@ -501,6 +503,7 @@
             </div>
         </section>
 
+        <!-- РЯД 3: КОНТАКТЫ И СОЦСЕТИ -->
         <section class="bottom-grid" id="contact">
             <div class="footer-card">
                 <h3>Contact</h3>
@@ -526,8 +529,9 @@
 
     </main>
 
+    <!-- ПОДВАЛ С АВТОРСКИМИ ПРАВАМИ -->
     <footer>
-        © 2026 Asteriks <img src="asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
+        © 2026 Asteriks <img src="/asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
     </footer>
 
     <script>
