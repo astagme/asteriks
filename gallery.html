@@ -49,7 +49,6 @@
             /* Кастомный курсор лапки */
             cursor: url('/asteriks.art/paw.png') 16 16, auto;
             
-            /* Отключение выделения текста */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -302,6 +301,7 @@
             -webkit-mask-composite: xor;
             pointer-events: none;
             opacity: .7;
+            z-index: 2; /* Рамка поверх картинки, но под оверлеем */
         }
                 
         .art-card:hover {
@@ -324,15 +324,32 @@
             transform: scale(1.015);
         }
 
-        /* Информация внизу карточки */
+        /* Информация внизу карточки (Плавный выезд при наведении) */
         .art-overlay {
-            position: relative;
-            background: var(--white);
-            padding: 22px 24px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.94);
+            padding: 20px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(171, 192, 246, 0.1);
+            border-top: 1px solid rgba(171, 192, 246, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 5;
+
+            /* Состояние по умолчанию — скрыто снизу */
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
+        }
+
+        /* Показываем оверлей при ховере на карточку */
+        .art-card:hover .art-overlay {
+            transform: translateY(0);
+            opacity: 1;
         }
 
         .art-details h3 {
@@ -349,7 +366,6 @@
             font-weight: 600;
         }
 
-        /* Пастельный аккуратный ценник */
         .art-tag-price {
             display: inline-block;
             font-family: 'Nunito', sans-serif;
@@ -359,8 +375,6 @@
             font-weight: 800;
             padding: 7px 14px;
             border-radius: 14px;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
-            white-space: nowrap;
         }
 
         /* Эффект каскадного появления */
@@ -507,6 +521,7 @@
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
+            <button class="filter-btn" data-filter="headshot">Headshot</button>
             <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
@@ -537,7 +552,7 @@
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
-                        <p>Multi-character | Light Shading</p>
+                        <p>Multi-character; Light Shading</p>
                     </div>
                     <div class="art-tag-price">$90</div>
                 </div>
@@ -610,6 +625,7 @@
                     card.classList.remove('show');
                     
                     setTimeout(() => {
+                        // Проверяем, содержит ли строка data-category выбранный класс
                         const categories = card.dataset.category.split(' ');
                         if (filter === 'all' || categories.includes(filter)) {
                             card.style.display = 'block';
