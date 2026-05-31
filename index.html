@@ -23,10 +23,11 @@
             --white: #ffffff;
             --shadow: 0 15px 35px rgba(119,136,187,.12);
             --inner-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
+            --glow-color: rgba(154, 175, 239, 0.35); /* Фирменный цвет подсветки */
         }
 
         /* ======================================================
-           GLOBAL & BASE
+           GLOBAL & BASE WITH SMOOTH FADE IN
         ====================================================== */
         * {
             margin: 0;
@@ -42,21 +43,43 @@
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
+            
+            /* Новая дизайнерская сетка и бэкграунд */
             background: 
-                radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 35%),
+                radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 45%),
                 linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+                linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
+            
+            /* Дефолтная лапка (обычное состояние) */
             cursor: url('asteriks.art/paw.png') 16 16, auto;
             
             /* Настройка плавности страницы */
             opacity: 0; 
-            transition: opacity 0.5s ease-in-out; 
+            animation: pageFadeIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        }
+
+        /* Анимация плавного проявления и легкого подъема вверх */
+        @keyframes pageFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         body.visible {
@@ -74,14 +97,33 @@
             pointer-events: none;
         }
 
-        a, button, .btn, .price-card, .badge-btn, .commission-badge {
-            cursor: url('asteriks.art/paw.png') 16 16, pointer !important;
+        /* Мягкая неоновая сфера на фоне для объема */
+        .bg-glow {
+            position: fixed;
+            top: 20%;
+            right: -10%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(171, 192, 246, 0.4) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(90px);
+            z-index: -15;
+            pointer-events: none;
         }
 
-        /* Убираем кастомный курсор-лапку и кликабельность с инфо-карточек */
+        /* Наведение на кликабельные элементы: меняем на вторую лапку (указатель) */
+        a, button, .btn, .price-card, .badge-btn, .commission-badge {
+            cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+        }
+
+        /* Эффект физического клика: курсор визуально сжимается в момент нажатия */
+        a:active, button:active, .btn:active, .price-card:active, .badge-btn:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+        }
+
+        /* Убираем кастомный курсор-указатель с некликабельных инфо-карточек */
         .info-subcard {
-    cursor: url('asteriks.art/paw.png') 16 16, auto !important;
-}
+            cursor: url('asteriks.art/paw.png') 16 16, auto !important;
+        }
 
         /* ======================================================
            BLOBS
@@ -133,6 +175,11 @@
             font-weight: 600;
             text-decoration: none;
             color: var(--dark);
+            transition: transform 0.2s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.02);
         }
 
         .logo img {
@@ -175,6 +222,7 @@
         .commission-badge:hover {
             transform: translateY(-2px);
             background: #8CA4E8;
+            box-shadow: 0 12px 25px rgba(140,164,232,.4);
         }
 
         /* ======================================================
@@ -211,7 +259,6 @@
             justify-content: center;
         }
 
-        /* Сделали логотип еще больше (было max-width: 290px) */
         .main-title-img {
             max-width: 340px;
             width: 100%;
@@ -227,7 +274,6 @@
             font-weight: 600;
         }
 
-        /* Центральная подложка для фавикона */
         .hero-avatar-wrapper {
             display: flex;
             justify-content: center;
@@ -245,7 +291,6 @@
             box-shadow: inset 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        /* Идеально ровное покачивание строго по вертикали */
         .hero-avatar-wrapper img {
             width: 120px;
             height: auto;
@@ -260,7 +305,6 @@
             50% { transform: translateY(-12px); }
         }
 
-        /* Правая колонка подкарточек */
         .hero-subcards {
             display: flex;
             flex-direction: column;
@@ -269,16 +313,20 @@
         }
 
         .info-subcard {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.75);
             border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 24px;
             padding: 20px 24px;
-            box-shadow: 0 10px 25px rgba(119,136,187,0.08);
-            transition: transform 0.3s ease;
+            box-shadow: 0 10px 25px rgba(119,136,187,0.04);
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
+        /* Интерактивная мягкая подсветка инфо-плашек */
         .info-subcard:hover {
             transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(171, 192, 246, 0.6);
+            box-shadow: 0 12px 28px rgba(171, 192, 246, 0.25);
         }
 
         .info-subcard h4 {
@@ -313,13 +361,15 @@
             padding: 24px 22px;
             box-shadow: var(--shadow), var(--inner-shadow);
             backdrop-filter: blur(10px);
-            transition: .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: .35s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
+        /* Красивое свечение и выделение карточек прайса при наведении */
         .price-card:hover {
             transform: translateY(-6px);
             background: white;
-            box-shadow: 0 20px 40px rgba(154,175,239,0.15);
+            border-color: rgba(140, 164, 232, 0.5);
+            box-shadow: 0 20px 40px rgba(140, 164, 232, 0.18), var(--inner-shadow);
         }
 
         .price-card h3 {
@@ -360,6 +410,12 @@
             padding: 26px 35px;
             backdrop-filter: blur(10px);
             box-shadow: var(--shadow);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .footer-card:hover {
+            border-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 18px 40px rgba(119,136,187,0.15);
         }
 
         .footer-card h3 {
@@ -463,6 +519,9 @@
 </head>
 <body>
 
+    <!-- Размытый неоновый свет на фоне -->
+    <div class="bg-glow"></div>
+
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
 
@@ -478,7 +537,6 @@
                 <a href="pricing.html">Pricing</a>
                 <a href="about.html">About</a>
             </div>
-            <!-- Ссылка ведет на страницу цен -->
             <a href="pricing.html" class="commission-badge">
                 OPEN COMMISSIONS
             </a>
@@ -497,13 +555,11 @@
                 </p>
             </div>
 
-            <!-- Временное парение фавикона в центре -->
             <div class="hero-avatar-wrapper">
                 <div class="avatar-circle-bg"></div>
                 <img src="asteriks.art/asteriksfav.png" alt="Asteriks Favicon Icon">
             </div>
 
-            <!-- Инфо-карточки без ссылок и без кликов -->
             <div class="hero-subcards">
                 <div class="info-subcard">
                     <h4><span>+</span> Unique style</h4>
@@ -593,7 +649,7 @@
         });
 
         /* ======================================================
-           ПЛАВНЫЕ МЕЖСТРАНИЧНЫЕ ПЕРЕХОДЫ
+           ПЛАВНЫЕ МЕЖСТРАНИЧНЫЕ ПЕРЕХОДЫ (ВЫХОД)
         ====================================================== */
         window.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('visible');
@@ -605,10 +661,12 @@
                 
                 if (href && href !== '#' && !href.startsWith('#') && !href.startsWith('http')) {
                     e.preventDefault(); 
-                    document.body.classList.remove('visible'); 
+                    document.body.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
+                    document.body.style.opacity = '0';
+                    document.body.style.transform = 'translateY(-8px)'; /* Красивый уход вверх при закрытии */
                     setTimeout(() => {
                         window.location.href = href;
-                    }, 500); 
+                    }, 400); 
                 }
             });
         });
