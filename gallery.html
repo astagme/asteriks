@@ -208,6 +208,37 @@
             font-weight: 600;
         }
 
+        .gallery-pricing-note {
+            max-width: 600px;
+            margin: 14px auto 0;
+            font-size: 0.9rem;
+            color: #7E98E7; /* Фирменный мягкий сине-фиолетовый оттенок */
+            font-weight: 700;
+            background: rgba(234, 240, 255, 0.6); /* Очень нежная полупрозрачная подложка */
+            padding: 8px 18px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px dashed rgba(140, 164, 232, 0.3);
+        }
+
+        .gallery-pricing-note i {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .gallery-pricing-note a {
+            color: #55627C;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: color 0.2s ease;
+        }
+
+        .gallery-pricing-note a:hover {
+            color: #8CA4E8;
+        }
+
         /* ======================================================
            FILTERS (Наши сочные пастельные кнопки)
         ====================================================== */
@@ -518,10 +549,14 @@
         <p class="gallery-text">
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
         </p>
+        <!-- Вот наш новый аккуратный указатель прайса -->
+        <p class="gallery-pricing-note">
+            <i class="fa-solid fa-tags"></i> Cards below double as a visual price guide for commissions. 
+            Detailed options can be found on our <a href="pricing.html">Pricing page</a>.
+        </p>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
-            <button class="filter-btn" data-filter="headshot">Headshot</button>
             <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
@@ -548,11 +583,11 @@
             </div>
 
             <div class="art-card" data-category="torso multi furry" data-price="$90">
-                <img src="/asteriks.art/asteriks4.png" alt="City Nights Glossy Duo">
+                <img src="/asteriks.art/asteriks4.png" alt="City Nights Duo">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
-                        <p>Multi-character; Light Shading</p>
+                        <p>Multi-character | Light Shading</p>
                     </div>
                     <div class="art-tag-price">$90</div>
                 </div>
