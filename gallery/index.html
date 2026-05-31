@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -98,6 +97,10 @@ HTML
         .blob2 { width: 450px; height: 450px; background: var(--c4); right: -120px; bottom: -120px; animation-delay: 2s; }
         .blob3 { width: 280px; height: 280px; background: var(--c2); top: 45%; left: 40%; animation-delay: 5s; }
 
+        @media (prefers-reduced-motion: reduce) {
+            .blob, .gallery-logo { animation: none !important; }
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-25px) scale(1.02); }
@@ -124,6 +127,7 @@ HTML
             background: rgba(255, 255, 255, .78);
             border: 1px solid rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             box-shadow: var(--shadow);
         }
 
@@ -209,19 +213,19 @@ HTML
             font-weight: 600;
         }
 
-        /* Возвращаем милую нео-бруталити плашку с обрывистой рамкой */
+        /* Наша милая нео-бруталити плашка */
         .gallery-pricing-note {
             max-width: 620px;
             margin: 20px auto 0;
             padding: 12px 20px;
             background: rgba(255, 255, 255, 0.5);
-            border: 2px dashed #ABC0F6; /* Та самая обрывистая рамка */
+            border: 2px dashed #ABC0F6; 
             border-radius: 18px;
             font-size: 0.92rem;
             color: #6D7890;
             font-weight: 700;
             line-height: 1.6;
-            display: inline-block; /* Чтобы плашка облегала текст, а не растягивалась на весь экран */
+            display: inline-block; 
         }
 
         .gallery-pricing-note a {
@@ -251,6 +255,7 @@ HTML
             border: 2px solid rgba(171, 192, 246, 0.15);
             background: rgba(255, 255, 255, .75);
             backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 11px 22px;
             border-radius: 22px;
             font-family: 'Nunito', sans-serif;
@@ -277,7 +282,6 @@ HTML
             box-shadow: 0 8px 20px rgba(154,175,239,0.28);
         }
         
-        /* Разделитель для новых категорий стиля */
         .filter-separator {
             width: 2px;
             height: 35px;
@@ -412,6 +416,7 @@ HTML
             inset: 0;
             background: rgba(43, 51, 74, .65);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -503,7 +508,7 @@ HTML
         }
 
         @media(max-width: 768px) {
-            nav { flex-direction: column; gap: 14px; padding: 16px; }
+            nav { flex-direction: column; gap: 14px; padding: 16px; border-radius: 24px; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
             .gallery-hero { padding: 170px 5% 25px; }
             .gallery-title { font-size: 2rem; }
@@ -512,27 +517,26 @@ HTML
         }
     </style>
 </head>
-<body class="visible">
+<body>
 
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 
-   <header>
-    <nav>
-        <!-- Ссылка на корень сайта (Главная) -->
-        <a href="/" class="logo">
-            Asteriks <img src="/asteriks.art/asteriksfav.png" alt="✦">
-        </a>
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/gallery/">Gallery</a>
-            <a href="/pricing/">Pricing</a>
-            <a href="/about/">About</a>
-        </div>
-        <a href="/pricing/" class="commission-badge">OPEN COMMISSIONS</a>
-    </nav>
-</header>
+    <header>
+        <nav>
+            <a href="/asteriks.art/" class="logo">
+                Asteriks <img src="/asteriks.art/asteriksfav.png" alt="✦">
+            </a>
+            <div class="nav-links">
+                <a href="/asteriks.art/">Home</a>
+                <a href="/asteriks.art/gallery/" class="active">Gallery</a>
+                <a href="/asteriks.art/pricing/">Pricing</a>
+                <a href="/asteriks.art/about/">About</a>
+            </div>
+            <a href="/asteriks.art/pricing/" class="commission-badge">OPEN COMMISSIONS</a>
+        </nav>
+    </header>
 
     <section class="gallery-hero">
         <img src="/asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
@@ -541,14 +545,14 @@ HTML
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
         </p>
         
-        <!-- Обновленный текст внутри старой любимой плашки -->
         <div class="gallery-pricing-note">
-            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html">pricing page</a>.
+            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="/asteriks.art/pricing/">pricing page</a>.
         </div>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
-            <button class="filter-btn" data-filter="head">Head</button> <button class="filter-btn" data-filter="torso">Torso</button>
+            <button class="filter-btn" data-filter="head">Head</button> 
+            <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
             
@@ -628,7 +632,7 @@ HTML
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) e.preventDefault();
+            if ((e.ctrlKey || e.metaKey) && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) e.preventDefault();
             if (e.code === 'F12') e.preventDefault();
         });
 
@@ -638,32 +642,37 @@ HTML
         const lightboxImg = document.getElementById('lightboxImg');
         const closeBtn = document.getElementById('closeBtn');
 
-        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
+        /* ИСПРАВЛЕННЫЙ СМАРТ-ФИЛЬТР (Без багов прыгающей сетки) */
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
+                if(button.classList.contains('active')) return;
+
                 filterButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
 
                 const filter = button.dataset.filter;
                 let visibleIndex = 0;
 
-                cards.forEach((card) => {
-                    card.classList.remove('show');
-                    
-                    setTimeout(() => {
+                // Этап 1: Мягко гасим все карточки
+                cards.forEach(card => card.classList.remove('show'));
+
+                // Этап 2: Перестраиваем сетку после угасания
+                setTimeout(() => {
+                    cards.forEach(card => {
                         const categories = card.dataset.category.split(' ');
                         if (filter === 'all' || categories.includes(filter)) {
                             card.style.display = 'block';
                             
+                            // Каскадный запуск проявления
                             setTimeout(() => {
                                 card.classList.add('show');
-                            }, visibleIndex * 70); 
+                            }, visibleIndex * 60); 
                             visibleIndex++;
                         } else {
                             card.style.display = 'none';
                         }
-                    }, 300);
-                });
+                    });
+                }, 350); // Время совпадает с transition в CSS
             });
         });
 
@@ -679,25 +688,26 @@ HTML
             });
         });
 
-        /* РАБОТА ЛАЙТБОКСА (С исправлением багов клика по оверлею) */
+        /* РАБОТА ЛАЙТБОКСА */
         cards.forEach(card => {
             card.addEventListener('click', (e) => {
-                // Если кликнули по самому тексту ссылки или кнопкам внутри, лайтбокс игнорируем
-                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+                if (e.target.closest('a') || e.target.closest('button')) return;
                 
                 const imgElement = card.querySelector('img');
                 if (imgElement) {
-                    const img = imgElement.src;
+                    lightboxImg.src = imgElement.src;
                     lightbox.style.display = 'flex';
                     setTimeout(() => lightbox.classList.add('active'), 10);
-                    lightboxImg.src = img;
                 }
             });
         });
 
         const closeLightbox = () => {
             lightbox.classList.remove('active');
-            setTimeout(() => lightbox.style.display = 'none', 300);
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = ''; // Сбрасываем src, чтобы картинка не мерцала старым артом при новом открытии
+            }, 300);
         };
 
         closeBtn.addEventListener('click', closeLightbox);
