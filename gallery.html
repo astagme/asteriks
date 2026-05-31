@@ -209,17 +209,22 @@ HTML
             font-weight: 600;
         }
 
-        /* Обновленный сплошной текст без рамок */
-        .gallery-pricing-text {
-            max-width: 650px;
-            margin: 12px auto 0;
+        /* Возвращаем милую нео-бруталити плашку с обрывистой рамкой */
+        .gallery-pricing-note {
+            max-width: 620px;
+            margin: 20px auto 0;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border: 2px dashed #ABC0F6; /* Та самая обрывистая рамка */
+            border-radius: 18px;
             font-size: 0.92rem;
-            color: #7E98E7;
+            color: #6D7890;
             font-weight: 700;
             line-height: 1.6;
+            display: inline-block; /* Чтобы плашка облегала текст, а не растягивалась на весь экран */
         }
 
-        .gallery-pricing-text a {
+        .gallery-pricing-note a {
             color: #7E98E7;
             text-decoration: underline;
             text-underline-offset: 3px;
@@ -227,7 +232,7 @@ HTML
             transition: color 0.2s ease;
         }
 
-        .gallery-pricing-text a:hover {
+        .gallery-pricing-note a:hover {
             color: #8CA4E8;
         }
 
@@ -535,9 +540,10 @@ HTML
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
         </p>
         
-        <p class="gallery-pricing-text">
+        <!-- Обновленный текст внутри старой любимой плашки -->
+        <div class="gallery-pricing-note">
             Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html">pricing page</a>.
-        </p>
+        </div>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
