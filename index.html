@@ -1,185 +1,17 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Asteriks Studio - Full Frontend Code</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asteriks ✦ Furry Art Studio</title>
+
+    <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
     <style>
-        @page {
-            size: A4;
-            margin: 18mm 15mm;
-            background-color: #f4f7fc;
-            @bottom-right {
-                content: counter(page);
-                font-family: 'Segoe UI', Arial, sans-serif;
-                font-size: 9pt;
-                color: #8fa0c0;
-            }
-            @bottom-left {
-                content: "Asteriks Studio | Шаблон Главной Страницы";
-                font-family: 'Segoe UI', Arial, sans-serif;
-                font-size: 9pt;
-                color: #8fa0c0;
-            }
-        }
-        
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: #3a4454;
-            background-color: #f4f7fc;
-            line-height: 1.5;
-            font-size: 10pt;
-        }
-
-        .doc-header {
-            background: linear-gradient(135deg, #abc0f6, #e4e2f8);
-            margin: -18mm -15mm 25px -15mm;
-            padding: 25px 20px;
-            text-align: center;
-            border-bottom: 3px solid #cbd5e1;
-        }
-
-        .doc-header h1 {
-            margin: 0;
-            font-size: 20pt;
-            color: #2c3a57;
-            font-weight: bold;
-            letter-spacing: -0.5px;
-        }
-
-        .doc-header p {
-            margin: 5px 0 0 0;
-            font-size: 11pt;
-            color: #55627c;
-        }
-
-        .section-title {
-            font-size: 13pt;
-            color: #4a5d89;
-            border-left: 4px solid #7e98e7;
-            padding-left: 8px;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-weight: bold;
-            page-break-after: avoid;
-        }
-
-        .meta-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-
-        .meta-table td {
-            padding: 10px 12px;
-            border: 1px solid #e2e8f0;
-            font-size: 9.5pt;
-        }
-
-        .meta-table td.label {
-            background-color: #edf2f7;
-            font-weight: bold;
-            width: 25%;
-            color: #4a5568;
-        }
-
-        .info-box {
-            background-color: #eef2ff;
-            border-left: 4px solid #abc0f6;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border-radius: 0 8px 8px 0;
-            font-size: 9.5pt;
-            color: #43516f;
-        }
-
-        pre {
-            background-color: #1e293b;
-            color: #f8fafc;
-            padding: 15px;
-            border-radius: 8px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 8.5pt;
-            line-height: 1.4;
-            overflow: hidden;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .keyword { color: #f472b6; font-weight: bold; }
-        .string { color: #38bdf8; }
-        .comment { color: #64748b; font-style: italic; }
-        .selector { color: #fbbf24; font-weight: bold; }
-        .property { color: #a78bfa; }
-
-        .footer-note {
-            margin-top: 30px;
-            font-size: 9pt;
-            color: #718096;
-            text-align: center;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="doc-header">
-        <h1>Полный исходный код главной страницы</h1>
-        <p>Спецификация и готовая разметка для Asteriks Studio</p>
-    </div>
-
-    <table class="meta-table">
-        <tr>
-            <td class="label">Проект</td>
-            <td>Студия дизайна и разработки "Asteriks" (asteriks.art)</td>
-            <td class="label">Язык разметки</td>
-            <td>HTML5 / CSS3 (Custom Grid & Flex)</td>
-        </tr>
-        <tr>
-            <td class="label">Стиль интерфейса</td>
-            <td>Soft Minimalism / Cute Web3 Dashboard (Непрозрачные блоки)</td>
-            <td class="label">Шрифты</td>
-            <td>Fredoka, Nunito (Google Fonts)</td>
-        </tr>
-    </table>
-
-    <div class="info-box">
-        <strong>💡 Инструкция по сборке:</strong> Вы можете скопировать этот код целиком, сохранить его как файл <code>index.html</code> и сразу запускать в браузере. Все пути к изображениям и иконкам настроены относительно вашего рабочего домена <code>asteriks.art</code>. Текстура фона генерируется из иконки фавикона автоматически с минимальной прозрачностью.
-    </div>
-
-    <div class="section-title">Полный листинг кода (index.html)</div>
-    
-    <pre>&lt;!DOCTYPE html&gt;
-&lt;html lang="ru"&gt;
-&lt;head&gt;
-    &lt;meta charset="UTF-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
-    &lt;title&gt;Asteriks Creative Studio&lt;/title&gt;
-    
-    &lt;!-- Подключение сочных и округлых шрифтов --&gt;
-    &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-    &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-    &lt;link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"&gt;
-    
-    &lt;!-- Иконки FontAwesome для кнопок соцсетей --&gt;
-    &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"&gt;
-
-    &lt;style&gt;
         /* ======================================================
-           ROOT (Переменные цветовой палитры и теней)
+           ROOT
         ====================================================== */
         :root {
             --c1: #ABC0F6;
@@ -189,13 +21,13 @@
             --c5: #E1EDF6;
             --dark: #55627C;
             --white: #ffffff;
-            --shadow: 0 16px 36px rgba(119, 136, 187, 0.08);
-            --inner-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9);
-            --border-color: rgba(171, 192, 246, 0.4);
+            --shadow: 0 15px 35px rgba(119,136,187,.12);
+            --inner-shadow: inset 0 2px 4px rgba(255,255,255,0.6);
+            --glow-color: rgba(154, 175, 239, 0.35);
         }
 
         /* ======================================================
-           GLOBAL & BASE STYLES
+           GLOBAL & BASE WITH SMOOTH FADE IN
         ====================================================== */
         * {
             margin: 0;
@@ -211,14 +43,24 @@
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
-            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            
+            background: 
+                radial-gradient(circle at top left, rgba(255,255,255,.95), transparent 45%),
+                linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.25) 1px, transparent 1px),
+                linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            background-size: 40px 40px, 40px 40px, 100% 100%;
+            
             min-height: 100vh;
             user-select: none;
             -webkit-user-select: none;
             
-            /* Кастомный курсор-лапка */
+            /* Дефолтная лапка для всей страницы */
             cursor: url('asteriks.art/paw.png') 16 16, auto;
             
+            /* Настройка плавности страницы */
             opacity: 0; 
             animation: pageFadeIn 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             
@@ -227,60 +69,77 @@
             justify-content: space-between;
         }
 
-        /* Фирменный фоновый паттерн из лапок вместо линий */
+        @keyframes pageFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         body::before {
             content: "";
             position: fixed;
             inset: 0;
-            background-image: url('asteriks.art/asteriksfav.png'); 
-            background-size: 60px 60px;
-            opacity: 0.04;
+            background-image: radial-gradient(rgba(255,255,255,.45) 1.5px, transparent 1.5px);
+            background-size: 32px 32px;
+            opacity: .6;
             z-index: -20;
             pointer-events: none;
         }
 
-        @keyframes pageFadeIn {
-            0% { opacity: 0; transform: translateY(12px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Мягкое неоновое свечение на бэкграунде */
         .bg-glow {
             position: fixed;
-            top: 15%;
-            left: 25%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(171, 192, 246, 0.45) 0%, rgba(0,0,0,0) 70%);
-            filter: blur(100px);
+            top: 20%;
+            right: -10%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, rgba(171, 192, 246, 0.4) 0%, rgba(0,0,0,0) 70%);
+            filter: blur(90px);
             z-index: -15;
             pointer-events: none;
         }
 
-        /* Настройки активных элементов и курсоров */
+        /* Наведение на кликабельные элементы: лапка-указатель */
         a, button, .btn, .price-card, .badge-btn, .commission-badge {
             cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
         }
-        
-        /* Динамические цветные сферы (Blobs) */
-        .blob {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(90px);
-            z-index: -10;
-            opacity: .4;
-            animation: float 14s ease-in-out infinite;
-        }
-        .blob1 { width: 400px; height: 400px; background: var(--c1); top: -50px; left: -100px; }
-        .blob2 { width: 450px; height: 450px; background: var(--c4); right: -100px; bottom: -100px; animation-delay: 2s; }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-25px) scale(1.03); }
+        /* Эффект физического клика */
+        a:active, button:active, .btn:active, .price-card:active, .badge-btn:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+        }
+
+        /* Явное удержание обычной лапки на некликабельных инфо-карточках */
+        .info-subcard {
+            cursor: url('asteriks.art/paw.png') 16 16, auto !important;
         }
 
         /* ======================================================
-           NAVIGATION BAR
+           BLOBS
+        ====================================================== */
+        .blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -10;
+            opacity: .5;
+            animation: float 12s ease-in-out infinite;
+        }
+
+        .blob1 { width: 350px; height: 350px; background: var(--c1); top: -8px; left: -100px; }
+        .blob2 { width: 400px; height: 400px; background: var(--c4); right: -100px; bottom: -100px; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.05); }
+        }
+
+        /* ======================================================
+           NAVIGATION
         ====================================================== */
         header {
             width: min(1200px, 92%);
@@ -294,8 +153,8 @@
             align-items: center;
             padding: 14px 28px;
             border-radius: 32px;
-            background: rgba(255, 255, 255, .75);
-            border: 1px solid rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, .6);
+            border: 1px solid rgba(255, 255, 255, .7);
             backdrop-filter: blur(20px);
             box-shadow: var(--shadow);
         }
@@ -311,10 +170,22 @@
             color: var(--dark);
             transition: transform 0.2s ease;
         }
-        .logo:hover { transform: scale(1.03); }
-        .logo img { height: 2rem; width: auto; pointer-events: none; }
+        
+        .logo:hover {
+            transform: scale(1.02);
+        }
 
-        .nav-links { display: flex; gap: 24px; }
+        .logo img {
+            height: 2rem;
+            width: auto;
+            pointer-events: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
         .nav-links a {
             text-decoration: none;
             color: var(--dark);
@@ -322,7 +193,10 @@
             font-size: 0.95rem;
             transition: .25s;
         }
-        .nav-links a:hover { color: #8CA4E8; }
+
+        .nav-links a:hover {
+            color: #8CA4E8;
+        }
 
         .commission-badge {
             padding: 10px 20px;
@@ -332,18 +206,20 @@
             font-size: 0.85rem;
             letter-spacing: 0.5px;
             color: white;
-            box-shadow: 0 8px 20px rgba(154,175,239,.25);
+            box-shadow: 0 8px 20px rgba(154,175,239,.3);
             transition: .3s;
             text-decoration: none;
+            display: inline-block;
         }
+
         .commission-badge:hover {
             transform: translateY(-2px);
             background: #8CA4E8;
-            box-shadow: 0 12px 25px rgba(140,164,232,.35);
+            box-shadow: 0 12px 25px rgba(140,164,232,.4);
         }
 
         /* ======================================================
-           MAIN DASHBOARD WORKSPACE
+           DASHBOARD CONTAINER (MAIN GRID)
         ====================================================== */
         .dashboard-container {
             width: min(1200px, 92%);
@@ -353,26 +229,29 @@
             gap: 24px;
         }
 
-        /* HERO BANNER (Плотный, непрозрачный) */
+        /* ======================================================
+           ROW 1: HERO BANNER
+        ====================================================== */
         .hero-banner {
-            background: var(--white);
-            border: 2px solid var(--border-color);
+            background: rgba(255, 255, 255, .45);
+            border: 1px solid rgba(255, 255, 255, .75);
             border-radius: 40px;
             padding: 40px 60px;
-            box-shadow: var(--shadow), var(--inner-shadow);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(15px);
             display: grid;
             grid-template-columns: 1.2fr 1fr 1fr;
             align-items: center;
             gap: 30px;
             position: relative;
-            transition: border-color 0.4s ease, box-shadow 0.4s ease;
-        }
-        .hero-banner:hover {
-            border-color: rgba(140, 164, 232, 0.6);
-            box-shadow: 0 20px 45px rgba(140, 164, 232, 0.12), var(--inner-shadow);
         }
 
-        .hero-info { display: flex; flex-direction: column; justify-content: center; }
+        .hero-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .main-title-img {
             max-width: 340px;
             width: 100%;
@@ -380,6 +259,7 @@
             margin-bottom: 15px;
             filter: drop-shadow(0 8px 15px rgba(126,152,231,.1));
         }
+
         .hero-info p {
             font-size: 0.95rem;
             line-height: 1.6;
@@ -387,47 +267,60 @@
             font-weight: 600;
         }
 
-        /* Центральная интерактивная зона с аватаром */
-        .hero-avatar-wrapper { display: flex; justify-content: center; align-items: center; position: relative; }
+        .hero-avatar-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
         .avatar-circle-bg {
             position: absolute;
             width: 220px;
             height: 220px;
-            background: #EAF0FF;
+            background: #DCE4F9;
             border-radius: 50%;
             z-index: 1;
-            box-shadow: inset 0 4px 10px rgba(119,136,187,0.08);
+            box-shadow: inset 0 4px 10px rgba(0,0,0,0.03);
         }
+
         .hero-avatar-wrapper img {
             width: 120px;
             height: auto;
             position: relative;
             z-index: 2;
             pointer-events: none;
-            animation: avatarBob 4s ease-in-out infinite;
+            animation: faviconPureBob 4s ease-in-out infinite;
         }
-        @keyframes avatarBob {
+
+        @keyframes faviconPureBob {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-12px); }
         }
 
-        .hero-subcards { display: flex; flex-direction: column; gap: 16px; z-index: 3; }
-        
-        /* Внутренние инфо-карточки */
+        .hero-subcards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            z-index: 3;
+        }
+
         .info-subcard {
-            background: #FAFCFF;
-            border: 1px solid rgba(171, 192, 246, 0.3);
+            background: rgba(255, 255, 255, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 24px;
             padding: 20px 24px;
-            box-shadow: 0 4px 15px rgba(119,136,187,0.03);
+            box-shadow: 0 10px 25px rgba(119,136,187,0.04);
             transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
+
         .info-subcard:hover {
-            transform: translateY(-3px);
-            background: var(--white);
-            border-color: rgba(140, 164, 232, 0.7);
-            box-shadow: 0 12px 28px rgba(140, 164, 232, 0.2);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(171, 192, 246, 0.6);
+            box-shadow: 0 12px 28px rgba(171, 192, 246, 0.25);
         }
+
         .info-subcard h4 {
             font-family: 'Fredoka', sans-serif;
             font-size: 1.05rem;
@@ -436,247 +329,23 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            color: #6A84CD;
         }
-        .info-subcard p { font-size: 0.88rem; color: #7A879E; line-height: 1.4; }
+
+        .info-subcard p {
+            font-size: 0.88rem;
+            color: #7A879E;
+            line-height: 1.4;
+        }
 
         /* ======================================================
-           PRICING CARDS GRID
+           ROW 2: PRICING GRID
         ====================================================== */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
+
         .price-card {
-            background: var(--white);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 28px;
-            padding: 24px 22px;
-            box-shadow: var(--shadow), var(--inner-shadow);
-            transition: .35s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .price-card:hover {
-            transform: translateY(-8px);
-            border-color: #ABC0F6;
-            box-shadow: 0 22px 45px rgba(140, 164, 232, 0.25), var(--inner-shadow);
-        }
-        .price-card h3 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #7A879E;
-            margin-bottom: 12px;
-        }
-        .price {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #7E98E7;
-            margin-bottom: 12px;
-        }
-        .price-card p {
-            font-size: 0.88rem;
-            line-height: 1.7;
-            color: #55627C;
-            font-weight: 600;
-        }
-
-        /* ======================================================
-           BOTTOM GRID (CONTACTS & FOOTER BLOCKS)
-        ====================================================== */
-        .bottom-grid {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 20px;
-        }
-        .footer-card {
-            background: var(--white);
-            border: 2px solid var(--border-color);
-            border-radius: 32px;
-            padding: 26px 35px;
-            box-shadow: var(--shadow);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-        }
-        .footer-card:hover {
-            transform: translateY(-3px);
-            border-color: rgba(140, 164, 232, 0.6);
-            box-shadow: 0 20px 45px rgba(140, 164, 232, 0.15);
-        }
-        .footer-card h3 {
-            font-family: 'Fredoka', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 8px;
-        }
-        .footer-card p { font-size: 0.88rem; color: #7A879E; font-weight: 600; line-height: 1.5; }
-        .contact-email {
-            font-size: 1rem !important;
-            color: #7E98E7 !important;
-            font-weight: 700 !important;
-            margin-top: 4px;
-        }
-
-        .socials-flex { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
-        .badge-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #FAFCFF;
-            padding: 10px 18px;
-            border-radius: 16px;
-            border: 1px solid rgba(171, 192, 246, 0.2);
-            text-decoration: none;
-            color: var(--dark);
-            font-size: 0.88rem;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(119,136,187,0.04);
-            transition: .25s;
-        }
-        .badge-btn i { font-size: 1rem; color: #7E98E7; }
-        .badge-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(154,175,239,0.15);
-            background: var(--white);
-            border-color: rgba(140, 164, 232, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            font-size: .85rem;
-            color: #7A879E;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-
-        /* ======================================================
-           MEDIA QUERIES (Адаптивность)
-        ====================================================== */
-        @media(max-width: 1024px) {
-            .hero-banner { grid-template-columns: 1fr 1fr; padding: 40px; }
-            .hero-avatar-wrapper { display: none; }
-            .pricing-grid { grid-template-columns: 1fr 1fr; }
-        }
-        @media(max-width: 768px) {
-            header { margin: 15px auto 0; }
-            nav { flex-direction: column; gap: 14px; padding: 16px; }
-            .hero-banner { grid-template-columns: 1fr; padding: 30px; gap: 20px; }
-            .pricing-grid { grid-template-columns: 1fr; }
-            .bottom-grid { grid-template-columns: 1fr; }
-        }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-
-    &lt;div class="bg-glow"&gt;&lt;/div&gt;
-    &lt;div class="blob blob1"&gt;&lt;/div&gt;
-    &lt;div class="blob blob2"&gt;&lt;/div&gt;
-
-    &lt;!-- Навигационная панель --&gt;
-    &lt;header&gt;
-        &lt;nav&gt;
-            &lt;a href="#" class="logo"&gt;
-                &lt;img src="asteriks.art/asteriksfav.png" alt="Asteriks Logo"&gt;
-                &lt;span&gt;asteriks&lt;/span&gt;
-            &lt;/a&gt;
-            &lt;div class="nav-links"&gt;
-                &lt;a href="#about"&gt;Главная&lt;/a&gt;
-                &lt;a href="#prices"&gt;Услуги&lt;/a&gt;
-                &lt;a href="#contacts"&gt;Контакты&lt;/a&gt;
-            &lt;/div&gt;
-            &lt;a href="mailto:asteriks.art@gmail.com" class="commission-badge"&gt;Заказать проект&lt;/a&gt;
-        &lt;/nav&gt;
-    &lt;/header&gt;
-
-    &lt;!-- Главное рабочее пространство (Dashboard) --&gt;
-    &lt;main class="dashboard-container"&gt;
-        
-        &lt;!-- Секция 1: Приветственный баннер --&gt;
-        &lt;section class="hero-banner" id="about"&gt;
-            &lt;div class="hero-info"&gt;
-                &lt;img src="asteriks.art/logo-text.png" class="main-title-img" alt="Asteriks Art Studio"&gt;
-                &lt;p&gt;Мы создаём запоминающийся дизайн, иллюстрации и высокопроизводительные веб-интерфейсы с нуля. Никаких шаблонных конструкторов — только чистый код, кастомный UX/UI и милая эстетика.&lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="hero-avatar-wrapper"&gt;
-                &lt;div class="avatar-circle-bg"&gt;&lt;/div&gt;
-                &lt;img src="asteriks.art/asteriksfav.png" alt="Studio Mascot"&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="hero-subcards"&gt;
-                &lt;div class="info-subcard"&gt;
-                    &lt;h4&gt;&lt;i class="fa-solid fa-wand-magic-sparkles"&gt;&lt;/i&gt; Кастомный Арт&lt;/h4&gt;
-                    &lt;p&gt;Уникальные иллюстрации и графический дизайн от нашего ведущего художника.&lt;/p&gt;
-                &lt;/div&gt;
-                &lt;div class="info-subcard"&gt;
-                    &lt;h4&gt;&lt;i class="fa-solid fa-code"&gt;&lt;/i&gt; Чистый Frontend&lt;/h4&gt;
-                    &lt;p&gt;Быстрые, адаптивные и SEO-оптимизированные сайты, написанные вручную.&lt;/p&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/section&gt;
-
-        &lt;!-- Секция 2: Прайс-лист услуг --&gt;
-        &lt;section class="pricing-grid" id="prices"&gt;
-            &lt;div class="price-card"&gt;
-                &lt;h3&gt;Иллюстрации&lt;/h3&gt;
-                &lt;div class="price"&gt;от $50&lt;/div&gt;
-                &lt;p&gt;Разработка персонажей, фурри-арт, уникальные цифровые рисунки в фирменном стиле.&lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="price-card"&gt;
-                &lt;h3&gt;UI/UX Дизайн&lt;/h3&gt;
-                &lt;div class="price"&gt;от $120&lt;/div&gt;
-                &lt;p&gt;Проектирование интерфейсов, макеты приложений и интерактивные прототипы.&lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="price-card"&gt;
-                &lt;h3&gt;Веб-разработка&lt;/h3&gt;
-                &lt;div class="price"&gt;от $250&lt;/div&gt;
-                &lt;p&gt;Создание сайтов с нуля на чистом коде. Максимальная скорость загрузки и SEO.&lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="price-card"&gt;
-                &lt;h3&gt;Комплексный бренд&lt;/h3&gt;
-                &lt;div class="price"&gt;от $400&lt;/div&gt;
-                &lt;p&gt;Полный пакет услуг: от фирменного логотипа и графики до готового развернутого сайта.&lt;/p&gt;
-            &lt;/div&gt;
-        &lt;/section&gt;
-
-        &lt;!-- Секция 3: Контакты и Социальные сети --&gt;
-        &lt;section class="bottom-grid" id="contacts"&gt;
-            &lt;div class="footer-card"&gt;
-                &lt;h3&gt;Давайте создадим что-то крутое!&lt;/h3&gt;
-                &lt;p&gt;Готовы обсудить вашу идею? Напишите нам на рабочую почту студии, и мы ответим в течение нескольких часов:&lt;/p&gt;
-                &lt;p class="contact-email"&gt;asteriks.art@gmail.com&lt;/p&gt;
-            &lt;/div&gt;
-            
-            &lt;div class="footer-card"&gt;
-                &lt;h3&gt;Наши социальные сети&lt;/h3&gt;
-                &lt;p&gt;Следите за нашими обновлениями, свежими артами и релизами в удобных для вас платформах:&lt;/p&gt;
-                &lt;div class="socials-flex"&gt;
-                    &lt;a href="#" class="badge-btn"&gt;&lt;i class="fa-brands fa-telegram"&gt;&lt;/i&gt; Telegram&lt;/a&gt;
-                    &lt;a href="#" class="badge-btn"&gt;&lt;i class="fa-brands fa-vk"&gt;&lt;/i&gt; ВКонтакте&lt;/a&gt;
-                    &lt;a href="#" class="badge-btn"&gt;&lt;i class="fa-brands fa-artstation"&gt;&lt;/i&gt; ArtStation&lt;/a&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/section&gt;
-
-    &lt;/main&gt;
-
-    &lt;!-- Футер --&gt;
-    &lt;footer&gt;
-        &lt;span&gt;&copy; 2026 Asteriks Studio. Все права защищены.&lt;/span&gt;
-    &lt;/footer&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;</pre>
-
-    <div class="footer-note">
-        Документ сгенерирован автоматически для проекта Asteriks Creative Studio.
-    </div>
-
-</body>
-</html>
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255,
