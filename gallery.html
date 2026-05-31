@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -208,39 +209,30 @@
             font-weight: 600;
         }
 
-        .gallery-pricing-note {
-            max-width: 600px;
-            margin: 14px auto 0;
-            font-size: 0.9rem;
-            color: #7E98E7; /* Фирменный мягкий сине-фиолетовый оттенок */
+        /* Обновленный сплошной текст без рамок */
+        .gallery-pricing-text {
+            max-width: 650px;
+            margin: 12px auto 0;
+            font-size: 0.92rem;
+            color: #7E98E7;
             font-weight: 700;
-            background: rgba(234, 240, 255, 0.6); /* Очень нежная полупрозрачная подложка */
-            padding: 8px 18px;
-            border-radius: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px dashed rgba(140, 164, 232, 0.3);
+            line-height: 1.6;
         }
 
-        .gallery-pricing-note i {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
-
-        .gallery-pricing-note a {
-            color: #55627C;
+        .gallery-pricing-text a {
+            color: #7E98E7;
             text-decoration: underline;
             text-underline-offset: 3px;
+            font-weight: 800;
             transition: color 0.2s ease;
         }
 
-        .gallery-pricing-note a:hover {
+        .gallery-pricing-text a:hover {
             color: #8CA4E8;
         }
 
         /* ======================================================
-           FILTERS (Наши сочные пастельные кнопки)
+           FILTERS
         ====================================================== */
         .filters {
             display: flex;
@@ -290,7 +282,7 @@
         }
 
         /* ======================================================
-           GALLERY MASONRY GRID (Сохранение качества 1-в-1)
+           GALLERY MASONRY GRID 
         ====================================================== */
         .gallery-container {
             width: min(1200px, 92%);
@@ -302,7 +294,6 @@
             column-gap: 30px;
         }
 
-        /* Объемные карточки с градиентным бордером */
         .art-card {
             break-inside: avoid;
             margin-bottom: 30px;
@@ -320,7 +311,6 @@
             will-change: transform, box-shadow, opacity;
         }
 
-        /* Светящаяся рамка на ховере */
         .art-card::before {
             content: "";
             position: absolute;
@@ -332,7 +322,7 @@
             -webkit-mask-composite: xor;
             pointer-events: none;
             opacity: .7;
-            z-index: 2; /* Рамка поверх картинки, но под оверлеем */
+            z-index: 2;
         }
                 
         .art-card:hover {
@@ -355,7 +345,6 @@
             transform: scale(1.015);
         }
 
-        /* Информация внизу карточки (Плавный выезд при наведении) */
         .art-overlay {
             position: absolute;
             bottom: 0;
@@ -370,14 +359,11 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             z-index: 5;
-
-            /* Состояние по умолчанию — скрыто снизу */
             transform: translateY(100%);
             opacity: 0;
             transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
         }
 
-        /* Показываем оверлей при ховере на карточку */
         .art-card:hover .art-overlay {
             transform: translateY(0);
             opacity: 1;
@@ -408,14 +394,13 @@
             border-radius: 14px;
         }
 
-        /* Эффект каскадного появления */
         .art-card.show {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
         /* ======================================================
-           LIGHTBOX POPUP (Просмотр во весь экран)
+           LIGHTBOX POPUP
         ====================================================== */
         .lightbox {
             position: fixed;
@@ -488,7 +473,7 @@
         }
 
         /* ======================================================
-           FOOTER COPYRIGHT
+           FOOTER 
         ====================================================== */
         footer {
             text-align: center;
@@ -549,23 +534,21 @@
         <p class="gallery-text">
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
         </p>
-        <!-- Вот наш новый аккуратный указатель прайса -->
-        <p class="gallery-pricing-note">
-            <i class="fa-solid fa-tags"></i> Cards below double as a visual price guide for commissions. 
-            Detailed options can be found on our <a href="pricing.html">Pricing page</a>.
+        
+        <p class="gallery-pricing-text">
+            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html">pricing page</a>.
         </p>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
-            <button class="filter-btn" data-filter="headshot">Head</button>
-            <button class="filter-btn" data-filter="torso">Torso</button>
+            <button class="filter-btn" data-filter="head">Head</button> <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
             
             <div class="filter-separator"></div>
             
-            <button class="filter-btn" data-filter="furry"> Furry</button>
-            <button class="filter-btn" data-filter="anime"> Anime</button>
+            <button class="filter-btn" data-filter="furry">Furry</button>
+            <button class="filter-btn" data-filter="anime">Anime</button>
         </div>
     </section>
 
@@ -648,7 +631,7 @@
         const lightboxImg = document.getElementById('lightboxImg');
         const closeBtn = document.getElementById('closeBtn');
 
-        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР (Ищет совпадение по подстрокам через пробел) */
+        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -661,7 +644,6 @@
                     card.classList.remove('show');
                     
                     setTimeout(() => {
-                        // Проверяем, содержит ли строка data-category выбранный класс
                         const categories = card.dataset.category.split(' ');
                         if (filter === 'all' || categories.includes(filter)) {
                             card.style.display = 'block';
@@ -678,7 +660,7 @@
             });
         });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА ИЗ СТАРОЙ ВЕРСИИ */
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
         window.addEventListener('DOMContentLoaded', () => {
             document.body.classList.add('visible');
             
@@ -690,13 +672,19 @@
             });
         });
 
-        /* РАБОТА ЛАЙТБОКСА */
+        /* РАБОТА ЛАЙТБОКСА (С исправлением багов клика по оверлею) */
         cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const img = card.querySelector('img').src;
-                lightbox.style.display = 'flex';
-                setTimeout(() => lightbox.classList.add('active'), 10);
-                lightboxImg.src = img;
+            card.addEventListener('click', (e) => {
+                // Если кликнули по самому тексту ссылки или кнопкам внутри, лайтбокс игнорируем
+                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+                
+                const imgElement = card.querySelector('img');
+                if (imgElement) {
+                    const img = imgElement.src;
+                    lightbox.style.display = 'flex';
+                    setTimeout(() => lightbox.classList.add('active'), 10);
+                    lightboxImg.src = img;
+                }
             });
         });
 
