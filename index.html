@@ -371,20 +371,31 @@
         .socials-flex { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
         
         .badge-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #FAFCFF;
-            padding: 10px 18px;
-            border-radius: 16px;
-            border: 2px solid rgba(171, 192, 246, 0.15); 
-            text-decoration: none;
-            color: var(--dark);
-            font-size: 0.88rem;
-            font-weight: 700;
-            box-shadow: 0 4px 10px rgba(119,136,187,0.04);
-            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
-        }
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FAFCFF;
+    padding: 10px 18px;
+    border-radius: 16px;
+    border: 2px solid rgba(171, 192, 246, 0.15); 
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 0.88rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(119,136,187,0.04);
+    
+    /* Плавность перехода для всех свойств */
+    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), 
+                box-shadow 0.25s, 
+                border-color 0.25s, 
+                background-color 0.25s;
+
+    /* Решение проблемы с прыжками (добавь эти строки) */
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden; /* для поддержки Safari */
+}
+        
         .badge-btn i { font-size: 1rem; color: #7E98E7; }
         .badge-btn:hover {
             transform: translateY(-4px);
