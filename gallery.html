@@ -49,6 +49,7 @@
             /* Кастомный курсор лапки */
             cursor: url('/asteriks.art/paw.png') 16 16, auto;
             
+            /* Отключение выделения текста */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -301,7 +302,6 @@
             -webkit-mask-composite: xor;
             pointer-events: none;
             opacity: .7;
-            z-index: 2; /* Рамка поверх картинки, но под оверлеем */
         }
                 
         .art-card:hover {
@@ -324,32 +324,15 @@
             transform: scale(1.015);
         }
 
-        /* Информация внизу карточки (Плавный выезд при наведении) */
+        /* Информация внизу карточки */
         .art-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.94);
-            padding: 20px 24px;
+            position: relative;
+            background: var(--white);
+            padding: 22px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid rgba(171, 192, 246, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 5;
-
-            /* Состояние по умолчанию — скрыто снизу */
-            transform: translateY(100%);
-            opacity: 0;
-            transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
-        }
-
-        /* Показываем оверлей при ховере на карточку */
-        .art-card:hover .art-overlay {
-            transform: translateY(0);
-            opacity: 1;
+            border-top: 1px solid rgba(171, 192, 246, 0.1);
         }
 
         .art-details h3 {
@@ -366,6 +349,7 @@
             font-weight: 600;
         }
 
+        /* Пастельный аккуратный ценник */
         .art-tag-price {
             display: inline-block;
             font-family: 'Nunito', sans-serif;
@@ -375,6 +359,8 @@
             font-weight: 800;
             padding: 7px 14px;
             border-radius: 14px;
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
         }
 
         /* Эффект каскадного появления */
@@ -521,15 +507,14 @@
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
-            <button class="filter-btn" data-filter="headshot">Headshot</button>
             <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
             
             <div class="filter-separator"></div>
             
-            <button class="filter-btn" data-filter="furry">🐾 Furry</button>
-            <button class="filter-btn" data-filter="anime">✨ Anime</button>
+            <button class="filter-btn" data-filter="furry"> Furry</button>
+            <button class="filter-btn" data-filter="anime"> Anime</button>
         </div>
     </section>
 
@@ -547,4 +532,145 @@
                 </div>
             </div>
 
-            <div class="art
+            <div class="art-card" data-category="torso multi furry" data-price="$90">
+                <img src="/asteriks.art/asteriks4.png" alt="City Nights Glossy Duo">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>City Nights Duo</h3>
+                        <p>Multi-character | Light Shading</p>
+                    </div>
+                    <div class="art-tag-price">$90</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody furry" data-price="$80">
+                <img src="/asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Pastel Goth OC</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$80</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody furry" data-price="$80">
+                <img src="/asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Asteriks Identity</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$80</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <img id="lightboxImg" src="" alt="Popup Preview">
+        </div>
+    </div>
+
+    <footer>
+        © 2026 Asteriks <img src="/asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
+    </footer>
+
+    <script>
+        /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ И ДЕВТУЛЗОВ */
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) e.preventDefault();
+            if (e.code === 'F12') e.preventDefault();
+        });
+
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.art-card');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+
+        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР (Ищет совпадение по подстрокам через пробел) */
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const filter = button.dataset.filter;
+                let visibleIndex = 0;
+
+                cards.forEach((card) => {
+                    card.classList.remove('show');
+                    
+                    setTimeout(() => {
+                        const categories = card.dataset.category.split(' ');
+                        if (filter === 'all' || categories.includes(filter)) {
+                            card.style.display = 'block';
+                            
+                            setTimeout(() => {
+                                card.classList.add('show');
+                            }, visibleIndex * 70); 
+                            visibleIndex++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }, 300);
+                });
+            });
+        });
+
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА ИЗ СТАРОЙ ВЕРСИИ */
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.classList.add('visible');
+            
+            cards.forEach((card, index) => {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 90);
+            });
+        });
+
+        /* РАБОТА ЛАЙТБОКСА */
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                const img = card.querySelector('img').src;
+                lightbox.style.display = 'flex';
+                setTimeout(() => lightbox.classList.add('active'), 10);
+                lightboxImg.src = img;
+            });
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            setTimeout(() => lightbox.style.display = 'none', 300);
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        /* ПЛАВНЫЙ МЕЖСТРАНИЧНЫЙ ВЫХОД */
+        document.querySelectorAll('.nav-links a, .logo, .commission-badge').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href && href !== '#' && !href.startsWith('http') && !this.classList.contains('active')) {
+                    e.preventDefault(); 
+                    document.body.classList.remove('visible'); 
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 450); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
