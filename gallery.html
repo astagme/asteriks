@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Asteriks Art Studio</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="/asteriks.art/asteriksfav.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
@@ -46,8 +46,8 @@
             flex-direction: column;
             justify-content: space-between;
             
-            /* Кастомный курсор лапки */
-            cursor: url('/asteriks.art/paw.png') 16 16, auto;
+            /* ИСПРАВЛЕНО: Убран начальный слеш у кастомного курсора */
+            cursor: url('asteriks.art/paw.png') 16 16, auto;
             
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -75,11 +75,12 @@
         }
 
         /* Изменение курсоров на элементах */
+        /* ИСПРАВЛЕНО: Убран начальный слеш у курсоров-указателей */
         a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
-            cursor: url('/asteriks.art/paw-pointer.png') 16 16, pointer !important;
+            cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
         }
         a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
-            cursor: url('/asteriks.art/paw-pointer.png') 12 12, pointer !important;
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
         }
 
         /* ======================================================
@@ -520,7 +521,7 @@
     <header>
         <nav>
             <a href="index.html" class="logo">
-                Asteriks <img src="/asteriks.art/asteriksfav.png" alt="✦">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
             </a>
             <div class="nav-links">
                 <a href="index.html">Home</a>
@@ -533,20 +534,20 @@
     </header>
 
     <section class="gallery-hero">
-        <img src="/asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
+        <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
         <h1 class="gallery-title">Artwork Gallery</h1>
         <p class="gallery-text">
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
         </p>
         
-        <!-- Обновленный текст внутри старой любимой плашки -->
         <div class="gallery-pricing-note">
-            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html">pricing page</a>.
+            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html" style="white-space: nowrap;">pricing page</a>.
         </div>
 
         <div class="filters">
             <button class="filter-btn active" data-filter="all">All Art</button>
-            <button class="filter-btn" data-filter="headshot">Headshot</button> <button class="filter-btn" data-filter="torso">Torso</button>
+            <button class="filter-btn" data-filter="headshot">Headshot</button> 
+            <button class="filter-btn" data-filter="torso">Torso</button>
             <button class="filter-btn" data-filter="fullbody">Fullbody</button>
             <button class="filter-btn" data-filter="multi">Multi-character</button>
             
@@ -561,7 +562,7 @@
         <section class="gallery-grid">
 
             <div class="art-card" data-category="torso anime" data-price="$60">
-                <img src="/asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
+                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Necomimi</h3>
@@ -572,7 +573,7 @@
             </div>
 
             <div class="art-card" data-category="torso multi furry" data-price="$90">
-                <img src="/asteriks.art/asteriks4.png" alt="City Nights Duo">
+                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
@@ -583,7 +584,7 @@
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="/asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Goth OC</h3>
@@ -594,7 +595,7 @@
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="/asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Asteriks Identity</h3>
@@ -615,7 +616,7 @@
     </div>
 
     <footer>
-        © 2026 Asteriks <img src="/asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
+        © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
     </footer>
 
     <script>
@@ -677,10 +678,9 @@
             });
         });
 
-        /* РАБОТА ЛАЙТБОКСА (С исправлением багов клика по оверлею) */
+        /* РАБОТА ЛАЙТБОКСА */
         cards.forEach(card => {
             card.addEventListener('click', (e) => {
-                // Если кликнули по самому тексту ссылки или кнопкам внутри, лайтбокс игнорируем
                 if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
                 
                 const imgElement = card.querySelector('img');
