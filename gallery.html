@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery | Asteriks Art Studio</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=400;500;600&family=Nunito:wght=400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="/asteriks.art/asteriksfav.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
     <style>
@@ -511,7 +511,8 @@
         }
     </style>
 </head>
-<body> <div class="blob blob1"></div>
+<body> 
+    <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 
@@ -634,7 +635,7 @@
         const lightboxImg = document.getElementById('lightboxImg');
         const closeBtn = document.getElementById('closeBtn');
 
-        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
+        /* ИСПРАВЛЕННЫЙ ПЛАВНЫЙ СМАРТ-ФИЛЬТР БЕЗ СЛОМА СЕТКИ CSS COLUMNS */
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -644,28 +645,33 @@
                 let visibleIndex = 0;
 
                 cards.forEach((card) => {
-                    card.classList.remove('show');
-                    
-                    setTimeout(() => {
-                        const categories = card.dataset.category.split(' ');
-                        if (filter === 'all' || categories.includes(filter)) {
-                            card.style.display = 'block';
-                            
-                            setTimeout(() => {
-                                card.classList.add('show');
-                            }, visibleIndex * 70); 
-                            visibleIndex++;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }, 300);
+                    const categories = card.dataset.category.split(' ');
+                    const isMatch = filter === 'all' || categories.includes(filter);
+
+                    if (isMatch) {
+                        // Сначала моментально выстраиваем сетку, пока элементы прозрачные
+                        card.style.display = 'block';
+                        // Через минимальный таймаут каскадно проявляем
+                        setTimeout(() => {
+                            card.classList.add('show');
+                        }, visibleIndex * 60);
+                        visibleIndex++;
+                    } else {
+                        // Убираем класс анимации и прячем сразу после затухания
+                        card.classList.remove('show');
+                        setTimeout(() => {
+                            if (!card.classList.contains('show')) {
+                                card.style.display = 'none';
+                            }
+                        }, 250); // Совпадает с длительностью transition в CSS (.4s)
+                    }
                 });
             });
         });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА (Плавный вход на страницу) */
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
         window.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('visible'); // Запускает мягкую анимацию подъема всего макета
+            document.body.classList.add('visible');
             
             cards.forEach((card, index) => {
                 card.style.display = 'block';
@@ -675,31 +681,38 @@
             });
         });
 
-        /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
+        /* ИСПРАВЛЕНО: Защита от кэша браузера */
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 document.body.classList.add('visible');
             }
         });
 
-        /* РАБОТА ЛАЙТБОКСА */
+        /* РАБОТА ЛАЙТБОКСА БЕЗ СБОЕВ ТАЙМЕРА */
         cards.forEach(card => {
             card.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+                if (e.target.closest('a') || e.target.closest('button')) return;
                 
                 const imgElement = card.querySelector('img');
                 if (imgElement) {
-                    const img = imgElement.src;
+                    lightboxImg.src = imgElement.src;
                     lightbox.style.display = 'flex';
-                    setTimeout(() => lightbox.classList.add('active'), 10);
-                    lightboxImg.src = img;
+                    // Использование requestAnimationFrame гарантирует отработку CSS-перехода во всех браузерах
+                    requestAnimationFrame(() => {
+                        lightbox.classList.add('active');
+                    });
                 }
             });
         });
 
         const closeLightbox = () => {
             lightbox.classList.remove('active');
-            setTimeout(() => lightbox.style.display = 'none', 300);
+            setTimeout(() => {
+                if(!lightbox.classList.contains('active')) {
+                    lightbox.style.display = 'none';
+                    lightboxImg.src = ''; // Очищаем путь для оптимизации памяти
+                }
+            }, 300);
         };
 
         closeBtn.addEventListener('click', closeLightbox);
@@ -707,7 +720,7 @@
             if (e.target === lightbox) closeLightbox();
         });
 
-        /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
+        /* УМНЫЙ ПЕРЕХВАТ ПЕРЕХОДОВ МЕЖДУ СТРАНИЦАМИ */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
@@ -715,7 +728,6 @@
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
             if (
                 href && 
                 href !== '#' && 
@@ -727,8 +739,7 @@
                 !link.classList.contains('active')
             ) {
                 e.preventDefault(); 
-                
-                document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
+                document.body.classList.remove('visible'); 
                 
                 setTimeout(() => {
                     window.location.href = href;
