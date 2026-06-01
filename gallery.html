@@ -441,54 +441,49 @@
         /* ======================================================
            LIGHTBOX POPUP
         ====================================================== */
-        .lightbox {
+       .lightbox {
     position: fixed;
     inset: 0;
     background: rgba(43, 51, 74, .65);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+
     display: none;
-    align-items: center;
     justify-content: center;
-    z-index: 99999;
-    padding: 30px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
 
     overflow-y: auto;
-    overscroll-behavior: contain;
+    padding: 40px;
+
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-        .lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
 
-        .lightbox-content {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            max-width: 95vw;
-            max-height: 95vh;
-            animation: popup .4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
-        }
+.lightbox-content {
+    position: relative;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 
-        @keyframes popup {
-            from { transform: scale(.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+.lightbox img {
+    display: block;
 
-        .lightbox img {
-            display: block;
-            max-width: 92vw;
-            max-height: 90vh;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            border-radius: 28px;
-            box-shadow: 0 30px 70px rgba(43, 51, 74, 0.35);
-        }
+    width: auto;
+    max-width: 95vw;
+
+    height: auto;
+    max-height: none;
+
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(43, 51, 74, 0.35);
+}
 
         .close-btn {
             position: absolute;
