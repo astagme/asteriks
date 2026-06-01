@@ -11,7 +11,7 @@
 
     <style>
         /* ======================================================
-           КОРНЕВЫЕ СТИЛИ (Наш фундамент)
+           ROOT STYLES
         ====================================================== */
         :root {
             --c1: #ABC0F6;
@@ -37,35 +37,31 @@
         }
 
         body {
-    font-family: 'Nunito', sans-serif;
-    color: var(--dark);
-    overflow-x: hidden;
-    background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
 
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.45s ease-out,
-                transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
+        img {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
 
-img {
-    user-select: none;
-    -webkit-user-drag: none;
-}
-            
-
-        /* Класс, который вешается скриптом при загрузке */
         body.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* ======================================================
-           ПЛАВНЫЙ СТАРТОВЫЙ ЛОАДЕР ДЛЯ СТРАНИЦЫ
+           PAGE LOADER
         ====================================================== */
         .page-loader {
             position: fixed;
@@ -87,11 +83,11 @@ img {
         }
 
         .loader-spinner {
-    width: 70px;
-    height: 70px;
-    position: relative;
-    animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
-}
+            width: 70px;
+            height: 70px;
+            position: relative;
+            animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
+        }
 
         .loader-spinner img {
             width: 100%;
@@ -106,7 +102,6 @@ img {
             100% { transform: rotate(360deg) scale(0.95); }
         }
 
-        /* Наш кастомный SVG-паттерн лапок на фоне */
         body::before {
             content: "";
             position: fixed;
@@ -117,33 +112,21 @@ img {
             pointer-events: none;
         }
 
-    @media (hover: hover) {
+        @media (hover: hover) {
+            body {
+                cursor: url('asteriks.art/paw.png') 16 16, auto;
+            }
+            a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
+                cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+            }
+        }
 
-    body {
-        cursor: url('asteriks.art/paw.png') 16 16, auto;
-    }
-
-    a,
-    button,
-    .filter-btn,
-    .art-card,
-    .close-btn,
-    .commission-badge {
-        cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
-    }
-}
-
-a:active,
-button:active,
-.filter-btn:active,
-.art-card:active,
-.close-btn:active,
-.commission-badge:active {
-    cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
-}
+        a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+        }
 
         /* ======================================================
-           BACKGROUND BLOBS (Задний свет)
+           BACKGROUND BLOBS
         ====================================================== */
         .blob {
             position: fixed;
@@ -163,7 +146,7 @@ button:active,
         }
 
         /* ======================================================
-           NAVBAR (Зафиксированная шапка с размытием)
+           NAVBAR
         ====================================================== */
         header {
             position: fixed;
@@ -290,9 +273,7 @@ button:active,
             transition: color 0.2s ease;
         }
 
-        .gallery-pricing-note a:hover {
-            color: #8CA4E8;
-        }
+        .gallery-pricing-note a:hover { color: #8CA4E8; }
 
         /* ======================================================
            FILTERS
@@ -319,8 +300,7 @@ button:active,
             box-shadow: 0 6px 15px rgba(119,136,187,0.05);
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--white);
             transform: translateY(-4px);
             color: #7E98E7;
@@ -365,7 +345,6 @@ button:active,
             background: var(--white);
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
-            
             opacity: 0;
             transform: translateY(22px) scale(0.96);
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
@@ -373,29 +352,20 @@ button:active,
         }
 
         .art-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 34px;
-    padding: 2px;
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.9),
-        rgba(228,226,248,.8),
-        rgba(171,192,246,.8)
-    );
-
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-
-    mask-composite: exclude;
-
-    pointer-events: none;
-    opacity: .7;
-    z-index: 2;
-}
-                
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(228,226,248,.8), rgba(171,192,246,.8));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: .7;
+            z-index: 2;
+        }
+                    
         .art-card:hover {
             transform: translateY(-10px) scale(1.005);
             border-color: #ABC0F6;
@@ -412,9 +382,7 @@ button:active,
             transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
-        .art-card:hover img {
-            transform: scale(1.015);
-        }
+        .art-card:hover img { transform: scale(1.015); }
 
         .art-overlay {
             position: absolute;
@@ -562,7 +530,7 @@ button:active,
         footer img { height: 1.1rem; width: auto; }
 
         /* ======================================================
-           RESPONSIVE
+           RESPONSIVE INTERFACES
         ====================================================== */
         @media(max-width: 900px) {
             .gallery-grid { columns: 1; max-width: 550px; margin: auto; }
@@ -693,167 +661,165 @@ button:active,
     </footer>
 
     <script>
-    /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ */
-    document.addEventListener('contextmenu', event => event.preventDefault());
-    document.addEventListener('dragstart', event => {
-        if (event.target.tagName === 'IMG') event.preventDefault();
-    });
+        /* ANT-THEFT PROTECTION ON ART ASSETS */
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
 
-    const filterButtons = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('.art-card');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const closeBtn = document.getElementById('closeBtn');
-    const pageLoader = document.getElementById('pageLoader');
-    
-    // Массив для хранения активных тайм-аутов фильтрации (защита от дребезга)
-    let filterTimeouts = [];
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.art-card');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+        const pageLoader = document.getElementById('pageLoader');
 
-    /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР С ЗАЩИТОЙ ОТ МИГАНИЯ */
-    filterButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            if (button.classList.contains('active')) return;
+        // Global tracker array to intercept and drop outdated animation frames
+        let activeFilterTimeouts = [];
 
-            filterButtons.forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
+        /* REFACTORED DEBOUNCED MULTI-CATEGORY SMART FILTER */
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.classList.contains('active')) return;
 
-            const filter = button.dataset.filter;
-            let visibleIndex = 0;
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
 
-            // Очищаем все предыдущие тайм-ауты, если пользователь кликает слишком быстро
-            filterTimeouts.forEach(t => clearTimeout(t));
-            filterTimeouts = [];
+                const filter = button.dataset.filter;
+                let visibleIndex = 0;
 
-            cards.forEach((card) => {
-                card.classList.remove('show');
+                // Wipe any active animation queues instantly to clear layout calculations
+                activeFilterTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+                activeFilterTimeouts = [];
 
-                const t1 = setTimeout(() => {
+                cards.forEach((card) => {
+                    // Instantly drop opacity before structural shifts
+                    card.classList.remove('show');
+
                     const categories = card.dataset.category.split(' ');
 
                     if (filter === 'all' || categories.includes(filter)) {
+                        // Synchronous layout shifts prevent asynchronous layout math collision bugs
                         card.style.display = 'block';
 
-                        const t2 = setTimeout(() => {
+                        // Cascade only the opacity transitions through the global tracking registry
+                        const showTimeout = setTimeout(() => {
                             card.classList.add('show');
                         }, visibleIndex * 70);
-                        
-                        filterTimeouts.push(t2);
+
+                        activeFilterTimeouts.push(showTimeout);
                         visibleIndex++;
                     } else {
                         card.style.display = 'none';
                     }
-                }, 300);
-
-                filterTimeouts.push(t1);
+                });
             });
         });
-    });
 
-    /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
-    window.addEventListener('load', () => {
-        if (pageLoader) {
-            pageLoader.classList.add('fade-out');
-            pageLoader.addEventListener('transitionend', () => {
-                pageLoader.style.display = 'none';
-            }, { once: true });
-        }
-
-        document.body.classList.add('visible'); 
-        
-        cards.forEach((card, index) => {
-            card.style.display = 'block';
-            setTimeout(() => {
-                card.classList.add('show');
-            }, 150 + (index * 90));
-        });
-    });
-
-    /* Защита от кэша браузера (кнопка "Назад") */
-    window.addEventListener('pageshow', (event) => {
-        if (event.persisted) {
+        /* CASCADE INTERFACE INITIALIZER */
+        window.addEventListener('load', () => {
             if (pageLoader) {
                 pageLoader.classList.add('fade-out');
-                pageLoader.style.display = 'none';
+                pageLoader.addEventListener('transitionend', () => {
+                    pageLoader.style.display = 'none';
+                }, { once: true });
             }
-            document.body.classList.add('visible');
-        }
-    });
 
-    /* РАБОТА ЛАЙТБОКСА */
-    cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-            // Если кликнули на ссылку внутри оверлея, не открываем лайтбокс
-            if (e.target.closest('a') || e.target.closest('button')) return;
+            document.body.classList.add('visible'); 
+            
+            cards.forEach((card, index) => {
+                card.style.display = 'block';
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, 150 + (index * 90));
+            });
+        });
 
-            const imgElement = card.querySelector('img');
-            if (imgElement) {
-                lightboxImg.src = imgElement.src;
-                lightbox.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Блокируем скролл страницы
-
-                requestAnimationFrame(() => {
-                    lightbox.classList.add('active');
-                });
+        /* BFCache BACK-BUTTON POPUP FIX */
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                if (pageLoader) {
+                    pageLoader.classList.add('fade-out');
+                    pageLoader.style.display = 'none';
+                }
+                document.body.classList.add('visible');
             }
         });
-    });
 
-    const closeLightbox = () => {
-        lightbox.classList.remove('active');
-        document.body.style.overflow = ''; // Возвращаем скролл
+        /* INTERACTIVE LIGHTBOX OPERATIONS */
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Safeguard link targets, layout overlay tags, or internal button elements
+                if (e.target.closest('a') || e.target.closest('button')) return;
 
-        setTimeout(() => {
-            lightbox.style.display = 'none';
-            lightboxImg.src = '';
-        }, 300);
-    };
+                const imgElement = card.querySelector('img');
+                if (imgElement) {
+                    lightboxImg.src = imgElement.src;
+                    lightbox.style.display = 'flex';
+                    document.body.style.overflow = 'hidden'; // Lock down main body scrolling
 
-    closeBtn.addEventListener('click', closeLightbox);
-    lightbox.addEventListener('click', (e) => {
-        if (e.target === lightbox) closeLightbox();
-    });
+                    requestAnimationFrame(() => {
+                        lightbox.classList.add('active');
+                    });
+                }
+            });
+        });
 
-    // Закрытие лайтбокса по кнопке ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-            closeLightbox();
-        }
-    });
+        const closeLightbox = () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = ''; // Unlock viewport scrolling safely
 
-    /* УМНЫЙ ПЕРЕХВАТ ПЕРЕХОДОВ МЕЖДУ СТРАНИЦАМИ */
-    document.addEventListener('click', (e) => {
-        const link = e.target.closest('a');
-        if (!link) return;
-
-        const href = link.getAttribute('href');
-        const target = link.getAttribute('target');
-
-        if (
-            href && 
-            href !== '#' && 
-            !href.startsWith('#') && 
-            !href.startsWith('mailto:') && 
-            !href.startsWith('tel:') &&
-            !href.startsWith('http') && 
-            (!target || target === '_self') &&
-            !link.classList.contains('active')
-        ) {
-            e.preventDefault(); 
-            
-            if (pageLoader) {
-                pageLoader.style.display = 'flex';
-                // Минимальный таймаут, чтобы display: flex успел примениться перед удалением класса
-                requestAnimationFrame(() => {
-                    pageLoader.classList.remove('fade-out');
-                });
-            }
-            document.body.classList.remove('visible');
-            
             setTimeout(() => {
-                window.location.href = href;
-            }, 450); 
-        }
-    });
-</script>
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300);
+        };
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Trap key events for natural system closure
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+
+        /* SMOOTH ASYNC PAGE ROUTING TRANSITIONS */
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+
+            if (
+                href && 
+                href !== '#' && 
+                !href.startsWith('#') && 
+                !href.startsWith('mailto:') && 
+                !href.startsWith('tel:') &&
+                !href.startsWith('http') && 
+                (!target || target === '_self') &&
+                !link.classList.contains('active')
+            ) {
+                e.preventDefault(); 
+                
+                if (pageLoader) {
+                    pageLoader.style.display = 'flex';
+                    requestAnimationFrame(() => {
+                        pageLoader.classList.remove('fade-out');
+                    });
+                }
+                document.body.classList.remove('visible');
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 450); 
+            }
+        });
+    </script>
 </body>
 </html>
