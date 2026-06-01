@@ -693,151 +693,167 @@ button:active,
     </footer>
 
     <script>
-        /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ И ДЕВТУЛЗОВ */
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('dragstart', event => {
-            if (event.target.tagName === 'IMG') event.preventDefault();
-        });
+    /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ */
+    document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('dragstart', event => {
+        if (event.target.tagName === 'IMG') event.preventDefault();
+    });
 
-        
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.art-card');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.getElementById('closeBtn');
+    const pageLoader = document.getElementById('pageLoader');
+    
+    // Массив для хранения активных тайм-аутов фильтрации (защита от дребезга)
+    let filterTimeouts = [];
 
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.art-card');
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightboxImg');
-        const closeBtn = document.getElementById('closeBtn');
-        const pageLoader = document.getElementById('pageLoader');
+    /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР С ЗАЩИТОЙ ОТ МИГАНИЯ */
+    filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('active')) return;
 
-        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
 
-                const filter = button.dataset.filter;
-                let visibleIndex = 0;
+            const filter = button.dataset.filter;
+            let visibleIndex = 0;
 
-               cards.forEach((card) => {
-    card.classList.remove('show');
+            // Очищаем все предыдущие тайм-ауты, если пользователь кликает слишком быстро
+            filterTimeouts.forEach(t => clearTimeout(t));
+            filterTimeouts = [];
 
-    setTimeout(() => {
-        const categories = card.dataset.category.split(' ');
+            cards.forEach((card) => {
+                card.classList.remove('show');
 
-        if (filter === 'all' || categories.includes(filter)) {
-            card.style.display = 'block';
+                const t1 = setTimeout(() => {
+                    const categories = card.dataset.category.split(' ');
 
-            setTimeout(() => {
-    card.classList.add('show');
-}, visibleIndex * 70);
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.style.display = 'block';
 
-            visibleIndex++;
-        } else {
-            card.style.display = 'none';
-        }
-    }, 300);
-});
+                        const t2 = setTimeout(() => {
+                            card.classList.add('show');
+                        }, visibleIndex * 70);
+                        
+                        filterTimeouts.push(t2);
+                        visibleIndex++;
+                    } else {
+                        card.style.display = 'none';
+                    }
+                }, 300);
+
+                filterTimeouts.push(t1);
             });
         });
+    });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
-        window.addEventListener('load', () => {
-            // Мягко гасим оверлей лоадера
-           if (pageLoader) {
-    pageLoader.classList.add('fade-out');
-
-    pageLoader.addEventListener('transitionend', () => {
-        pageLoader.style.display = 'none';
-    }, { once: true });
-}
-
-            // Запускает мягкую анимацию подъема всего макета
-            document.body.classList.add('visible'); 
-            
-            cards.forEach((card, index) => {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.classList.add('show');
-                }, 150 + (index * 90)); // Небольшая задержка, чтобы карточки выкатывались сразу за исчезновением лоадера
-            });
-        });
-
-        /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
-       window.addEventListener('pageshow', (event) => {
-    if (event.persisted) {
+    /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
+    window.addEventListener('load', () => {
         if (pageLoader) {
             pageLoader.classList.add('fade-out');
-            pageLoader.style.display = 'none';
+            pageLoader.addEventListener('transitionend', () => {
+                pageLoader.style.display = 'none';
+            }, { once: true });
         }
 
-        document.body.classList.add('visible');
-    }
-});
+        document.body.classList.add('visible'); 
+        
+        cards.forEach((card, index) => {
+            card.style.display = 'block';
+            setTimeout(() => {
+                card.classList.add('show');
+            }, 150 + (index * 90));
+        });
+    });
 
-        /* РАБОТА ЛАЙТБОКСА */
-       cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-
-        const imgElement = card.querySelector('img');
-
-        if (imgElement) {
-            lightboxImg.src = imgElement.src;
-            lightbox.style.display = 'flex';
-
-            requestAnimationFrame(() => {
-                lightbox.classList.add('active');
-            });
+    /* Защита от кэша браузера (кнопка "Назад") */
+    window.addEventListener('pageshow', (event) => {
+        if (event.persisted) {
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+                pageLoader.style.display = 'none';
+            }
+            document.body.classList.add('visible');
         }
     });
-});
 
-        const closeLightbox = () => {
-    lightbox.classList.remove('active');
+    /* РАБОТА ЛАЙТБОКСА */
+    cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Если кликнули на ссылку внутри оверлея, не открываем лайтбокс
+            if (e.target.closest('a') || e.target.closest('button')) return;
 
-    setTimeout(() => {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-    }, 300);
-};
+            const imgElement = card.querySelector('img');
+            if (imgElement) {
+                lightboxImg.src = imgElement.src;
+                lightbox.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Блокируем скролл страницы
 
-        closeBtn.addEventListener('click', closeLightbox);
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a');
-            if (!link) return;
-
-            const href = link.getAttribute('href');
-            const target = link.getAttribute('target');
-
-            // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
-            if (
-                href && 
-                href !== '#' && 
-                !href.startsWith('#') && 
-                !href.startsWith('mailto:') && 
-                !href.startsWith('tel:') &&
-                !href.startsWith('http') && 
-                (!target || target === '_self') &&
-                !link.classList.contains('active')
-            ) {
-                e.preventDefault(); 
-                
-                // Включаем лоадер обратно перед уходом, чтобы страница мягко угасла
-                if (pageLoader) {
-    pageLoader.style.display = 'flex';
-    pageLoader.classList.remove('fade-out');
-}
-                document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
-                
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 450); 
+                requestAnimationFrame(() => {
+                    lightbox.classList.add('active');
+                });
             }
         });
-    </script>
+    });
+
+    const closeLightbox = () => {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = ''; // Возвращаем скролл
+
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        }, 300);
+    };
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+
+    // Закрытие лайтбокса по кнопке ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+            closeLightbox();
+        }
+    });
+
+    /* УМНЫЙ ПЕРЕХВАТ ПЕРЕХОДОВ МЕЖДУ СТРАНИЦАМИ */
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+
+        const href = link.getAttribute('href');
+        const target = link.getAttribute('target');
+
+        if (
+            href && 
+            href !== '#' && 
+            !href.startsWith('#') && 
+            !href.startsWith('mailto:') && 
+            !href.startsWith('tel:') &&
+            !href.startsWith('http') && 
+            (!target || target === '_self') &&
+            !link.classList.contains('active')
+        ) {
+            e.preventDefault(); 
+            
+            if (pageLoader) {
+                pageLoader.style.display = 'flex';
+                // Минимальный таймаут, чтобы display: flex успел примениться перед удалением класса
+                requestAnimationFrame(() => {
+                    pageLoader.classList.remove('fade-out');
+                });
+            }
+            document.body.classList.remove('visible');
+            
+            setTimeout(() => {
+                window.location.href = href;
+            }, 450); 
+        }
+    });
+</script>
 </body>
 </html>
