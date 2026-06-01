@@ -6,7 +6,7 @@
     <title>Gallery | Asteriks Art Studio</title>
 
     <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=400;500;600&family=Nunito:wght=400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
     <style>
@@ -46,7 +46,6 @@
             flex-direction: column;
             justify-content: space-between;
             
-            /* ИСПРАВЛЕНО: Убран начальный слеш у кастомного курсора */
             cursor: url('asteriks.art/paw.png') 16 16, auto;
             
             -webkit-user-select: none;
@@ -54,13 +53,17 @@
             -ms-user-select: none;
             user-select: none;
 
-            /* Настройка плавности появления страницы из старого кода */
+            /* Настройка плавного появления и скольжения страницы вверх */
             opacity: 0; 
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            transform: translateY(15px);
+            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+            will-change: opacity, transform;
         }
 
+        /* Класс, который вешается скриптом при загрузке */
         body.visible {
             opacity: 1;
+            transform: translateY(0);
         }
 
         /* Наш кастомный SVG-паттерн лапок на фоне */
@@ -75,7 +78,6 @@
         }
 
         /* Изменение курсоров на элементах */
-        /* ИСПРАВЛЕНО: Убран начальный слеш у курсоров-указателей */
         a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
             cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
         }
@@ -209,19 +211,18 @@
             font-weight: 600;
         }
 
-        /* Возвращаем милую нео-бруталити плашку с обрывистой рамкой */
         .gallery-pricing-note {
             max-width: 620px;
             margin: 20px auto 0;
             padding: 12px 20px;
             background: rgba(255, 255, 255, 0.5);
-            border: 2px dashed #ABC0F6; /* Та самая обрывистая рамка */
+            border: 2px dashed #ABC0F6; 
             border-radius: 18px;
             font-size: 0.92rem;
             color: #6D7890;
             font-weight: 700;
             line-height: 1.6;
-            display: inline-block; /* Чтобы плашка облегала текст, а не растягивалась на весь экран */
+            display: inline-block; 
         }
 
         .gallery-pricing-note a {
@@ -277,7 +278,6 @@
             box-shadow: 0 8px 20px rgba(154,175,239,0.28);
         }
         
-        /* Разделитель для новых категорий стиля */
         .filter-separator {
             width: 2px;
             height: 35px;
@@ -309,7 +309,6 @@
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
             
-            /* Стили для мягкого каскадного проявления */
             opacity: 0;
             transform: translateY(22px) scale(0.96);
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
@@ -512,9 +511,7 @@
         }
     </style>
 </head>
-<body class="visible">
-
-    <div class="blob blob1"></div>
+<body> <div class="blob blob1"></div>
     <div class="blob blob2"></div>
     <div class="blob blob3"></div>
 
@@ -666,9 +663,9 @@
             });
         });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА (Плавный вход на страницу) */
         window.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('visible');
+            document.body.classList.add('visible'); // Запускает мягкую анимацию подъема всего макета
             
             cards.forEach((card, index) => {
                 card.style.display = 'block';
@@ -676,6 +673,13 @@
                     card.classList.add('show');
                 }, index * 90);
             });
+        });
+
+        /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                document.body.classList.add('visible');
+            }
         });
 
         /* РАБОТА ЛАЙТБОКСА */
@@ -703,18 +707,33 @@
             if (e.target === lightbox) closeLightbox();
         });
 
-        /* ПЛАВНЫЙ МЕЖСТРАНИЧНЫЙ ВЫХОД */
-        document.querySelectorAll('.nav-links a, .logo, .commission-badge').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href && href !== '#' && !href.startsWith('http') && !this.classList.contains('active')) {
-                    e.preventDefault(); 
-                    document.body.classList.remove('visible'); 
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 450); 
-                }
-            });
+        /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+
+            // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
+            if (
+                href && 
+                href !== '#' && 
+                !href.startsWith('#') && 
+                !href.startsWith('mailto:') && 
+                !href.startsWith('tel:') &&
+                !href.startsWith('http') && 
+                (!target || target === '_self') &&
+                !link.classList.contains('active')
+            ) {
+                e.preventDefault(); 
+                
+                document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 450); 
+            }
         });
     </script>
 </body>
