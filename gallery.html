@@ -738,7 +738,7 @@ button:active,
         });
 
         /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('load', () => {
             // Мягко гасим оверлей лоадера
            if (pageLoader) {
     pageLoader.classList.add('fade-out');
@@ -760,12 +760,16 @@ button:active,
         });
 
         /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
-        window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                if (pageLoader) pageLoader.classList.add('fade-out');
-                document.body.classList.add('visible');
-            }
-        });
+       window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+        if (pageLoader) {
+            pageLoader.classList.add('fade-out');
+            pageLoader.style.display = 'none';
+        }
+
+        document.body.classList.add('visible');
+    }
+});
 
         /* РАБОТА ЛАЙТБОКСА */
         cards.forEach(card => {
