@@ -1,1480 +1,802 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Gallery | Asteriks Art Studio</title>
 
-
-
     <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=400;500;600&family=Nunito:wght=400;600;700;800&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
-
-
     <style>
-
         /* ======================================================
-
            КОРНЕВЫЕ СТИЛИ (Наш фундамент)
-
         ====================================================== */
-
         :root {
-
             --c1: #ABC0F6;
-
             --c2: #C7D6F7;
-
             --c3: #D5D9F2;
-
             --c4: #E4E2F8;
-
             --c5: #E1EDF6;
-
             --dark: #55627C;
-
             --white: #ffffff;
-
             --shadow: 0 20px 40px rgba(119, 136, 187, 0.12);
-
             --inner-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.9);
-
             --border-color: rgba(171, 192, 246, 0.4); 
-
         }
-
-
 
         * {
-
             margin: 0;
-
             padding: 0;
-
             box-sizing: border-box;
-
         }
-
-
 
         html {
-
             scroll-behavior: smooth;
-
         }
-
-
 
         body {
-
             font-family: 'Nunito', sans-serif;
-
             color: var(--dark);
-
             overflow-x: hidden;
-
             background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-
             min-height: 100vh;
-
             display: flex;
-
             flex-direction: column;
-
             justify-content: space-between;
-
             
-
             cursor: url('asteriks.art/paw.png') 16 16, auto;
-
             
-
             -webkit-user-select: none;
-
             -moz-user-select: none;
-
             -ms-user-select: none;
-
             user-select: none;
 
-
-
             /* Настройка плавного появления и скольжения страницы вверх */
-
             opacity: 0; 
-
             transform: translateY(15px);
-
             transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-
             will-change: opacity, transform;
-
         }
-
-
 
         /* Класс, который вешается скриптом при загрузке */
-
         body.visible {
-
             opacity: 1;
-
             transform: translateY(0);
-
         }
 
+        /* ======================================================
+           ПЛАВНЫЙ СТАРТОВЫЙ ЛОАДЕР ДЛЯ СТРАНИЦЫ
+        ====================================================== */
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.5s;
+            will-change: opacity, visibility;
+        }
 
+        .page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-spinner {
+            width: 70px;
+            height: 70px;
+            position: relative;
+            animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6s, 0.32, 1.6s) infinite;
+        }
+
+        .loader-spinner img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 8px 16px rgba(126,152,231,0.25));
+        }
+
+        @keyframes loaderRotate {
+            0% { transform: rotate(0deg) scale(0.95); }
+            50% { transform: rotate(180deg) scale(1.08); }
+            100% { transform: rotate(360deg) scale(0.95); }
+        }
 
         /* Наш кастомный SVG-паттерн лапок на фоне */
-
         body::before {
-
             content: "";
-
             position: fixed;
-
             inset: 0;
-
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%237E98E7' fill-opacity='0.07'%3E%3Cpath d='M25 28c1.38 0 2.5-1.57 2.5-3.5S26.38 21 25 21s-2.5 1.57-2.5 3.5 1.12 3.5 2.5 3.5zm7.5-2.5c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm-15 0c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm7.5 13.5c3.58 0 6.5-2.46 6.5-5.5 0-1.8-1.02-3.37-2.57-4.32-.93-.57-2.43-.68-3.93-.68s-3 .11-3.93.68C19.52 30.63 18.5 32.2 18.5 34c0 3.04 2.92 5.5 6.5 5.5zM65 68c1.38 0 2.5-1.57 2.5-3.5S66.38 61 65 61s-2.5 1.57-2.5 3.5 1.12 3.5 2.5 3.5zm7.5-2.5c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm-15 0c1.1 0 2-1.34 2-3s-.9-3-2-3-2 1.34-2 3 .9 3 2 3zm7.5 13.5c3.58 0 6.5-2.46 6.5-5.5 0-1.8-1.02-3.37-2.57-4.32-.93-.57-2.43-.68-3.93-.68s-3 .11-3.93.68C59.52 70.63 58.5 72.2 58.5 74c0 3.04 2.92 5.5 6.5 5.5z'/%3E%3C/g%3E%3C/svg%3E");
-
             background-size: 80px 80px; 
-
             z-index: -20;
-
             pointer-events: none;
-
         }
-
-
 
         /* Изменение курсоров на элементах */
-
         a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
-
             cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
-
         }
-
         a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
-
             cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
-
         }
-
-
 
         /* ======================================================
-
            BACKGROUND BLOBS (Задний свет)
-
         ====================================================== */
-
         .blob {
-
             position: fixed;
-
             border-radius: 50%;
-
             filter: blur(100px);
-
             z-index: -10;
-
             opacity: .45;
-
             animation: float 12s ease-in-out infinite;
-
         }
-
         .blob1 { width: 400px; height: 400px; background: var(--c1); top: -80px; left: -100px; }
-
         .blob2 { width: 450px; height: 450px; background: var(--c4); right: -120px; bottom: -120px; animation-delay: 2s; }
-
         .blob3 { width: 280px; height: 280px; background: var(--c2); top: 45%; left: 40%; animation-delay: 5s; }
 
-
-
         @keyframes float {
-
             0%, 100% { transform: translateY(0px) scale(1); }
-
             50% { transform: translateY(-25px) scale(1.02); }
-
         }
-
-
 
         /* ======================================================
-
            NAVBAR (Зафиксированная шапка с размытием)
-
         ====================================================== */
-
         header {
-
             position: fixed;
-
             top: 25px;
-
             left: 50%;
-
             transform: translateX(-50%);
-
             width: min(1200px, 92%);
-
             z-index: 999;
-
         }
-
-
 
         nav {
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             padding: 14px 28px;
-
             border-radius: 32px;
-
             background: rgba(255, 255, 255, .78);
-
             border: 1px solid rgba(255, 255, 255, 0.9);
-
             backdrop-filter: blur(20px);
-
             box-shadow: var(--shadow);
-
         }
-
-
 
         .logo {
-
             display: flex;
-
             align-items: center;
-
             gap: 6px;
-
             font-family: 'Fredoka', sans-serif;
-
             font-size: 1.35rem;
-
             font-weight: 600;
-
             text-decoration: none;
-
             color: var(--dark);
-
             transition: transform 0.2s ease;
-
         }
-
         .logo:hover { transform: scale(1.03); }
-
         .logo img { height: 2rem; width: auto; pointer-events: none; }
 
-
-
         .nav-links { display: flex; align-items: center; gap: 24px; }
-
         .nav-links a {
-
             text-decoration: none;
-
             color: var(--dark);
-
             font-weight: 700;
-
             font-size: 0.95rem;
-
             transition: .25s;
-
         }
-
         .nav-links a:hover { color: #8CA4E8; }
-
         .nav-links a.active { color: #7E98E7; }
 
-
-
         .commission-badge {
-
             padding: 10px 20px;
-
             border-radius: 20px;
-
             background: #9AAFEF;
-
             font-weight: 800;
-
             font-size: 0.85rem;
-
             letter-spacing: 0.5px;
-
             color: white;
-
             box-shadow: 0 8px 20px rgba(154,175,239,.25);
-
             transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s, box-shadow 0.3s;
-
             text-decoration: none;
-
             display: inline-block;
-
         }
-
         .commission-badge:hover {
-
             transform: translateY(-3px) scale(1.02);
-
             background: #8CA4E8;
-
             box-shadow: 0 14px 28px rgba(140,164,232,.45);
-
         }
-
-
 
         /* ======================================================
-
            HERO SECTION
-
         ====================================================== */
-
         .gallery-hero {
-
             padding: 140px 7% 35px;
-
             text-align: center;
-
         }
-
-
 
         .gallery-logo {
-
             width: min(440px, 85%);
-
             margin-bottom: 15px;
-
             filter: drop-shadow(0 12px 25px rgba(126,152,231,.15));
-
             animation: logoFloat 5s ease-in-out infinite;
-
             pointer-events: none;
-
         }
-
-
 
         @keyframes logoFloat {
-
             0%, 100% { transform: translateY(0px); }
-
             50% { transform: translateY(-8px); }
-
         }
-
-
 
         .gallery-title {
-
             font-family: 'Fredoka', sans-serif;
-
             font-size: 2.4rem;
-
             margin-bottom: 12px;
-
             color: var(--dark);
-
             font-weight: 600;
-
         }
-
-
 
         .gallery-text {
-
             max-width: 650px;
-
             margin: auto;
-
             line-height: 1.7;
-
             font-size: 0.98rem;
-
             color: #6D7890;
-
             font-weight: 600;
-
         }
-
-
 
         .gallery-pricing-note {
-
             max-width: 620px;
-
             margin: 20px auto 0;
-
             padding: 12px 20px;
-
             background: rgba(255, 255, 255, 0.5);
-
             border: 2px dashed #ABC0F6; 
-
             border-radius: 18px;
-
             font-size: 0.92rem;
-
             color: #6D7890;
-
             font-weight: 700;
-
             line-height: 1.6;
-
             display: inline-block; 
-
         }
-
-
 
         .gallery-pricing-note a {
-
             color: #7E98E7;
-
             text-decoration: underline;
-
             text-underline-offset: 3px;
-
             font-weight: 800;
-
             transition: color 0.2s ease;
-
         }
-
-
 
         .gallery-pricing-note a:hover {
-
             color: #8CA4E8;
-
         }
-
-
 
         /* ======================================================
-
            FILTERS
-
         ====================================================== */
-
         .filters {
-
             display: flex;
-
             justify-content: center;
-
             flex-wrap: wrap;
-
             gap: 12px;
-
             margin-top: 40px;
-
         }
-
-
 
         .filter-btn {
-
             border: 2px solid rgba(171, 192, 246, 0.15);
-
             background: rgba(255, 255, 255, .75);
-
             backdrop-filter: blur(10px);
-
             padding: 11px 22px;
-
             border-radius: 22px;
-
             font-family: 'Nunito', sans-serif;
-
             font-weight: 800;
-
             color: var(--dark);
-
             font-size: 0.9rem;
-
             transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-
             box-shadow: 0 6px 15px rgba(119,136,187,0.05);
-
         }
-
-
 
         .filter-btn:hover,
-
         .filter-btn.active {
-
             background: var(--white);
-
             transform: translateY(-4px);
-
             color: #7E98E7;
-
             border-color: #ABC0F6;
-
             box-shadow: 0 12px 24px rgba(140, 164, 232, 0.22);
-
         }
-
-
 
         .filter-btn.active {
-
             background: #9AAFEF;
-
             color: white;
-
             border-color: #9AAFEF;
-
             box-shadow: 0 8px 20px rgba(154,175,239,0.28);
-
         }
-
         
-
         .filter-separator {
-
             width: 2px;
-
             height: 35px;
-
             background: rgba(171, 192, 246, 0.4);
-
             align-self: center;
-
             margin: 0 4px;
-
         }
-
-
 
         /* ======================================================
-
            GALLERY MASONRY GRID 
-
         ====================================================== */
-
         .gallery-container {
-
             width: min(1200px, 92%);
-
             margin: 10px auto 60px;
-
         }
-
-
 
         .gallery-grid {
-
             columns: 2 400px;
-
             column-gap: 30px;
-
         }
-
-
 
         .art-card {
-
             break-inside: avoid;
-
             margin-bottom: 30px;
-
             overflow: hidden;
-
             border-radius: 34px;
-
             border: 2px solid rgba(171, 192, 246, 0.15);
-
             background: var(--white);
-
             box-shadow: var(--shadow), var(--inner-shadow);
-
             position: relative;
-
             
-
             opacity: 0;
-
             transform: translateY(22px) scale(0.96);
-
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
-
             will-change: transform, box-shadow, opacity;
-
         }
-
-
 
         .art-card::before {
-
             content: "";
-
             position: absolute;
-
             inset: 0;
-
             border-radius: 34px;
-
             padding: 2px;
-
             background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(228,226,248,.8), rgba(171,192,246,.8));
-
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-
             -webkit-mask-composite: xor;
-
             pointer-events: none;
-
             opacity: .7;
-
             z-index: 2;
-
         }
-
                 
-
         .art-card:hover {
-
             transform: translateY(-10px) scale(1.005);
-
             border-color: #ABC0F6;
-
             box-shadow: 0 30px 60px rgba(140, 164, 232, 0.25), var(--inner-shadow);
-
         }
-
-
 
         .art-card img {
-
             width: 100%;
-
             height: auto;
-
             display: block;
-
             object-fit: contain;
-
             background: var(--white);
-
             pointer-events: none;
-
             transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-
         }
-
-
 
         .art-card:hover img {
-
             transform: scale(1.015);
-
         }
-
-
 
         .art-overlay {
-
             position: absolute;
-
             bottom: 0;
-
             left: 0;
-
             width: 100%;
-
             background: rgba(255, 255, 255, 0.94);
-
             padding: 20px 24px;
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
-
             border-top: 1px solid rgba(171, 192, 246, 0.2);
-
             backdrop-filter: blur(10px);
-
             -webkit-backdrop-filter: blur(10px);
-
             z-index: 5;
-
             transform: translateY(100%);
-
             opacity: 0;
-
             transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
-
         }
-
-
 
         .art-card:hover .art-overlay {
-
             transform: translateY(0);
-
             opacity: 1;
-
         }
-
-
 
         .art-details h3 {
-
             font-family: 'Fredoka', sans-serif;
-
             font-size: 1.15rem;
-
             font-weight: 500;
-
             color: var(--dark);
-
             margin-bottom: 4px;
-
         }
-
-
 
         .art-details p {
-
             color: #7A879E;
-
             font-size: .88rem;
-
             font-weight: 600;
-
         }
-
-
 
         .art-tag-price {
-
             display: inline-block;
-
             font-family: 'Nunito', sans-serif;
-
             font-size: 0.85rem;
-
             background: #EAF0FF;
-
             color: #6A84CD;
-
             font-weight: 800;
-
             padding: 7px 14px;
-
             border-radius: 14px;
-
         }
-
-
 
         .art-card.show {
-
             opacity: 1;
-
             transform: translateY(0) scale(1);
-
         }
-
-
 
         /* ======================================================
-
            LIGHTBOX POPUP
-
         ====================================================== */
-
         .lightbox {
-
             position: fixed;
-
             inset: 0;
-
             background: rgba(43, 51, 74, .65);
-
             backdrop-filter: blur(16px);
-
             display: none;
-
             align-items: center;
-
             justify-content: center;
-
             z-index: 99999;
-
             padding: 30px;
-
             opacity: 0;
-
             transition: opacity 0.3s ease;
-
         }
-
-
 
         .lightbox.active {
-
             display: flex;
-
             opacity: 1;
-
         }
-
-
 
         .lightbox-content {
-
             position: relative;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             max-width: 95vw;
-
             max-height: 95vh;
-
             animation: popup .4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
-
         }
-
-
 
         @keyframes popup {
-
             from { transform: scale(.9); opacity: 0; }
-
             to { transform: scale(1); opacity: 1; }
-
         }
-
-
 
         .lightbox img {
-
             display: block;
-
             max-width: 92vw;
-
             max-height: 90vh;
-
             width: auto;
-
             height: auto;
-
             object-fit: contain;
-
             border-radius: 28px;
-
             box-shadow: 0 30px 70px rgba(43, 51, 74, 0.35);
-
         }
-
-
 
         .close-btn {
-
             position: absolute;
-
             top: -20px;
-
             right: -20px;
-
             width: 44px;
-
             height: 44px;
-
             border: none;
-
             border-radius: 50%;
-
             background: var(--white);
-
             color: var(--dark);
-
             font-size: 1rem;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-
             transition: .3s cubic-bezier(0.25, 1, 0.5, 1);
-
             z-index: 10;
-
         }
-
-
 
         .close-btn:hover {
-
             transform: scale(1.1) rotate(90deg);
-
             background: #FAFCFF;
-
             color: #7E98E7;
-
         }
-
-
 
         /* ======================================================
-
            FOOTER 
-
         ====================================================== */
-
         footer {
-
             text-align: center;
-
             padding: 35px 20px;
-
             font-size: .88rem;
-
             color: #7A879E;
-
             font-weight: 600;
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
             gap: 5px;
-
             margin-top: auto;
-
         }
-
         footer img { height: 1.1rem; width: auto; }
 
-
-
         /* ======================================================
-
            RESPONSIVE
-
         ====================================================== */
-
         @media(max-width: 900px) {
-
             .gallery-grid { columns: 1; max-width: 550px; margin: auto; }
-
             .close-btn { top: 15px; right: 15px; border-radius: 14px; }
-
         }
-
-
 
         @media(max-width: 768px) {
-
             nav { flex-direction: column; gap: 14px; padding: 16px; }
-
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
-
             .gallery-hero { padding: 170px 5% 25px; }
-
             .gallery-title { font-size: 2rem; }
-
             .filters { gap: 8px; }
-
             .filter-separator { display: none; }
-
         }
-
     </style>
-
 </head>
+<body>
 
-<body> <div class="blob blob1"></div>
-
-    <div class="blob blob2"></div>
-
-    <div class="blob blob3"></div>
-
-
-
-    <header>
-
-        <nav>
-
-            <a href="index.html" class="logo">
-
-                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
-
-            </a>
-
-            <div class="nav-links">
-
-                <a href="index.html">Home</a>
-
-                <a href="gallery.html" class="active">Gallery</a>
-
-                <a href="pricing.html">Pricing</a>
-
-                <a href="about.html">About</a>
-
-            </div>
-
-            <a href="pricing.html" class="commission-badge">OPEN COMMISSIONS</a>
-
-        </nav>
-
-    </header>
-
-
-
-    <section class="gallery-hero">
-
-        <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
-
-        <h1 class="gallery-title">Artwork Gallery</h1>
-
-        <p class="gallery-text">
-
-            A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
-
-        </p>
-
-        
-
-        <div class="gallery-pricing-note">
-
-            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html" style="white-space: nowrap;">pricing page</a>.
-
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner">
+            <img src="asteriks.art/asteriksfav.png" alt="✦">
         </div>
-
-
-
-        <div class="filters">
-
-            <button class="filter-btn active" data-filter="all">All Art</button>
-
-            <button class="filter-btn" data-filter="headshot">Headshot</button> 
-
-            <button class="filter-btn" data-filter="torso">Torso</button>
-
-            <button class="filter-btn" data-filter="fullbody">Fullbody</button>
-
-            <button class="filter-btn" data-filter="multi">Multi-character</button>
-
-            
-
-            <div class="filter-separator"></div>
-
-            
-
-            <button class="filter-btn" data-filter="furry">Furry</button>
-
-            <button class="filter-btn" data-filter="anime">Anime</button>
-
-        </div>
-
-    </section>
-
-
-
-    <main class="gallery-container">
-
-        <section class="gallery-grid">
-
-
-
-            <div class="art-card" data-category="torso anime" data-price="$60">
-
-                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
-
-                <div class="art-overlay">
-
-                    <div class="art-details">
-
-                        <h3>Pastel Necomimi</h3>
-
-                        <p>Light Shading | Torso</p>
-
-                    </div>
-
-                    <div class="art-tag-price">$60</div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="art-card" data-category="torso multi furry" data-price="$90">
-
-                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo">
-
-                <div class="art-overlay">
-
-                    <div class="art-details">
-
-                        <h3>City Nights Duo</h3>
-
-                        <p>Multi-character | Light Shading</p>
-
-                    </div>
-
-                    <div class="art-tag-price">$90</div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="art-card" data-category="fullbody furry" data-price="$80">
-
-                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
-
-                <div class="art-overlay">
-
-                    <div class="art-details">
-
-                        <h3>Pastel Goth OC</h3>
-
-                        <p>Light Shading | Fullbody</p>
-
-                    </div>
-
-                    <div class="art-tag-price">$80</div>
-
-                </div>
-
-            </div>
-
-
-
-            <div class="art-card" data-category="fullbody furry" data-price="$80">
-
-                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
-
-                <div class="art-overlay">
-
-                    <div class="art-details">
-
-                        <h3>Asteriks Identity</h3>
-
-                        <p>Light Shading | Fullbody</p>
-
-                    </div>
-
-                    <div class="art-tag-price">$80</div>
-
-                </div>
-
-            </div>
-
-
-
-        </section>
-
-    </main>
-
-
-
-    <div class="lightbox" id="lightbox">
-
-        <div class="lightbox-content">
-
-            <button class="close-btn" id="closeBtn">✕</button>
-
-            <img id="lightboxImg" src="" alt="Popup Preview">
-
-        </div>
-
     </div>
 
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+    <div class="blob blob3"></div>
 
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="gallery.html" class="active">Gallery</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+            </div>
+            <a href="pricing.html" class="commission-badge">OPEN COMMISSIONS</a>
+        </nav>
+    </header>
+
+    <section class="gallery-hero">
+        <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
+        <h1 class="gallery-title">Artwork Gallery</h1>
+        <p class="gallery-text">
+            A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
+        </p>
+        
+        <div class="gallery-pricing-note">
+            Cards below double as a visual price guide for commissions. Detailed options can be found on our <a href="pricing.html" style="white-space: nowrap;">pricing page</a>.
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All Art</button>
+            <button class="filter-btn" data-filter="headshot">Headshot</button> 
+            <button class="filter-btn" data-filter="torso">Torso</button>
+            <button class="filter-btn" data-filter="fullbody">Fullbody</button>
+            <button class="filter-btn" data-filter="multi">Multi-character</button>
+            
+            <div class="filter-separator"></div>
+            
+            <button class="filter-btn" data-filter="furry">Furry</button>
+            <button class="filter-btn" data-filter="anime">Anime</button>
+        </div>
+    </section>
+
+    <main class="gallery-container">
+        <section class="gallery-grid">
+
+            <div class="art-card" data-category="torso anime" data-price="$60">
+                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Pastel Necomimi</h3>
+                        <p>Light Shading | Torso</p>
+                    </div>
+                    <div class="art-tag-price">$60</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="torso multi furry" data-price="$90">
+                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>City Nights Duo</h3>
+                        <p>Multi-character | Light Shading</p>
+                    </div>
+                    <div class="art-tag-price">$90</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody furry" data-price="$80">
+                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Pastel Goth OC</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$80</div>
+                </div>
+            </div>
+
+            <div class="art-card" data-category="fullbody furry" data-price="$80">
+                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <div class="art-overlay">
+                    <div class="art-details">
+                        <h3>Asteriks Identity</h3>
+                        <p>Light Shading | Fullbody</p>
+                    </div>
+                    <div class="art-tag-price">$80</div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="close-btn" id="closeBtn">✕</button>
+            <img id="lightboxImg" src="" alt="Popup Preview">
+        </div>
+    </div>
 
     <footer>
-
         © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
-
     </footer>
 
-
-
     <script>
-
         /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ И ДЕВТУЛЗОВ */
-
         document.addEventListener('contextmenu', event => event.preventDefault());
-
         document.addEventListener('dragstart', event => {
-
             if (event.target.tagName === 'IMG') event.preventDefault();
-
         });
-
-
 
         document.addEventListener('keydown', (e) => {
-
             if (e.ctrlKey && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) e.preventDefault();
-
             if (e.code === 'F12') e.preventDefault();
-
         });
-
-
 
         const filterButtons = document.querySelectorAll('.filter-btn');
-
         const cards = document.querySelectorAll('.art-card');
-
         const lightbox = document.getElementById('lightbox');
-
         const lightboxImg = document.getElementById('lightboxImg');
-
         const closeBtn = document.getElementById('closeBtn');
-
-
+        const pageLoader = document.getElementById('pageLoader');
 
         /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
-
         filterButtons.forEach(button => {
-
             button.addEventListener('click', () => {
-
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-
                 button.classList.add('active');
 
-
-
                 const filter = button.dataset.filter;
-
                 let visibleIndex = 0;
 
-
-
                 cards.forEach((card) => {
-
                     card.classList.remove('show');
-
                     
-
                     setTimeout(() => {
-
                         const categories = card.dataset.category.split(' ');
-
                         if (filter === 'all' || categories.includes(filter)) {
-
                             card.style.display = 'block';
-
                             
-
                             setTimeout(() => {
-
                                 card.classList.add('show');
-
                             }, visibleIndex * 70); 
-
                             visibleIndex++;
-
                         } else {
-
                             card.style.display = 'none';
-
                         }
-
                     }, 300);
-
                 });
-
             });
-
         });
 
-
-
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА (Плавный вход на страницу) */
-
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
         window.addEventListener('DOMContentLoaded', () => {
+            // Мягко гасим оверлей лоадера
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+            }
 
-            document.body.classList.add('visible'); // Запускает мягкую анимацию подъема всего макета
-
+            // Запускает мягкую анимацию подъема всего макета
+            document.body.classList.add('visible'); 
             
-
             cards.forEach((card, index) => {
-
                 card.style.display = 'block';
-
                 setTimeout(() => {
-
                     card.classList.add('show');
-
-                }, index * 90);
-
+                }, 150 + (index * 90)); // Небольшая задержка, чтобы карточки выкатывались сразу за исчезновением лоадера
             });
-
         });
-
-
 
         /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
-
         window.addEventListener('pageshow', (event) => {
-
             if (event.persisted) {
-
+                if (pageLoader) pageLoader.classList.add('fade-out');
                 document.body.classList.add('visible');
-
             }
-
         });
-
-
 
         /* РАБОТА ЛАЙТБОКСА */
-
         cards.forEach(card => {
-
             card.addEventListener('click', (e) => {
-
                 if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-
                 
-
                 const imgElement = card.querySelector('img');
-
                 if (imgElement) {
-
                     const img = imgElement.src;
-
                     lightbox.style.display = 'flex';
-
                     setTimeout(() => lightbox.classList.add('active'), 10);
-
                     lightboxImg.src = img;
-
                 }
-
             });
-
         });
-
-
 
         const closeLightbox = () => {
-
             lightbox.classList.remove('active');
-
             setTimeout(() => lightbox.style.display = 'none', 300);
-
         };
 
-
-
         closeBtn.addEventListener('click', closeLightbox);
-
         lightbox.addEventListener('click', (e) => {
-
             if (e.target === lightbox) closeLightbox();
-
         });
-
-
 
         /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
-
         document.addEventListener('click', (e) => {
-
             const link = e.target.closest('a');
-
             if (!link) return;
 
-
-
             const href = link.getAttribute('href');
-
             const target = link.getAttribute('target');
 
-
-
             // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
-
             if (
-
                 href && 
-
                 href !== '#' && 
-
                 !href.startsWith('#') && 
-
                 !href.startsWith('mailto:') && 
-
                 !href.startsWith('tel:') &&
-
                 !href.startsWith('http') && 
-
                 (!target || target === '_self') &&
-
                 !link.classList.contains('active')
-
             ) {
-
                 e.preventDefault(); 
-
                 
-
+                // Включаем лоадер обратно перед уходом, чтобы страница мягко угасла
+                if (pageLoader) {
+                    pageLoader.classList.remove('fade-out');
+                }
                 document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
-
                 
-
                 setTimeout(() => {
-
                     window.location.href = href;
-
                 }, 450); 
-
             }
-
         });
-
     </script>
-
 </body>
-
-</html> 
-
+</html>
