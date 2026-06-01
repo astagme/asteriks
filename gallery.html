@@ -37,26 +37,23 @@
         }
 
         body {
-    font-family: 'Nunito', sans-serif;
-    color: var(--dark);
-    overflow-x: hidden;
-    background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
 
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.45s ease-out,
-                transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-img {
-    user-select: none;
-    -webkit-user-drag: none;
-}
-            
+        img {
+            user-select: none;
+            -webkit-user-drag: none;
+        }
 
         /* Класс, который вешается скриптом при загрузке */
         body.visible {
@@ -87,11 +84,11 @@ img {
         }
 
         .loader-spinner {
-    width: 70px;
-    height: 70px;
-    position: relative;
-    animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
-}
+            width: 70px;
+            height: 70px;
+            position: relative;
+            animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
+        }
 
         .loader-spinner img {
             width: 100%;
@@ -117,30 +114,18 @@ img {
             pointer-events: none;
         }
 
-    @media (hover: hover) {
+        @media (hover: hover) {
+            body {
+                cursor: url('asteriks.art/paw.png') 16 16, auto;
+            }
+            a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
+                cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+            }
+        }
 
-    body {
-        cursor: url('asteriks.art/paw.png') 16 16, auto;
-    }
-
-    a,
-    button,
-    .filter-btn,
-    .art-card,
-    .close-btn,
-    .commission-badge {
-        cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
-    }
-}
-
-a:active,
-button:active,
-.filter-btn:active,
-.art-card:active,
-.close-btn:active,
-.commission-badge:active {
-    cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
-}
+        a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+        }
 
         /* ======================================================
            BACKGROUND BLOBS (Задний свет)
@@ -289,10 +274,7 @@ button:active,
             font-weight: 800;
             transition: color 0.2s ease;
         }
-
-        .gallery-pricing-note a:hover {
-            color: #8CA4E8;
-        }
+        .gallery-pricing-note a:hover { color: #8CA4E8; }
 
         /* ======================================================
            FILTERS
@@ -319,8 +301,7 @@ button:active,
             box-shadow: 0 6px 15px rgba(119,136,187,0.05);
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--white);
             transform: translateY(-4px);
             color: #7E98E7;
@@ -365,7 +346,6 @@ button:active,
             background: var(--white);
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
-            
             opacity: 0;
             transform: translateY(22px) scale(0.96);
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
@@ -373,36 +353,28 @@ button:active,
         }
 
         .art-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 34px;
-    padding: 2px;
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.9),
-        rgba(228,226,248,.8),
-        rgba(171,192,246,.8)
-    );
-
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-
-    mask-composite: exclude;
-
-    pointer-events: none;
-    opacity: .7;
-    z-index: 2;
-}
-                
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(228,226,248,.8), rgba(171,192,246,.8));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: .7;
+            z-index: 2;
+        }
+                        
         .art-card:hover {
             transform: translateY(-10px) scale(1.005);
             border-color: #ABC0F6;
             box-shadow: 0 30px 60px rgba(140, 164, 232, 0.25), var(--inner-shadow);
         }
 
-        .art-card img {
+        /* Optimized: Set structural defaults for content boxes to prevent layout shifts */
+        .art-card picture, .art-card img {
             width: 100%;
             height: auto;
             display: block;
@@ -635,8 +607,10 @@ button:active,
         <section class="gallery-grid">
 
             <div class="art-card" data-category="torso anime" data-price="$60">
-                <!-- Added loading="lazy" and decodethrough="async" -->
-                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso" loading="lazy" decoding="async">
+                <picture>
+                    <source srcset="asteriks.art/asteriks3.webp" type="image/webp">
+                    <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso" width="800" height="1000" loading="lazy" decoding="async">
+                </picture>
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Necomimi</h3>
@@ -647,7 +621,10 @@ button:active,
             </div>
 
             <div class="art-card" data-category="torso multi furry" data-price="$90">
-                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo" loading="lazy" decoding="async">
+                <picture>
+                    <source srcset="asteriks.art/asteriks4.webp" type="image/webp">
+                    <img src="asteriks.art/asteriks4.png" alt="City Nights Duo" width="800" height="1100" loading="lazy" decoding="async">
+                </picture>
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
@@ -658,7 +635,10 @@ button:active,
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective" loading="lazy" decoding="async">
+                <picture>
+                    <source srcset="asteriks.art/asteriks2.webp" type="image/webp">
+                    <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective" width="800" height="1200" loading="lazy" decoding="async">
+                </picture>
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Goth OC</h3>
@@ -669,7 +649,10 @@ button:active,
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion" loading="lazy" decoding="async">
+                <picture>
+                    <source srcset="asteriks.art/asteriks1.webp" type="image/webp">
+                    <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion" width="800" height="1200" loading="lazy" decoding="async">
+                </picture>
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Asteriks Identity</h3>
@@ -726,7 +709,7 @@ button:active,
                             
                             setTimeout(() => {
                                 card.classList.add('show');
-                            }, visibleIndex * 40); // Faster stagger for smoother filter response
+                            }, visibleIndex * 50); 
                             visibleIndex++;
                         } else {
                             card.style.display = 'none';
@@ -736,36 +719,31 @@ button:active,
             });
         });
 
-        /* OPTIMIZED: Cascade loader that doesn't block for image files */
+        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА */
         window.addEventListener('DOMContentLoaded', () => {
-            if (pageLoader) {
-                pageLoader.classList.add('fade-out');
-                pageLoader.addEventListener('transitionend', () => {
-                    pageLoader.style.display = 'none';
-                }, { once: true });
-            }
-
+            // Instantly transition the layout structure view frame
             document.body.classList.add('visible'); 
             
-            // Instantly reveal cards, letting images decode asynchronously 
+            // Show structural cards immediately, rendering images smoothly underneath
             cards.forEach((card, index) => {
                 card.style.display = 'block';
-                const img = card.querySelector('img');
-                
-                if (img && !img.complete) {
-                    // Show a soft background color until image loads, then pop it in gracefully
-                    img.addEventListener('load', () => {
-                        card.classList.add('show');
-                    });
-                } else {
-                    setTimeout(() => {
-                        card.classList.add('show');
-                    }, index * 50);
-                }
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, 100 + (index * 60));
             });
+
+            // Cleanly kill the introductory loader frame
+            if (pageLoader) {
+                setTimeout(() => {
+                    pageLoader.classList.add('fade-out');
+                    pageLoader.addEventListener('transitionend', () => {
+                        pageLoader.style.display = 'none';
+                    }, { once: true });
+                }, 150);
+            }
         });
 
-        /* Защита от кэша браузера */
+        /* ИСПРАВЛЕНО: Защита от кэша браузера */
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 if (pageLoader) pageLoader.classList.add('fade-out');
@@ -801,7 +779,7 @@ button:active,
             if (e.target === lightbox) closeLightbox();
         });
 
-        /* Умный перехват переходов */
+        /* УМНЫЙ ПЕРЕХВАТ ПЕРЕХОДОВ */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
@@ -825,7 +803,7 @@ button:active,
                     pageLoader.style.display = 'flex';
                     pageLoader.classList.remove('fade-out');
                 }
-                document.body.classList.remove('visible');
+                document.body.classList.remove('visible'); 
                 
                 setTimeout(() => {
                     window.location.href = href;
