@@ -6,7 +6,7 @@
     <title>Gallery | Asteriks</title>
 
     <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght=400;500;600&family=Nunito:wght=400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
     <style>
@@ -37,28 +37,26 @@
         }
 
         body {
-            font-family: 'Nunito', sans-serif;
-            color: var(--dark);
-            overflow-x: hidden;
-            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            
-            cursor: url('asteriks.art/paw.png') 16 16, auto;
-            
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+    font-family: 'Nunito', sans-serif;
+    color: var(--dark);
+    overflow-x: hidden;
+    background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
-            /* Настройка плавного появления и скольжения страницы вверх */
-            opacity: 0; 
-            transform: translateY(15px);
-            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-            will-change: opacity, transform;
-        }
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 0.45s ease-out,
+                transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+img {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+            
 
         /* Класс, который вешается скриптом при загрузке */
         body.visible {
@@ -89,11 +87,11 @@
         }
 
         .loader-spinner {
-            width: 70px;
-            height: 70px;
-            position: relative;
-            animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6s, 0.32, 1.6s) infinite;
-        }
+    width: 70px;
+    height: 70px;
+    position: relative;
+    animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
+}
 
         .loader-spinner img {
             width: 100%;
@@ -119,13 +117,30 @@
             pointer-events: none;
         }
 
-        /* Изменение курсоров на элементах */
-        a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
-            cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
-        }
-        a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
-            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
-        }
+    @media (hover: hover) {
+
+    body {
+        cursor: url('asteriks.art/paw.png') 16 16, auto;
+    }
+
+    a,
+    button,
+    .filter-btn,
+    .art-card,
+    .close-btn,
+    .commission-badge {
+        cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+    }
+}
+
+a:active,
+button:active,
+.filter-btn:active,
+.art-card:active,
+.close-btn:active,
+.commission-badge:active {
+    cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+}
 
         /* ======================================================
            BACKGROUND BLOBS (Задний свет)
@@ -358,18 +373,28 @@
         }
 
         .art-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 34px;
-            padding: 2px;
-            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(228,226,248,.8), rgba(171,192,246,.8));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            pointer-events: none;
-            opacity: .7;
-            z-index: 2;
-        }
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 34px;
+    padding: 2px;
+    background: linear-gradient(
+        135deg,
+        rgba(255,255,255,.9),
+        rgba(228,226,248,.8),
+        rgba(171,192,246,.8)
+    );
+
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+
+    mask-composite: exclude;
+
+    pointer-events: none;
+    opacity: .7;
+    z-index: 2;
+}
                 
         .art-card:hover {
             transform: translateY(-10px) scale(1.005);
@@ -453,6 +478,7 @@
             inset: 0;
             background: rgba(43, 51, 74, .65);
             backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: none;
             align-items: center;
             justify-content: center;
@@ -557,7 +583,7 @@
 
     <div class="page-loader" id="pageLoader">
         <div class="loader-spinner">
-            <img src="asteriks.art/asteriksfav.png" alt="✦">
+            <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
         </div>
     </div>
 
@@ -673,10 +699,7 @@
             if (event.target.tagName === 'IMG') event.preventDefault();
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) e.preventDefault();
-            if (e.code === 'F12') e.preventDefault();
-        });
+        
 
         const filterButtons = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.art-card');
@@ -717,9 +740,13 @@
         /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
         window.addEventListener('DOMContentLoaded', () => {
             // Мягко гасим оверлей лоадера
-            if (pageLoader) {
-                pageLoader.classList.add('fade-out');
-            }
+           if (pageLoader) {
+    pageLoader.classList.add('fade-out');
+
+    pageLoader.addEventListener('transitionend', () => {
+        pageLoader.style.display = 'none';
+    }, { once: true });
+}
 
             // Запускает мягкую анимацию подъема всего макета
             document.body.classList.add('visible'); 
@@ -756,9 +783,13 @@
         });
 
         const closeLightbox = () => {
-            lightbox.classList.remove('active');
-            setTimeout(() => lightbox.style.display = 'none', 300);
-        };
+    lightbox.classList.remove('active');
+
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+    }, 300);
+};
 
         closeBtn.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => {
@@ -788,8 +819,9 @@
                 
                 // Включаем лоадер обратно перед уходом, чтобы страница мягко угасла
                 if (pageLoader) {
-                    pageLoader.classList.remove('fade-out');
-                }
+    pageLoader.style.display = 'flex';
+    pageLoader.classList.remove('fade-out');
+}
                 document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
                 
                 setTimeout(() => {
