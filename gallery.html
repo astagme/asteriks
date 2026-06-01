@@ -726,7 +726,7 @@ button:active,
                             card.style.display = 'block';
                             
                             setTimeout(() => {
-                                card.classList.add('show');
+                                cards.forEach(card => card.classList.remove('show'));
                             }, visibleIndex * 70); 
                             visibleIndex++;
                         } else {
@@ -772,19 +772,22 @@ button:active,
 });
 
         /* РАБОТА ЛАЙТБОКСА */
-        cards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
-                
-                const imgElement = card.querySelector('img');
-                if (imgElement) {
-                    const img = imgElement.src;
-                    lightbox.style.display = 'flex';
-                    setTimeout(() => lightbox.classList.add('active'), 10);
-                    lightboxImg.src = img;
-                }
+       cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+
+        const imgElement = card.querySelector('img');
+
+        if (imgElement) {
+            lightboxImg.src = imgElement.src;
+            lightbox.style.display = 'flex';
+
+            requestAnimationFrame(() => {
+                lightbox.classList.add('active');
             });
-        });
+        }
+    });
+});
 
         const closeLightbox = () => {
     lightbox.classList.remove('active');
