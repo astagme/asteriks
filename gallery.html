@@ -348,7 +348,7 @@
             opacity: 0;
             transform: translateY(22px) scale(0.96);
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
-            will-change: transform, box-shadow, opacity;
+            will-change: transform, opacity;
         }
 
         .art-card::before {
@@ -367,7 +367,7 @@
         }
                     
         .art-card:hover {
-            transform: translateY(-10px) scale(1.005);
+            transform: translateY(-6px);
             border-color: #ABC0F6;
             box-shadow: 0 30px 60px rgba(140, 164, 232, 0.25), var(--inner-shadow);
         }
@@ -442,19 +442,22 @@
            LIGHTBOX POPUP
         ====================================================== */
         .lightbox {
-            position: fixed;
-            inset: 0;
-            background: rgba(43, 51, 74, .65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            padding: 30px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    position: fixed;
+    inset: 0;
+    background: rgba(43, 51, 74, .65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 30px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
 
         .lightbox.active {
             display: flex;
@@ -678,43 +681,41 @@
         let activeFilterTimeouts = [];
 
         /* REFACTORED DEBOUNCED MULTI-CATEGORY SMART FILTER */
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                if (button.classList.contains('active')) return;
+       filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
 
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+        if (button.classList.contains('active')) return;
 
-                const filter = button.dataset.filter;
-                let visibleIndex = 0;
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
 
-                // Wipe any active animation queues instantly to clear layout calculations
-                activeFilterTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
-                activeFilterTimeouts = [];
+        const filter = button.dataset.filter;
 
-                cards.forEach((card) => {
-                    // Instantly drop opacity before structural shifts
-                    card.classList.remove('show');
+        cards.forEach(card => {
 
-                    const categories = card.dataset.category.split(' ');
+            const categories = card.dataset.category.split(' ');
 
-                    if (filter === 'all' || categories.includes(filter)) {
-                        // Synchronous layout shifts prevent asynchronous layout math collision bugs
-                        card.style.display = 'block';
+            if (filter === 'all' || categories.includes(filter)) {
 
-                        // Cascade only the opacity transitions through the global tracking registry
-                        const showTimeout = setTimeout(() => {
-                            card.classList.add('show');
-                        }, visibleIndex * 70);
+                card.style.display = 'block';
 
-                        activeFilterTimeouts.push(showTimeout);
-                        visibleIndex++;
-                    } else {
+                requestAnimationFrame(() => {
+                    card.classList.add('show');
+                });
+
+            } else {
+
+                card.classList.remove('show');
+
+                setTimeout(() => {
+                    if (!card.classList.contains('show')) {
                         card.style.display = 'none';
                     }
-                });
-            });
+                }, 250);
+            }
         });
+    });
+});
 
         /* CASCADE INTERFACE INITIALIZER */
         window.addEventListener('load', () => {
@@ -754,27 +755,25 @@
 
                 const imgElement = card.querySelector('img');
                 if (imgElement) {
-                    lightboxImg.src = imgElement.src;
-                    lightbox.style.display = 'flex';
-                    document.body.style.overflow = 'hidden'; // Lock down main body scrolling
+    lightboxImg.src = imgElement.src;
+    lightbox.style.display = 'flex';
 
-                    requestAnimationFrame(() => {
-                        lightbox.classList.add('active');
-                    });
-                }
+    requestAnimationFrame(() => {
+        lightbox.classList.add('active');
+    });
+}
             });
         });
 
         const closeLightbox = () => {
-            lightbox.classList.remove('active');
-            document.body.style.overflow = ''; // Unlock viewport scrolling safely
+    lightbox.classList.remove('active');
 
-            setTimeout(() => {
-                lightbox.style.display = 'none';
-                lightboxImg.src = '';
-            }, 300);
-        };
-
+    setTimeout(() => {
+        lightbox.style.display = 'none';
+        lightboxImg.src = '';
+    }, 300);
+};
+        
         closeBtn.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
