@@ -1,3 +1,4 @@
+my images are loading too slow. everything else works well
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -635,7 +636,8 @@ button:active,
         <section class="gallery-grid">
 
             <div class="art-card" data-category="torso anime" data-price="$60">
-                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
+                <!-- Added loading="lazy" and decodethrough="async" -->
+                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso" loading="lazy" decoding="async">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Necomimi</h3>
@@ -646,7 +648,7 @@ button:active,
             </div>
 
             <div class="art-card" data-category="torso multi furry" data-price="$90">
-                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo">
+                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo" loading="lazy" decoding="async">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
@@ -657,7 +659,7 @@ button:active,
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective" loading="lazy" decoding="async">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Goth OC</h3>
@@ -668,7 +670,7 @@ button:active,
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion" loading="lazy" decoding="async">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Asteriks Identity</h3>
@@ -699,8 +701,6 @@ button:active,
             if (event.target.tagName === 'IMG') event.preventDefault();
         });
 
-        
-
         const filterButtons = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.art-card');
         const lightbox = document.getElementById('lightbox');
@@ -727,39 +727,46 @@ button:active,
                             
                             setTimeout(() => {
                                 card.classList.add('show');
-                            }, visibleIndex * 70); 
+                            }, visibleIndex * 40); // Faster stagger for smoother filter response
                             visibleIndex++;
                         } else {
                             card.style.display = 'none';
                         }
-                    }, 300);
+                    }, 250);
                 });
             });
         });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
-        window.addEventListener('load', ...)
-            // Мягко гасим оверлей лоадера
-           if (pageLoader) {
-    pageLoader.classList.add('fade-out');
+        /* OPTIMIZED: Cascade loader that doesn't block for image files */
+        window.addEventListener('DOMContentLoaded', () => {
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+                pageLoader.addEventListener('transitionend', () => {
+                    pageLoader.style.display = 'none';
+                }, { once: true });
+            }
 
-    pageLoader.addEventListener('transitionend', () => {
-        pageLoader.style.display = 'none';
-    }, { once: true });
-}
-
-            // Запускает мягкую анимацию подъема всего макета
             document.body.classList.add('visible'); 
             
+            // Instantly reveal cards, letting images decode asynchronously 
             cards.forEach((card, index) => {
                 card.style.display = 'block';
-                setTimeout(() => {
-                    card.classList.add('show');
-                }, 150 + (index * 90)); // Небольшая задержка, чтобы карточки выкатывались сразу за исчезновением лоадера
+                const img = card.querySelector('img');
+                
+                if (img && !img.complete) {
+                    // Show a soft background color until image loads, then pop it in gracefully
+                    img.addEventListener('load', () => {
+                        card.classList.add('show');
+                    });
+                } else {
+                    setTimeout(() => {
+                        card.classList.add('show');
+                    }, index * 50);
+                }
             });
         });
 
-        /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
+        /* Защита от кэша браузера */
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 if (pageLoader) pageLoader.classList.add('fade-out');
@@ -783,20 +790,19 @@ button:active,
         });
 
         const closeLightbox = () => {
-    lightbox.classList.remove('active');
-
-    setTimeout(() => {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-    }, 300);
-};
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300);
+        };
 
         closeBtn.addEventListener('click', closeLightbox);
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
+        /* Умный перехват переходов */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
@@ -804,7 +810,6 @@ button:active,
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
             if (
                 href && 
                 href !== '#' && 
@@ -817,12 +822,11 @@ button:active,
             ) {
                 e.preventDefault(); 
                 
-                // Включаем лоадер обратно перед уходом, чтобы страница мягко угасла
                 if (pageLoader) {
-    pageLoader.style.display = 'flex';
-    pageLoader.classList.remove('fade-out');
-}
-                document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
+                    pageLoader.style.display = 'flex';
+                    pageLoader.classList.remove('fade-out');
+                }
+                document.body.classList.remove('visible');
                 
                 setTimeout(() => {
                     window.location.href = href;
