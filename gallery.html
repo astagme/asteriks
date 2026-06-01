@@ -717,23 +717,25 @@ button:active,
                 const filter = button.dataset.filter;
                 let visibleIndex = 0;
 
-                cards.forEach((card) => {
-                    card.classList.remove('show');
-                    
-                    setTimeout(() => {
-                        const categories = card.dataset.category.split(' ');
-                        if (filter === 'all' || categories.includes(filter)) {
-                            card.style.display = 'block';
-                            
-                            setTimeout(() => {
-                                cards.forEach(card => card.classList.remove('show'));
-                            }, visibleIndex * 70); 
-                            visibleIndex++;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }, 300);
-                });
+               cards.forEach((card) => {
+    card.classList.remove('show');
+
+    setTimeout(() => {
+        const categories = card.dataset.category.split(' ');
+
+        if (filter === 'all' || categories.includes(filter)) {
+            card.style.display = 'block';
+
+            setTimeout(() => {
+    cards.forEach(card => card.classList.remove('show'));
+}, visibleIndex * 70);
+
+            visibleIndex++;
+        } else {
+            card.style.display = 'none';
+        }
+    }, 300);
+});
             });
         });
 
