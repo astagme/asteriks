@@ -11,7 +11,7 @@
 
     <style>
         /* ======================================================
-           КОРНЕВЫЕ СТИЛИ (Наш фундамент)
+           КОРНЕВЫЕ СТИЛИ 
         ====================================================== */
         :root {
             --c1: #ABC0F6;
@@ -37,35 +37,40 @@
         }
 
         body {
-    font-family: 'Nunito', sans-serif;
-    color: var(--dark);
-    overflow-x: hidden;
-    background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.45s ease-out,
-                transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-img {
-    user-select: none;
-    -webkit-user-drag: none;
-}
+            font-family: 'Nunito', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
             
+            /* ЗАЩИТА: Запрет выделения контента на всей странице */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-        /* Класс, который вешается скриптом при загрузке */
+        /* ЗАЩИТА: Запрет сохранения для мобильных устройств (iOS/Android) */
+        img {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+            
         body.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
         /* ======================================================
-           ПЛАВНЫЙ СТАРТОВЫЙ ЛОАДЕР ДЛЯ СТРАНИЦЫ
+           ЛОАДЕР
         ====================================================== */
         .page-loader {
             position: fixed;
@@ -87,11 +92,11 @@ img {
         }
 
         .loader-spinner {
-    width: 70px;
-    height: 70px;
-    position: relative;
-    animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
-}
+            width: 70px;
+            height: 70px;
+            position: relative;
+            animation: loaderRotate 2.4s cubic-bezier(0.68, -0.6, 0.32, 1.6) infinite;
+        }
 
         .loader-spinner img {
             width: 100%;
@@ -106,7 +111,6 @@ img {
             100% { transform: rotate(360deg) scale(0.95); }
         }
 
-        /* Наш кастомный SVG-паттерн лапок на фоне */
         body::before {
             content: "";
             position: fixed;
@@ -117,34 +121,18 @@ img {
             pointer-events: none;
         }
 
-    @media (hover: hover) {
+        @media (hover: hover) {
+            body { cursor: url('asteriks.art/paw.png') 16 16, auto; }
+            a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
+                cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+            }
+        }
 
-    body {
-        cursor: url('asteriks.art/paw.png') 16 16, auto;
-    }
+        a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+        }
 
-    a,
-    button,
-    .filter-btn,
-    .art-card,
-    .close-btn,
-    .commission-badge {
-        cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
-    }
-}
-
-a:active,
-button:active,
-.filter-btn:active,
-.art-card:active,
-.close-btn:active,
-.commission-badge:active {
-    cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
-}
-
-        /* ======================================================
-           BACKGROUND BLOBS (Задний свет)
-        ====================================================== */
+        /* БЛОБЫ */
         .blob {
             position: fixed;
             border-radius: 50%;
@@ -162,9 +150,7 @@ button:active,
             50% { transform: translateY(-25px) scale(1.02); }
         }
 
-        /* ======================================================
-           NAVBAR (Зафиксированная шапка с размытием)
-        ====================================================== */
+        /* НАВИГАЦИЯ */
         header {
             position: fixed;
             top: 25px;
@@ -230,9 +216,7 @@ button:active,
             box-shadow: 0 14px 28px rgba(140,164,232,.45);
         }
 
-        /* ======================================================
-           HERO SECTION
-        ====================================================== */
+        /* HERO СЕКЦИЯ */
         .gallery-hero {
             padding: 140px 7% 35px;
             text-align: center;
@@ -289,14 +273,9 @@ button:active,
             font-weight: 800;
             transition: color 0.2s ease;
         }
+        .gallery-pricing-note a:hover { color: #8CA4E8; }
 
-        .gallery-pricing-note a:hover {
-            color: #8CA4E8;
-        }
-
-        /* ======================================================
-           FILTERS
-        ====================================================== */
+        /* ФИЛЬТРЫ */
         .filters {
             display: flex;
             justify-content: center;
@@ -319,8 +298,7 @@ button:active,
             box-shadow: 0 6px 15px rgba(119,136,187,0.05);
         }
 
-        .filter-btn:hover,
-        .filter-btn.active {
+        .filter-btn:hover, .filter-btn.active {
             background: var(--white);
             transform: translateY(-4px);
             color: #7E98E7;
@@ -344,7 +322,7 @@ button:active,
         }
 
         /* ======================================================
-           GALLERY MASONRY GRID 
+           ГАЛЕРЕЯ (СЕТКА МАСОНРИ)
         ====================================================== */
         .gallery-container {
             width: min(1200px, 92%);
@@ -356,6 +334,7 @@ button:active,
             column-gap: 30px;
         }
 
+        /* ЗАЩИТА: Контейнер картинки становится оберткой-щитом */
         .art-card {
             break-inside: avoid;
             margin-bottom: 30px;
@@ -365,36 +344,36 @@ button:active,
             background: var(--white);
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
-            
             opacity: 0;
             transform: translateY(22px) scale(0.96);
             transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
             will-change: transform, box-shadow, opacity;
         }
 
+        /* ЗАЩИТА: Невидимый верхний слой «стекла» над картинкой в карточке */
+        .art-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            bottom: 0; 
+            z-index: 4; /* Выше картинки, но ниже текстового оверлея */
+            background: transparent;
+        }
+
         .art-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 34px;
-    padding: 2px;
-    background: linear-gradient(
-        135deg,
-        rgba(255,255,255,.9),
-        rgba(228,226,248,.8),
-        rgba(171,192,246,.8)
-    );
-
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-                  linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-
-    mask-composite: exclude;
-
-    pointer-events: none;
-    opacity: .7;
-    z-index: 2;
-}
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 34px;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(255,255,255,.9), rgba(228,226,248,.8), rgba(171,192,246,.8));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: .7;
+            z-index: 2;
+        }
                 
         .art-card:hover {
             transform: translateY(-10px) scale(1.005);
@@ -429,7 +408,7 @@ button:active,
             border-top: 1px solid rgba(171, 192, 246, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 5;
+            z-index: 5; /* Поверх защитного «стекла» */
             transform: translateY(100%);
             opacity: 0;
             transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
@@ -471,7 +450,7 @@ button:active,
         }
 
         /* ======================================================
-           LIGHTBOX POPUP
+           ЛАЙТБОКС (ПОПАП-ПРОСМОТР)
         ====================================================== */
         .lightbox {
             position: fixed;
@@ -503,6 +482,16 @@ button:active,
             animation: popup .4s cubic-bezier(0.175, 0.885, 0.32, 1.15);
         }
 
+        /* ЗАЩИТА: Добавляем невидимое стекло поверх картинки в лайтбоксе */
+        .lightbox-content::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 9;
+            background: transparent;
+            border-radius: 28px;
+        }
+
         @keyframes popup {
             from { transform: scale(.9); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
@@ -519,6 +508,7 @@ button:active,
             box-shadow: 0 30px 70px rgba(43, 51, 74, 0.35);
         }
 
+        /* Кнопка должна быть выше защитного стекла, чтобы кликалась */
         .close-btn {
             position: absolute;
             top: -20px;
@@ -535,7 +525,7 @@ button:active,
             justify-content: center;
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             transition: .3s cubic-bezier(0.25, 1, 0.5, 1);
-            z-index: 10;
+            z-index: 10; 
         }
 
         .close-btn:hover {
@@ -545,7 +535,7 @@ button:active,
         }
 
         /* ======================================================
-           FOOTER 
+           ФУТЕР 
         ====================================================== */
         footer {
             text-align: center;
@@ -561,9 +551,7 @@ button:active,
         }
         footer img { height: 1.1rem; width: auto; }
 
-        /* ======================================================
-           RESPONSIVE
-        ====================================================== */
+        /* АДАПТИВНОСТЬ */
         @media(max-width: 900px) {
             .gallery-grid { columns: 1; max-width: 550px; margin: auto; }
             .close-btn { top: 15px; right: 15px; border-radius: 14px; }
@@ -579,9 +567,7 @@ button:active,
         }
     </style>
 </head>
-<body>
-
-    <div class="page-loader" id="pageLoader">
+<body oncontextmenu="return false;"> <div class="page-loader" id="pageLoader">
         <div class="loader-spinner">
             <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
         </div>
@@ -693,13 +679,20 @@ button:active,
     </footer>
 
     <script>
-        /* СТРОГАЯ ЗАЩИТА АРТОВ ОТ СКАЧИВАНИЯ И ДЕВТУЛЗОВ */
-        document.addEventListener('contextmenu', event => event.preventDefault());
+        /* ЗАЩИТА АРТОВ ОТ ПЕРЕТАСКИВАНИЯ И ГОРЯЧИХ КЛАВИШ */
         document.addEventListener('dragstart', event => {
             if (event.target.tagName === 'IMG') event.preventDefault();
         });
 
-        
+        document.addEventListener('keydown', (e) => {
+            // Блокируем Ctrl+U (Исходный код), Ctrl+S (Сохранить), Ctrl+Shift+C / I (Инспектор), F12
+            if ((e.ctrlKey || e.metaKey) && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) {
+                e.preventDefault();
+            }
+            if (e.code === 'F12') {
+                e.preventDefault();
+            }
+        });
 
         const filterButtons = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.art-card');
@@ -708,7 +701,7 @@ button:active,
         const closeBtn = document.getElementById('closeBtn');
         const pageLoader = document.getElementById('pageLoader');
 
-        /* СИНХРОНИЗИРОВАННЫЙ СМАРТ-ФИЛЬТР */
+        /* СМАРТ-ФИЛЬТР */
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -737,29 +730,25 @@ button:active,
             });
         });
 
-        /* КАСКАДНАЯ СТАРТОВАЯ ЗАГРУЗКА И ВЫКЛЮЧЕНИЕ ЛОАДЕРА */
+        /* ЗАГРУЗКА СТРАНИЦЫ И ЛОАДЕРА */
         window.addEventListener('load', () => {
-            // Мягко гасим оверлей лоадера
-           if (pageLoader) {
-    pageLoader.classList.add('fade-out');
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+                pageLoader.addEventListener('transitionend', () => {
+                    pageLoader.style.display = 'none';
+                }, { once: true });
+            }
 
-    pageLoader.addEventListener('transitionend', () => {
-        pageLoader.style.display = 'none';
-    }, { once: true });
-}
-
-            // Запускает мягкую анимацию подъема всего макета
             document.body.classList.add('visible'); 
             
             cards.forEach((card, index) => {
                 card.style.display = 'block';
                 setTimeout(() => {
                     card.classList.add('show');
-                }, 150 + (index * 90)); // Небольшая задержка, чтобы карточки выкатывались сразу за исчезновением лоадера
+                }, 150 + (index * 90));
             });
         });
 
-        /* ИСПРАВЛЕНО: Защита от кэша браузера (Решает проблему белого экрана при кнопке "Назад") */
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
                 if (pageLoader) pageLoader.classList.add('fade-out');
@@ -767,9 +756,10 @@ button:active,
             }
         });
 
-        /* РАБОТА ЛАЙТБОКСА */
+        /* РАБОТА ЛАЙТБОКСА С УЧЕТОМ КЛИКА НА КАРТОЧКУ */
         cards.forEach(card => {
             card.addEventListener('click', (e) => {
+                // Предотвращаем конфликты, если кликнули по кнопкам внутри оверлея
                 if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
                 
                 const imgElement = card.querySelector('img');
@@ -783,20 +773,24 @@ button:active,
         });
 
         const closeLightbox = () => {
-    lightbox.classList.remove('active');
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300);
+        };
 
-    setTimeout(() => {
-        lightbox.style.display = 'none';
-        lightboxImg.src = '';
-    }, 300);
-};
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Исключаем баг всплытия клика на стекло
+            closeLightbox();
+        });
 
-        closeBtn.addEventListener('click', closeLightbox);
+        /* Клик по самому лайтбоксу (по темному фону) закрывает его */
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        /* ИСПРАВЛЕНО: Умный перехват переходов (Препятствует вылетам и обрабатывает абсолютно все внутренние ссылки) */
+        /* ПЕРЕХОД МЕЖДУ СТРАНИЦАМИ */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
@@ -804,7 +798,6 @@ button:active,
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            // Проверяем, что ссылка ведет на внутреннюю страницу, а не якорь/почту/вкладку
             if (
                 href && 
                 href !== '#' && 
@@ -817,12 +810,11 @@ button:active,
             ) {
                 e.preventDefault(); 
                 
-                // Включаем лоадер обратно перед уходом, чтобы страница мягко угасла
                 if (pageLoader) {
-    pageLoader.style.display = 'flex';
-    pageLoader.classList.remove('fade-out');
-}
-                document.body.classList.remove('visible'); // Мягко скрываем страницу вниз
+                    pageLoader.style.display = 'flex';
+                    pageLoader.classList.remove('fade-out');
+                }
+                document.body.classList.remove('visible'); 
                 
                 setTimeout(() => {
                     window.location.href = href;
