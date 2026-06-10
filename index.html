@@ -50,6 +50,19 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            
+            /* ЗАЩИТА: Запрет выделения текста на всей странице */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* ЗАЩИТА: Дополнительный запрет сохранения для картинок (особенно на iOS) */
+        img {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
         }
 
         /* Кастомный курсор только для десктопов */
@@ -192,7 +205,7 @@
             padding: 40px 60px;
             box-shadow: var(--shadow), var(--inner-shadow);
             display: grid;
-            grid-template-columns: 1.2fr 1.2fr 1fr; /* Adjusted for larger avatar spacing */
+            grid-template-columns: 1.2fr 1.2fr 1fr;
             align-items: center;
             gap: 30px;
             position: relative;
@@ -208,7 +221,6 @@
 
         .hero-info { display: flex; flex-direction: column; justify-content: center; }
         
-        /* Скрытый заголовок для SEO */
         .visually-hidden {
             position: absolute;
             width: 1px;
@@ -218,6 +230,20 @@
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
             border: 0;
+        }
+
+        /* ЗАЩИТА: Контейнеры-обертки для картинок */
+        .img-protect-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        /* Прозрачный щит поверх графики */
+        .img-protect-wrapper::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            background: transparent;
         }
 
         .main-title-img {
@@ -236,18 +262,16 @@
 
         .hero-avatar-wrapper { display: flex; justify-content: center; align-items: center; position: relative; }
         
-        /* Removed old static background circle, avatar is now large and central */
         .hero-avatar-wrapper img {
-            width: 240px; /* ИСПРАВЛЕНО: Увеличен размер аватарки */
+            width: 240px; 
             height: auto;
-            border-radius: 50%; /* Скругляем саму картинку */
-            border: 4px solid #EAF0FF; /* Добавляем красивую обводку */
-            box-shadow: 0 15px 35px rgba(119,136,187,0.2), inset 0 4px 10px rgba(255,255,255,0.5); /* Тень и внутренний блик */
+            border-radius: 50%; 
+            border: 4px solid #EAF0FF; 
+            box-shadow: 0 15px 35px rgba(119,136,187,0.2), inset 0 4px 10px rgba(255,255,255,0.5); 
             position: relative;
             z-index: 2;
             pointer-events: none;
-            filter: drop-shadow(0 10px 20px rgba(126,152,231,0.15)); /* Мягкое свечение */
-            /* animation: faviconPureBob... REMOVED: Анимация покачивания убрана */
+            filter: drop-shadow(0 10px 20px rgba(126,152,231,0.15)); 
         }
 
         .hero-subcards { display: flex; flex-direction: column; gap: 16px; z-index: 3; }
@@ -281,7 +305,7 @@
         }
         .info-subcard p { font-size: 0.88rem; color: #7A879E; line-height: 1.4; }
 
-        /* ИСПРАВЛЕНО: PRICING GRID НА 3 КОЛОНКИ С ИДЕАЛЬНЫМ ЦЕНТРИРОВАНИЕМ */
+        /* PRICING GRID */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -363,7 +387,6 @@
             margin-bottom: 3px;
         }
 
-        /* Инстаграм ссылка внутри карточки контактов */
         .contact-instagram {
             display: inline-block;
             font-size: 0.88rem;
@@ -436,14 +459,14 @@
             header { margin: 15px auto 0; }
             nav { flex-direction: column; gap: 14px; padding: 16px; }
             .hero-banner { grid-template-columns: 1fr; padding: 30px; gap: 20px; }
-            .hero-avatar-wrapper { display: flex; order: -1; margin-bottom: 20px; } /* Show avatar first on mobile */
-            .hero-avatar-wrapper img { width: 180px; } /* Slightly smaller on mobile */
+            .hero-avatar-wrapper { display: flex; order: -1; margin-bottom: 20px; } 
+            .hero-avatar-wrapper img { width: 180px; } 
             .pricing-grid { grid-template-columns: 1fr; }
             .bottom-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div class="bg-glow"></div>
     <div class="blob blob1"></div>
@@ -471,14 +494,18 @@
         <section class="hero-banner">
             <div class="hero-info">
                 <h1 class="visually-hidden">Asteriks Furry Art Studio</h1>
-                <img src="asteriks.art/asterikslogo.png" alt="Asteriks Studio Logo" class="main-title-img">
+                <div class="img-protect-wrapper">
+                    <img src="asteriks.art/asterikslogo.png" alt="Asteriks Studio Logo" class="main-title-img">
+                </div>
                 <p>
                     A collection of character illustrations, reference sheets and furry commissions created by Asteriks.
                 </p>
             </div>
 
             <div class="hero-avatar-wrapper">
-                <img src="asteriks.art/asteriksidentity.png" alt="Asteriks Mascot Illustration">
+                <div class="img-protect-wrapper">
+                    <img src="asteriks.art/asteriksidentity.png" alt="Asteriks Mascot Illustration">
+                </div>
             </div>
 
             <div class="hero-subcards">
@@ -553,7 +580,8 @@
 
         /* БЛОКИРОВКА ДЕВТУЛЗОВ */
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) {
+            // Блокируем Ctrl+U (Исходный код), Ctrl+S (Сохранить), Ctrl+Shift+C / Ctrl+Shift+I (Инспектировать)
+            if ((e.ctrlKey || e.metaKey) && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) {
                 e.preventDefault();
             }
             if (e.code === 'F12') {
@@ -561,12 +589,10 @@
             }
         });
 
-        /* ПЛАВНЫЕ ПЕРЕХОДЫ (Универсальный и чистый вариант) */
+        /* ПЛАВНЫЕ ПЕРЕХОДЫ */
         document.querySelectorAll('a[href]').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                
-                // Проверяем, что ссылка ведет на другую страницу проекта
                 if (href && href.endsWith('.html') && !href.startsWith('http')) {
                     e.preventDefault(); 
                     document.body.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
