@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing | Asteriks</title>
 
-    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/7E98E7/white?text=A">
+    <link rel="icon" type="image/png" sizes="32x32" href="asteriks.art/asteriksfav.png">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
@@ -32,20 +32,16 @@
             box-sizing: border-box;
         }
 
-        /* ФИКС ДЛЯ ПЛАВНОЙ ПРОКРУТКИ БЕЗ ДЁРГАНЬЯ */
         html {
             scroll-behavior: smooth;
-            height: 100%;
-            overscroll-behavior: none;
         }
 
         body {
             font-family: 'Nunito', sans-serif;
             color: var(--dark);
             overflow-x: hidden;
-            overflow-y: auto;
             background: linear-gradient(135deg, var(--c5), var(--c4), var(--c2));
-            min-height: 100%;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -57,21 +53,13 @@
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            
-            /* Дополнительная защита от дёрганья */
-            -webkit-overflow-scrolling: touch;
         }
 
-        /* Улучшенное качество изображений */
         img {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
             -webkit-user-drag: none;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            image-rendering: pixelated;
-            image-rendering: high-quality;
         }
             
         body.visible {
@@ -133,10 +121,14 @@
         }
 
         @media (hover: hover) {
-            body { cursor: default; }
+            body { cursor: url('asteriks.art/paw.png') 16 16, auto; }
             a, button, .price-card, .status-box, .commission-badge, .addon-item, .matrix-row {
-                cursor: pointer !important;
+                cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
             }
+        }
+
+        a:active, button:active, .price-card:active, .status-box:active, .commission-badge:active {
+            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
         }
 
         /* БЛОБЫ ЗАДНЕГО ПЛАНА */
@@ -391,8 +383,6 @@
             transition: all 0.3s ease;
             z-index: 5; 
             position: relative;
-            display: inline-block;
-            cursor: pointer;
         }
 
         .price-card:hover .order-btn {
@@ -515,7 +505,6 @@
             border: 1px solid rgba(171, 192, 246, 0.1);
             border-radius: 20px;
             transition: all 0.25s ease;
-            cursor: pointer;
         }
 
         .matrix-row:hover {
@@ -624,7 +613,7 @@
 
     <div class="page-loader" id="pageLoader">
         <div class="loader-spinner">
-            <img src="https://placehold.co/70x70/7E98E7/white?text=A" alt="" aria-hidden="true">
+            <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
         </div>
     </div>
 
@@ -633,14 +622,14 @@
 
     <header>
         <nav>
-            <a href="#" class="logo">
-                Asteriks <img src="https://placehold.co/32x32/7E98E7/white?text=A" alt="✦">
+            <a href="index.html" class="logo">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
             </a>
             <div class="nav-links">
-                <a href="#">Home</a>
-                <a href="#">Gallery</a>
-                <a href="#" class="active">Pricing</a>
-                <a href="#">About</a>
+                <a href="index.html">Home</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="pricing.html" class="active">Pricing</a>
+                <a href="about.html">About</a>
             </div>
             <a href="mailto:asteriks.art@gmail.com?subject=General Art Commission" class="commission-badge">ORDER ART</a>
         </nav>
@@ -661,7 +650,7 @@
             <div class="price-card">
                 <div>
                     <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/189349/pexels-photo-189349.jpeg?w=800&h=600&fit=crop&auto=format" alt="Portrait Example - High Quality">
+                        <img src="asteriks.art/asteriks3.png" alt="Headshot Example">
                     </div>
                     <div class="card-info">
                         <h2>Headshot</h2>
@@ -674,13 +663,13 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:asteriks.art@gmail.com?subject=Headshot%20Commission%20Request%20%7C%20Character%20Art" class="order-btn">Order Headshot</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Headshot Commission Request" class="order-btn">Order Headshot</a>
             </div>
 
             <div class="price-card">
                 <div>
                     <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?w=800&h=600&fit=crop&auto=format" alt="Torso Example - High Quality">
+                        <img src="asteriks.art/asteriks4.png" alt="Torso Example">
                     </div>
                     <div class="card-info">
                         <h2>Torso / Halfbody</h2>
@@ -693,13 +682,13 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:asteriks.art@gmail.com?subject=Torso%20Commission%20Request%20%7C%20Halfbody%20Art" class="order-btn">Order Torso</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Torso Commission Request" class="order-btn">Order Torso</a>
             </div>
 
             <div class="price-card">
                 <div>
                     <div class="card-preview">
-                        <img src="https://images.pexels.com/photos/1053867/pexels-photo-1053867.jpeg?w=800&h=600&fit=crop&auto=format" alt="Fullbody Example - High Quality">
+                        <img src="asteriks.art/asteriks1.png" alt="Fullbody Example">
                     </div>
                     <div class="card-info">
                         <h2>Fullbody</h2>
@@ -712,7 +701,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:asteriks.art@gmail.com?subject=Fullbody%20Commission%20Request%20%7C%20Character%20Illustration" class="order-btn">Order Fullbody</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Fullbody Commission Request" class="order-btn">Order Fullbody</a>
             </div>
 
         </section>
@@ -785,7 +774,7 @@
     </main>
 
     <footer>
-        © 2026 Asteriks <img src="https://placehold.co/16x16/7E98E7/white?text=A" alt="" aria-hidden="true"> | All Rights Reserved
+        © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
     </footer>
 
     <script>
@@ -808,7 +797,7 @@
             if (pageLoader && !pageLoader.classList.contains('fade-out')) {
                 pageLoader.classList.add('fade-out');
                 setTimeout(() => {
-                    if (pageLoader) pageLoader.style.display = 'none';
+                    pageLoader.style.display = 'none';
                 }, 500);
             }
             document.body.classList.add('visible');
@@ -823,9 +812,6 @@
             }
         });
 
-        /* ФИКС ДЛЯ ПЛАВНОЙ ПРОКРУТКИ - УБИРАЕМ ЛИШНИЕ ОБРАБОТЧИКИ */
-        // Убираем старый обработчик переходов, чтобы не мешал прокрутке
-        
         /* УМНЫЙ ПЕРЕХОД ПО ССЫЛКАМ */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
@@ -834,19 +820,14 @@
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            // Проверяем, не является ли ссылка mailto или якорем
-            if (href && (href.startsWith('mailto:') || href === '#' || href.startsWith('#'))) {
-                // Для mailto ничего не делаем, браузер сам откроет почтовый клиент
-                return;
-            }
-
-            const isHtmlLink = href && (href.endsWith('.html') || (!href.includes(':') && !href.startsWith('#')));
+            const isHtmlLink = href && (href.endsWith('.html') || !href.includes(':'));
 
             if (
                 isHtmlLink && 
                 href !== '#' && 
                 !href.startsWith('#') && 
-                (!target || target === '_self')
+                (!target || target === '_self') &&
+                !link.classList.contains('active')
             ) {
                 e.preventDefault(); 
                 
@@ -861,15 +842,6 @@
                 }, 400); 
             }
         });
-
-        // Дополнительная защита от дёрганья при скролле на мобильных
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(function() {
-                // Просто сбрасываем таймер для стабилизации
-            }, 50);
-        }, { passive: true });
     </script>
 </body>
 </html>
