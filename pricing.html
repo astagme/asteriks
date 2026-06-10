@@ -215,4 +215,435 @@
         }
 
         /* ======================================================
-           HERO SECTION (ЦЕНТР
+           HERO SECTION (ЦЕНТР СТАТУСА КЛИЕНТА)
+        ====================================================== */
+        .pricing-hero {
+            padding: 140px 7% 40px;
+            text-align: center;
+        }
+
+        .pricing-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .status-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px solid #ABC0F6;
+            padding: 12px 24px;
+            border-radius: 24px;
+            margin-top: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: var(--shadow);
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #6AD394;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #6AD394;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(106, 211, 148, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(106, 211, 148, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(106, 211, 148, 0); }
+        }
+
+        .status-text {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--dark);
+        }
+
+        /* ======================================================
+           КАРТОЧКИ ТАРИФОВ (ЦЕНЫ)
+        ====================================================== */
+        .pricing-container {
+            width: min(1200px, 92%);
+            margin: 0 auto 60px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 70px;
+        }
+
+        .price-card {
+            background: var(--white);
+            border-radius: 34px;
+            border: 2px solid rgba(171, 192, 246, 0.15);
+            padding: 35px 30px;
+            box-shadow: var(--shadow), var(--inner-shadow);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
+        }
+
+        /* ЗАЩИТА: Прозрачный слой над всей карточкой прайса (чтобы нельзя было вытащить превью-картинку) */
+        .price-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            bottom: 100px; /* Оставляем рабочими нижние кнопки заказа */
+            z-index: 4;
+            background: transparent;
+        }
+
+        .price-card:hover {
+            transform: translateY(-10px);
+            border-color: #ABC0F6;
+            box-shadow: 0 30px 60px rgba(140, 164, 232, 0.2), var(--inner-shadow);
+        }
+
+        .card-preview {
+            width: 100%;
+            height: 220px;
+            background: #F2F5FC;
+            border-radius: 22px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            position: relative;
+            border: 1px solid rgba(171, 192, 246, 0.2);
+        }
+
+        .card-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .card-info h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .card-price {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #7E98E7;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .card-price span {
+            font-size: 0.95rem;
+            color: #7A879E;
+            font-weight: 600;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .features-list li {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #6D7890;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li i {
+            color: #9AAFEF;
+            font-size: 1.05rem;
+        }
+
+        .order-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 20px;
+            background: #EAF0FF;
+            color: #6A84CD;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 5; /* Должна быть выше защитной маски */
+            position: relative;
+        }
+
+        .price-card:hover .order-btn {
+            background: #9AAFEF;
+            color: white;
+            box-shadow: 0 10px 20px rgba(154,175,239,0.3);
+        }
+
+        /* ======================================================
+           TERMS OF SERVICE (Правила заказа)
+        ====================================================== */
+        .tos-section {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2px dashed #ABC0F6;
+            border-radius: 34px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .tos-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .tos-item h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .tos-item p {
+            font-size: 0.92rem;
+            color: #6D7890;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* ======================================================
+           FOOTER
+        ====================================================== */
+        footer {
+            text-align: center;
+            padding: 35px 20px;
+            font-size: .88rem;
+            color: #7A879E;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: auto;
+        }
+        footer img { height: 1.1rem; width: auto; }
+
+        /* RESPONSIVE */
+        @media(max-width: 768px) {
+            nav { flex-direction: column; gap: 14px; padding: 16px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+            .pricing-hero { padding: 170px 5% 30px; }
+            .pricing-title { font-size: 2rem; }
+            .tos-section { padding: 25px; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-spinner">
+            <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
+        </div>
+    </div>
+
+    <div class="blob blob1"></div>
+    <div class="blob blob2"></div>
+
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="pricing.html" class="active">Pricing</a>
+                <a href="about.html">About</a>
+            </div>
+            <a href="mailto:your-email@domain.com" class="commission-badge">ORDER ART</a>
+        </nav>
+    </header>
+
+    <section class="pricing-hero">
+        <h1 class="pricing-title">Commission Pricing</h1>
+        <div class="status-box">
+            <div class="status-dot"></div>
+            <span class="status-text">Commissions are Currently Open!</span>
+        </div>
+    </section>
+
+    <main class="pricing-container">
+        <section class="pricing-grid">
+
+            <div class="price-card">
+                <div>
+                    <div class="card-preview">
+                        <img src="asteriks.art/asteriks3.png" alt="Headshot Example">
+                    </div>
+                    <div class="card-info">
+                        <h2>Headshot</h2>
+                        <div class="card-price">$40 <span>/ base price</span></div>
+                        <ul class="features-list">
+                            <li><i class="fa-solid fa-paw"></i> Detailed Face & Hair</li>
+                            <li><i class="fa-solid = fa-paw"></i> Soft or Full Shading</li>
+                            <li><i class="fa-solid fa-paw"></i> Clean Lineart</li>
+                            <li><i class="fa-solid fa-paw"></i> Transparent / Simple BG</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="mailto:your-email@domain.com?subject=Headshot Commission" class="order-btn">Order Headshot</a>
+            </div>
+
+            <div class="price-card">
+                <div>
+                    <div class="card-preview">
+                        <img src="asteriks.art/asteriks4.png" alt="Torso Example">
+                    </div>
+                    <div class="card-info">
+                        <h2>Torso / Halfbody</h2>
+                        <div class="card-price">$60 <span>/ base price</span></div>
+                        <ul class="features-list">
+                            <li><i class="fa-solid fa-paw"></i> Includes Waist / Hips up</li>
+                            <li><i class="fa-solid fa-paw"></i> Complex Outfit Shading</li>
+                            <li><i class="fa-solid fa-paw"></i> Expressive Posing</li>
+                            <li><i class="fa-solid fa-paw"></i> Free Color-gradient BG</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="mailto:your-email@domain.com?subject=Torso Commission" class="order-btn">Order Torso</a>
+            </div>
+
+            <div class="price-card">
+                <div>
+                    <div class="card-preview">
+                        <img src="asteriks.art/asteriks1.png" alt="Fullbody Example">
+                    </div>
+                    <div class="card-info">
+                        <h2>Fullbody</h2>
+                        <div class="card-price">$80 <span>/ base price</span></div>
+                        <ul class="features-list">
+                            <li><i class="fa-solid fa-paw"></i> Full character layout</li>
+                            <li><i class="fa-solid fa-paw"></i> High Resolution Render</li>
+                            <li><i class="fa-solid fa-paw"></i> Complex anatomy & details</li>
+                            <li><i class="fa-solid fa-paw"></i> Commercial rights option</li>
+                        </ul>
+                    </div>
+                </div>
+                <a href="mailto:your-email@domain.com?subject=Fullbody Commission" class="order-btn">Order Fullbody</a>
+            </div>
+
+        </section>
+
+        <section class="tos-section">
+            <h3 class="tos-title"><i class="fa-solid fa-circle-info" style="color: #7E98E7;"></i> Terms of Service</h3>
+            <div class="tos-grid">
+                <div class="tos-item">
+                    <h4>✦ How to Order</h4>
+                    <p>Click any button above or drop me an email with your character sheet, layout ideas, references, and preferred poses.</p>
+                </div>
+                <div class="tos-item">
+                    <h4>✦ Payment & Process</h4>
+                    <p>100% upfront payment via PayPal. I will share a rough sketch with you before heading straight to full lineart and shading.</p>
+                </div>
+                <div class="tos-item">
+                    <h4>✦ Edits & Deadlines</h4>
+                    <p>Major edits are free during the sketch stage. Turnaround time usually takes around 5-14 business days per artwork.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
+    </footer>
+
+    <script>
+        /* СТРОГАЯ ЗАЩИТА АРТОВ (ПЕРЕТАСКИВАНИЕ И КЛАВИШИ) */
+        document.addEventListener('dragstart', event => {
+            if (event.target.tagName === 'IMG') event.preventDefault();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) {
+                e.preventDefault();
+            }
+            if (e.code === 'F12') e.preventDefault();
+        });
+
+        const pageLoader = document.getElementById('pageLoader');
+
+        /* ЛОАДЕР ПРИ ЗАГРУЗКЕ */
+        window.addEventListener('load', () => {
+            if (pageLoader) {
+                pageLoader.classList.add('fade-out');
+                pageLoader.addEventListener('transitionend', () => {
+                    pageLoader.style.display = 'none';
+                }, { once: true });
+            }
+            document.body.classList.add('visible'); 
+        });
+
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                if (pageLoader) pageLoader.classList.add('fade-out');
+                document.body.classList.add('visible');
+            }
+        });
+
+        /* УМНЫЙ ПЕРЕХОД ПО ССЫЛКАМ */
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (!link) return;
+
+            const href = link.getAttribute('href');
+            const target = link.getAttribute('target');
+
+            if (
+                href && 
+                href !== '#' && 
+                !href.startsWith('#') && 
+                !href.startsWith('mailto:') && 
+                !href.startsWith('tel:') &&
+                !href.startsWith('http') && 
+                (!target || target === '_self') &&
+                !link.classList.contains('active')
+            ) {
+                e.preventDefault(); 
+                
+                if (pageLoader) {
+                    pageLoader.style.display = 'flex';
+                    pageLoader.classList.remove('fade-out');
+                }
+                document.body.classList.remove('visible'); 
+                
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 450); 
+            }
+        });
+    </script>
+</body>
+</html>
