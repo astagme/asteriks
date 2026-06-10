@@ -122,7 +122,7 @@
 
         @media (hover: hover) {
             body { cursor: url('asteriks.art/paw.png') 16 16, auto; }
-            a, button, .price-card, .status-box, .commission-badge, .addon-item {
+            a, button, .price-card, .status-box, .commission-badge, .addon-item, .matrix-row {
                 cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
             }
         }
@@ -215,7 +215,7 @@
         }
 
         /* ======================================================
-           HERO SECTION (ЦЕНТР СТАТУСА КЛИЕНТА)
+           HERO SECTION
         ====================================================== */
         .pricing-hero {
             padding: 140px 7% 40px;
@@ -292,7 +292,6 @@
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
         }
 
-        /* ЗАЩИТА: Прозрачный слой над всей карточкой прайса */
         .price-card::after {
             content: "";
             position: absolute;
@@ -400,7 +399,7 @@
             border: 1px solid rgba(255, 255, 255, 0.9);
             border-radius: 28px;
             padding: 24px 40px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             box-shadow: var(--shadow);
             backdrop-filter: blur(15px);
             display: flex;
@@ -416,9 +415,7 @@
             gap: 15px;
             transition: transform 0.3s ease;
         }
-        .addon-item:hover {
-            transform: scale(1.02);
-        }
+        .addon-item:hover { transform: scale(1.02); }
 
         .addon-icon {
             width: 52px;
@@ -456,6 +453,82 @@
             border-radius: 14px;
             border: 1px solid rgba(171, 192, 246, 0.3);
             box-shadow: 0 4px 10px rgba(119,136,187,0.06);
+        }
+
+        /* ======================================================
+           МАТРИЦА СТИЛЕЙ (Lineart & Flat Color)
+        ====================================================== */
+        .price-matrix-section {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 34px;
+            padding: 35px 40px;
+            margin-bottom: 50px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(15px);
+        }
+
+        .matrix-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .matrix-table {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .matrix-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 0 20px 10px;
+            border-bottom: 2px solid rgba(171, 192, 246, 0.2);
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: #7A879E;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .matrix-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            align-items: center;
+            padding: 18px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(171, 192, 246, 0.1);
+            border-radius: 20px;
+            transition: all 0.25s ease;
+        }
+
+        .matrix-row:hover {
+            background: var(--white);
+            border-color: rgba(171, 192, 246, 0.5);
+            transform: translateX(4px);
+            box-shadow: 0 8px 20px rgba(119, 136, 187, 0.05);
+        }
+
+        .matrix-type {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2rem;
+            color: var(--dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .matrix-type i { color: #9AAFEF; font-size: 1rem; }
+
+        .matrix-cost {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #6A84CD;
         }
 
         /* ======================================================
@@ -525,6 +598,13 @@
             .pricing-title { font-size: 2rem; }
             .addons-bar { flex-direction: column; align-items: stretch; padding: 20px; gap: 20px; }
             .addon-item { justify-content: space-between; }
+            .price-matrix-section { padding: 20px; }
+            .matrix-header { display: none; }
+            .matrix-row { grid-template-columns: 1fr; gap: 10px; padding: 15px; }
+            .matrix-cost { display: flex; justify-content: space-between; font-size: 1.1rem; }
+            .matrix-cost::before { font-weight: 600; color: #7A879E; font-size: 0.9rem; }
+            .matrix-cost.line-art-cost::before { content: "Line Art:"; }
+            .matrix-cost.flat-color-cost::before { content: "Flat Color:"; }
             .tos-section { padding: 25px; }
         }
     </style>
@@ -551,7 +631,7 @@
                 <a href="pricing.html" class="active">Pricing</a>
                 <a href="about.html">About</a>
             </div>
-            <a href="mailto:your-email@domain.com" class="commission-badge">ORDER ART</a>
+            <a href="mailto:asteriks.art@gmail.com?subject=General Art Commission" class="commission-badge">ORDER ART</a>
         </nav>
     </header>
 
@@ -583,7 +663,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:your-email@domain.com?subject=Headshot Commission" class="order-btn">Order Headshot</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Headshot Commission Request" class="order-btn">Order Headshot</a>
             </div>
 
             <div class="price-card">
@@ -602,7 +682,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:your-email@domain.com?subject=Torso Commission" class="order-btn">Order Torso</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Torso Commission Request" class="order-btn">Order Torso</a>
             </div>
 
             <div class="price-card">
@@ -621,7 +701,7 @@
                         </ul>
                     </div>
                 </div>
-                <a href="mailto:your-email@domain.com?subject=Fullbody Commission" class="order-btn">Order Fullbody</a>
+                <a href="mailto:asteriks.art@gmail.com?subject=Fullbody Commission Request" class="order-btn">Order Fullbody</a>
             </div>
 
         </section>
@@ -642,6 +722,35 @@
                     <p>Detailed interior, nature scenery, objects</p>
                 </div>
                 <div class="addon-price">+$30</div>
+            </div>
+        </section>
+
+        <section class="price-matrix-section">
+            <h3 class="matrix-title"><i class="fa-solid fa-tags" style="color: #7E98E7;"></i> Other Art Styles</h3>
+            <div class="matrix-table">
+                <div class="matrix-header">
+                    <span>Art Type</span>
+                    <span>Line Art</span>
+                    <span>Flat Color</span>
+                </div>
+                
+                <div class="matrix-row">
+                    <div class="matrix-type"><i class="fa-solid fa-paw"></i> Headshot</div>
+                    <div class="matrix-cost line-art-cost">$20</div>
+                    <div class="matrix-cost flat-color-cost">$30</div>
+                </div>
+
+                <div class="matrix-row">
+                    <div class="matrix-type"><i class="fa-solid fa-paw"></i> Torso / Halfbody</div>
+                    <div class="matrix-cost line-art-cost">$30</div>
+                    <div class="matrix-cost flat-color-cost">$45</div>
+                </div>
+
+                <div class="matrix-row">
+                    <div class="matrix-type"><i class="fa-solid fa-paw"></i> Fullbody</div>
+                    <div class="matrix-cost line-art-cost">$40</div>
+                    <div class="matrix-cost flat-color-cost">$60</div>
+                </div>
             </div>
         </section>
 
@@ -695,7 +804,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', revealPage);
-        setTimeout(revealPage, 600); // Страховка
+        setTimeout(revealPage, 600); 
 
         window.addEventListener('pageshow', (event) => {
             if (event.persisted) {
