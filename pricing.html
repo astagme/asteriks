@@ -59,7 +59,9 @@
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
-            -webkit-user-drag: none;
+            /* Убрано свойство -webkit-user-drag, ухудшающее рендеринг */
+            image-rendering: -webkit-optimize-contrast; /* Повышает четкость краев у цифровых рисунков */
+            image-rendering: crisp-edges;
         }
             
         body.visible {
@@ -299,6 +301,7 @@
             bottom: 100px; 
             z-index: 4;
             background: transparent;
+            pointer-events: none; /* Фикс: клики проходят сквозь этот слой к кнопке */
         }
 
         .price-card:hover {
@@ -321,8 +324,8 @@
         .card-preview img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            pointer-events: none;
+            object-fit: contain; /* Изменено с cover на contain, чтобы арт не размывался из-за кропа */
+            background-color: #F2F5FC;
         }
 
         .card-info h2 {
@@ -381,8 +384,8 @@
             text-align: center;
             text-decoration: none;
             transition: all 0.3s ease;
-            z-index: 5; 
-            position: relative;
+            position: relative; /* Фикс: относительное позиционирование активирует z-index */
+            z-index: 5;         /* Фикс: теперь кнопка гарантированно выше карточного слоя */
         }
 
         .price-card:hover .order-btn {
