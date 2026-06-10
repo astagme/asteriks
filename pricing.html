@@ -11,7 +11,7 @@
 
     <style>
         /* ======================================================
-           КОРНЕВЫЕ СТИЛИ (Единый фундамент)
+           КОРНЕВЫЕ СТИЛИ
         ====================================================== */
         :root {
             --c1: #ABC0F6;
@@ -55,13 +55,17 @@
             user-select: none;
         }
 
+        /* ЖЕСТКИЙ ФИКС ПИКСЕЛЬНОСТИ ДЛЯ ХАЙРЕЗ-АРТОВ */
         img {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             user-select: none;
-            /* Убрано свойство -webkit-user-drag, ухудшающее рендеринг */
-            image-rendering: -webkit-optimize-contrast; /* Повышает четкость краев у цифровых рисунков */
-            image-rendering: crisp-edges;
+            
+            /* Комбинация для идеального даунскейлинга (сжатия больших картинок) */
+            image-rendering: -webkit-optimize-contrast; 
+            image-rendering: auto; /* Позволяет браузеру включить билинейную/трилинейную фильтрацию */
+            transform: translateZ(0); /* Включает аппаратное ускорение видеокарты */
+            backface-visibility: hidden;
         }
             
         body.visible {
@@ -70,7 +74,7 @@
         }
 
         /* ======================================================
-           ПЛАВНЫЙ СТАРТОВЫЙ ЛОАДЕР
+           ЛАУНЧ-ЛОАДЕР
         ====================================================== */
         .page-loader {
             position: fixed;
@@ -157,7 +161,7 @@
             left: 50%;
             transform: translateX(-50%);
             width: min(1200px, 92%);
-            z-index: 999;
+            z-index: 9999;
         }
 
         nav {
@@ -266,11 +270,13 @@
         }
 
         /* ======================================================
-           КАРТОЧКИ ТАРИФОВ (ЦЕНЫ)
+           КАРТОЧКИ ТАРИФОВ (СТРУКТУРНЫЙ РЕФАКТОРИНГ)
         ====================================================== */
         .pricing-container {
             width: min(1200px, 92%);
             margin: 0 auto 60px;
+            position: relative;
+            z-index: 10;
         }
 
         .pricing-grid {
@@ -287,21 +293,11 @@
             padding: 35px 30px;
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s;
-        }
-
-        .price-card::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            bottom: 100px; 
-            z-index: 4;
-            background: transparent;
-            pointer-events: none; /* Фикс: клики проходят сквозь этот слой к кнопке */
+            z-index: 1; /* Ограничиваем контекст наложения */
         }
 
         .price-card:hover {
@@ -310,22 +306,28 @@
             box-shadow: 0 30px 60px rgba(140, 164, 232, 0.2), var(--inner-shadow);
         }
 
+        /* Исправленный контейнер картинок — убран overflow:hidden, который «мылил» края */
         .card-preview {
             width: 100%;
             height: 220px;
             background: #F2F5FC;
             border-radius: 22px;
-            overflow: hidden;
             margin-bottom: 25px;
             position: relative;
             border: 1px solid rgba(171, 192, 246, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
+        /* Отрегулировано сглаживание при масштабировании больших холстов */
         .card-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Изменено с cover на contain, чтобы арт не размывался из-за кропа */
-            background-color: #F2F5FC;
+            max-width: 96%;
+            max-height: 94%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
         }
 
         .card-info h2 {
@@ -371,7 +373,9 @@
             font-size: 1.05rem;
         }
 
+        /* Абсолютная изоляция кнопки для 100% кликабельности на десктопе */
         .order-btn {
+            display: block;
             width: 100%;
             padding: 15px;
             border: none;
@@ -383,9 +387,14 @@
             font-size: 1rem;
             text-align: center;
             text-decoration: none;
+            box-sizing: border-box;
+            
+            /* Главный фикс: выносим кнопку в топ-слой стека мыши */
+            position: relative; 
+            z-index: 999;        
+            pointer-events: auto !important; 
+            
             transition: all 0.3s ease;
-            position: relative; /* Фикс: относительное позиционирование активирует z-index */
-            z-index: 5;         /* Фикс: теперь кнопка гарантированно выше карточного слоя */
         }
 
         .price-card:hover .order-btn {
@@ -459,7 +468,7 @@
         }
 
         /* ======================================================
-           МАТРИЦА СТИЛЕЙ (Lineart & Flat Color)
+           МАТРИЦА СТИЛЕЙ
         ====================================================== */
         .price-matrix-section {
             background: rgba(255, 255, 255, 0.7);
@@ -535,7 +544,7 @@
         }
 
         /* ======================================================
-           TERMS OF SERVICE (Правила заказа)
+           TERMS OF SERVICE
         ====================================================== */
         .tos-section {
             background: rgba(255, 255, 255, 0.6);
@@ -781,7 +790,7 @@
     </footer>
 
     <script>
-        /* СТРОГАЯ ЗАЩИТА АРТОВ (ПЕРЕТАСКИВАНИЕ И КЛАВИШИ) */
+        /* ЗАЩИТА АРТОВ ОТ ПЕРЕТАСКИВАНИЯ */
         document.addEventListener('dragstart', event => {
             if (event.target.tagName === 'IMG') event.preventDefault();
         });
@@ -793,7 +802,7 @@
             if (e.code === 'F12') e.preventDefault();
         });
 
-        /* НАДЕЖНЫЙ СКОРОСТНОЙ ЛОАДЕР */
+        /* СКОРОСТНОЙ ЛОАДЕР */
         const pageLoader = document.getElementById('pageLoader');
 
         function revealPage() {
@@ -815,7 +824,7 @@
             }
         });
 
-        /* УМНЫЙ ПЕРЕХОД ПО ССЫЛКАМ */
+        /* БЕЗОПАСНЫЙ ПЕРЕХОД ПО HTML-ССЫЛКАМ */
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a');
             if (!link) return;
@@ -823,12 +832,11 @@
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
 
-            const isHtmlLink = href && (href.endsWith('.html') || !href.includes(':'));
+            /* Регулярка проверяет, что это не mailto, не якорь и не javascript ссылка */
+            const isHtmlLink = href && !href.startsWith('#') && href !== '#' && !href.startsWith('mailto:') && !href.startsWith('javascript:');
 
             if (
                 isHtmlLink && 
-                href !== '#' && 
-                !href.startsWith('#') && 
                 (!target || target === '_self') &&
                 !link.classList.contains('active')
             ) {
