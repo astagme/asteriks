@@ -288,10 +288,10 @@
         }
         .info-subcard p { font-size: 0.88rem; color: #7A879E; line-height: 1.4; }
 
-        /* PRICING GRID */
+        /* ИСПРАВЛЕНО: PRICING GRID НА 3 КОЛОНКИ С ИДЕАЛЬНЫМ ЦЕНТРИРОВАНИЕМ */
         .pricing-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
         }
 
@@ -361,40 +361,55 @@
             margin-bottom: 8px;
         }
         .footer-card p { font-size: 0.88rem; color: #7A879E; font-weight: 600; line-height: 1.5; }
+        
         .contact-email {
             font-size: 1rem !important;
             color: #7E98E7 !important;
             font-weight: 700 !important;
             margin-top: 4px;
+            margin-bottom: 3px;
+        }
+
+        /* Инстаграм ссылка внутри карточки контактов */
+        .contact-instagram {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: #7A879E;
+            font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .contact-instagram strong {
+            color: #6A84CD;
+            transition: color 0.2s ease;
+        }
+        .contact-instagram:hover strong {
+            color: #8CA4E8;
         }
 
         .socials-flex { display: flex; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
         
         .badge-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #FAFCFF;
-    padding: 10px 18px;
-    border-radius: 16px;
-    border: 2px solid rgba(171, 192, 246, 0.15); 
-    text-decoration: none;
-    color: var(--dark);
-    font-size: 0.88rem;
-    font-weight: 700;
-    box-shadow: 0 4px 10px rgba(119,136,187,0.04);
-    
-    /* Плавность перехода для всех свойств */
-    transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), 
-                box-shadow 0.25s, 
-                border-color 0.25s, 
-                background-color 0.25s;
-
-    /* Решение проблемы с прыжками (добавь эти строки) */
-    will-change: transform;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden; /* для поддержки Safari */
-}
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #FAFCFF;
+            padding: 10px 18px;
+            border-radius: 16px;
+            border: 2px solid rgba(171, 192, 246, 0.15); 
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 0.88rem;
+            font-weight: 700;
+            box-shadow: 0 4px 10px rgba(119,136,187,0.04);
+            transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), 
+                        box-shadow 0.25s, 
+                        border-color 0.25s, 
+                        background-color 0.25s;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
         
         .badge-btn i { font-size: 1rem; color: #7E98E7; }
         .badge-btn:hover {
@@ -439,7 +454,6 @@
     <div class="blob blob1"></div>
     <div class="blob blob2"></div>
 
-    <!-- НАВИГАЦИЯ -->
     <header>
         <nav>
             <a href="index.html" class="logo">
@@ -457,10 +471,8 @@
         </nav>
     </header>
 
-    <!-- ОСНОВНОЙ КОНТЕЙНЕР ДЕШБОРДА -->
     <main class="dashboard-container">
 
-        <!-- РЯД 1: ГЛАВНЫЙ БАННЕР -->
         <section class="hero-banner">
             <div class="hero-info">
                 <h1 class="visually-hidden">Asteriks Furry Art Studio</h1>
@@ -487,7 +499,6 @@
             </div>
         </section>
 
-        <!-- РЯД 2: СЕТКА С ПРАЙС-ЛИСТОМ -->
         <section class="pricing-grid">
             <div class="price-card">
                 <h3>Line Art</h3>
@@ -502,18 +513,20 @@
             </div>
 
             <div class="price-card">
-                <h3>+ Rendered </h3>
+                <h3>+ Light Shading</h3>
                 <div class="price">Head — $35</div>
                 <p>Torso — $60<br>Fullbody — $80+</p>
             </div>
         </section>
 
-        <!-- РЯД 3: КОНТАКТЫ И СОЦСЕТИ -->
         <section class="bottom-grid" id="contact">
             <div class="footer-card">
                 <h3>Contact</h3>
                 <p>Main contact via Email:</p>
                 <p class="contact-email">asteriks.art@gmail.com</p>
+                <a href="https://www.instagram.com/asteriks.art/" target="_blank" class="contact-instagram">
+                    or DM <strong>@asteriks.art</strong> on instagram
+                </a>
             </div>
 
             <div class="footer-card">
@@ -534,7 +547,6 @@
 
     </main>
 
-    <!-- ПОДВАЛ С АВТОРСКИМИ ПРАВАМИ -->
     <footer>
         © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
     </footer>
