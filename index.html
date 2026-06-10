@@ -192,7 +192,7 @@
             padding: 40px 60px;
             box-shadow: var(--shadow), var(--inner-shadow);
             display: grid;
-            grid-template-columns: 1.2fr 1fr 1fr;
+            grid-template-columns: 1.2fr 1.2fr 1fr; /* Adjusted for larger avatar spacing */
             align-items: center;
             gap: 30px;
             position: relative;
@@ -235,26 +235,19 @@
         }
 
         .hero-avatar-wrapper { display: flex; justify-content: center; align-items: center; position: relative; }
-        .avatar-circle-bg {
-            position: absolute;
-            width: 220px;
-            height: 220px;
-            background: #EAF0FF;
-            border-radius: 50%;
-            z-index: 1;
-            box-shadow: inset 0 4px 10px rgba(119,136,187,0.08);
-        }
+        
+        /* Removed old static background circle, avatar is now large and central */
         .hero-avatar-wrapper img {
-            width: 120px;
+            width: 240px; /* ИСПРАВЛЕНО: Увеличен размер аватарки */
             height: auto;
+            border-radius: 50%; /* Скругляем саму картинку */
+            border: 4px solid #EAF0FF; /* Добавляем красивую обводку */
+            box-shadow: 0 15px 35px rgba(119,136,187,0.2), inset 0 4px 10px rgba(255,255,255,0.5); /* Тень и внутренний блик */
             position: relative;
             z-index: 2;
             pointer-events: none;
-            animation: faviconPureBob 4s ease-in-out infinite;
-        }
-        @keyframes faviconPureBob {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-12px); }
+            filter: drop-shadow(0 10px 20px rgba(126,152,231,0.15)); /* Мягкое свечение */
+            /* animation: faviconPureBob... REMOVED: Анимация покачивания убрана */
         }
 
         .hero-subcards { display: flex; flex-direction: column; gap: 16px; z-index: 3; }
@@ -443,6 +436,8 @@
             header { margin: 15px auto 0; }
             nav { flex-direction: column; gap: 14px; padding: 16px; }
             .hero-banner { grid-template-columns: 1fr; padding: 30px; gap: 20px; }
+            .hero-avatar-wrapper { display: flex; order: -1; margin-bottom: 20px; } /* Show avatar first on mobile */
+            .hero-avatar-wrapper img { width: 180px; } /* Slightly smaller on mobile */
             .pricing-grid { grid-template-columns: 1fr; }
             .bottom-grid { grid-template-columns: 1fr; }
         }
@@ -483,7 +478,6 @@
             </div>
 
             <div class="hero-avatar-wrapper">
-                <div class="avatar-circle-bg"></div>
                 <img src="asteriks.art/asteriksidentity.png" alt="Asteriks Mascot Illustration">
             </div>
 
