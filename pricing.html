@@ -777,7 +777,35 @@
         © 2026 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true"> | All Rights Reserved
     </footer>
 
+    <div id="toastNotification" style="position: fixed; bottom: 30px; right: 30px; background: rgba(85, 98, 124, 0.95); color: #ffffff; padding: 16px 24px; border-radius: 20px; font-weight: 700; box-shadow: var(--shadow); z-index: 999999; display: flex; align-items: center; gap: 10px; transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);">
+        <i class="fa-solid fa-paste" style="color: #ABC0F6;"></i>
+        <span>Email copied to clipboard!</span>
+    </div>
+
     <script>
+        /* АВТОМАТИЧЕСКОЕ КОПИРОВАНИЕ ПРИ КЛИКЕ НА MAILTO */
+        document.addEventListener('click', (e) => {
+            const mailtoLink = e.target.closest('a[href^="mailto:"]');
+            if (mailtoLink) {
+                // Копируем адрес в буфер обмена
+                const email = "asteriks.art@gmail.com";
+                navigator.clipboard.writeText(email).then(() => {
+                    // Показываем красивое уведомление
+                    const toast = document.getElementById('toastNotification');
+                    toast.style.transform = 'translateY(0)';
+                    toast.style.opacity = '1';
+                    
+                    // Прячем через 3.5 секунды
+                    setTimeout(() => {
+                        toast.style.transform = 'translateY(100px)';
+                        toast.style.opacity = '0';
+                    }, 3500);
+                }).catch(err => {
+                    console.log('Could not copy text: ', err);
+                });
+            }
+        });
+
         /* СТРОГАЯ ЗАЩИТА АРТОВ (ПЕРЕТАСКИВАНИЕ И КЛАВИШИ) */
         document.addEventListener('dragstart', event => {
             if (event.target.tagName === 'IMG') event.preventDefault();
@@ -819,6 +847,9 @@
 
             const href = link.getAttribute('href');
             const target = link.getAttribute('target');
+
+            // Игнорируем mailto ссылки, чтобы не перезагружать страницу при клике на заказ
+            if (href && href.startsWith('mailto:')) return;
 
             const isHtmlLink = href && (href.endsWith('.html') || !href.includes(':'));
 
