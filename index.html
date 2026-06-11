@@ -553,6 +553,9 @@
             <div class="footer-card">
                 <h3>Social Media</h3>
                 <div class="socials-flex">
+                    <a href="https://x.com/asteriks_art" target="_blank" class="badge-btn" aria-label="X (Twitter)">
+                        <i class="fab fa-x-twitter" aria-hidden="true"></i> Twitter
+                    </a>
                     <a href="https://www.instagram.com/asteriks.art/" target="_blank" class="badge-btn" aria-label="Instagram">
                         <i class="fab fa-instagram" aria-hidden="true"></i> Instagram
                     </a>
@@ -580,7 +583,6 @@
 
         /* БЛОКИРОВКА ДЕВТУЛЗОВ */
         document.addEventListener('keydown', (e) => {
-            // Блокируем Ctrl+U (Исходный код), Ctrl+S (Сохранить), Ctrl+Shift+C / Ctrl+Shift+I (Инспектировать)
             if ((e.ctrlKey || e.metaKey) && ['KeyU', 'KeyS', 'KeyC', 'KeyI'].includes(e.code)) {
                 e.preventDefault();
             }
