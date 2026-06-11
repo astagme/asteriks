@@ -44,10 +44,8 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             opacity: 0;
-            transform: translateY(15px);
-            transition: opacity 0.45s ease-out, transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: opacity 0.45s ease-out;
             
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -67,7 +65,6 @@
             
         body.visible {
             opacity: 1;
-            transform: translateY(0);
         }
 
         /* ======================================================
@@ -627,10 +624,10 @@
                 Asteriks <img src="asteriks.art/asteriksfav.png" alt="✦">
             </a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="pricing.html" class="active">Pricing</a>
-                <a href="about.html">About</a>
+                <a href="/">Home</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/pricing" class="active">Pricing</a>
+                <a href="/about">About</a>
             </div>
             <a href="https://mail.google.com/mail/?view=cm&fs=1&to=asteriks.art@gmail.com&su=Art+Commission+Order" target="_blank" class="commission-badge">ORDER ART</a>
         </nav>
@@ -826,7 +823,7 @@
             const isHtmlLink = href && !href.startsWith('#') && href !== '#' && !isExternal && !href.startsWith('javascript:');
 
             if (isExternal) {
-                return; /* Просто отпускаем клик, пусть открывается в новой вкладке */
+                return; 
             }
 
             if (
