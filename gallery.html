@@ -56,7 +56,7 @@
             user-select: none;
         }
 
-        /* ЗАЩИТА: Запрет сохранения для мобильных устройств (iOS/Android) */
+        /* ЗАЩИТА: Запрет сохранения для мобильных устройств */
         img {
             -webkit-touch-callout: none;
             -webkit-user-select: none;
@@ -122,14 +122,14 @@
         }
 
         @media (hover: hover) {
-            body { cursor: url('asteriks.art/paw.png') 16 16, auto; }
+            body { cursor: url('https://astagme.art/paw.png') 16 16, auto; }
             a, button, .filter-btn, .art-card, .close-btn, .commission-badge {
-                cursor: url('asteriks.art/paw-pointer.png') 16 16, pointer !important;
+                cursor: url('https://astagme.art/paw-pointer.png') 16 16, pointer !important;
             }
         }
 
         a:active, button:active, .filter-btn:active, .art-card:active, .close-btn:active, .commission-badge:active {
-            cursor: url('asteriks.art/paw-pointer.png') 12 12, pointer !important;
+            cursor: url('https://astagme.art/paw-pointer.png') 12 12, pointer !important;
         }
 
         /* БЛОБЫ */
@@ -334,7 +334,7 @@
             column-gap: 30px;
         }
 
-        /* ЗАЩИТА: Контейнер картинки становится оберткой-щитом */
+        /* КАРТОЧКА И ПЛАВНОЕ СКРЫТИЕ ПРИ ФИЛЬТРАЦИИ */
         .art-card {
             break-inside: avoid;
             margin-bottom: 30px;
@@ -344,19 +344,39 @@
             background: var(--white);
             box-shadow: var(--shadow), var(--inner-shadow);
             position: relative;
+            
+            /* Дефолтное скрытое состояние для анимации */
             opacity: 0;
+            visibility: hidden;
+            max-height: 0;
+            margin-bottom: 0;
             transform: translateY(22px) scale(0.96);
-            transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .4s ease, border-color .4s, opacity 0.4s ease-in-out;
-            will-change: transform, box-shadow, opacity;
+            transition: transform .4s cubic-bezier(0.165, 0.84, 0.44, 1), 
+                        box-shadow .4s ease, 
+                        border-color .4s, 
+                        opacity .4s ease, 
+                        visibility .4s ease,
+                        max-height .4s cubic-bezier(0.165, 0.84, 0.44, 1),
+                        margin-bottom .4s ease;
+            will-change: transform, box-shadow, opacity, max-height;
         }
 
-        /* ЗАЩИТА: Невидимый верхний слой «стекла» над картинкой в карточке */
+        /* Активное видимое состояние */
+        .art-card.show {
+            opacity: 1;
+            visibility: visible;
+            max-height: 1200px; /* С запасом для длинных вертикальных артов */
+            margin-bottom: 30px;
+            transform: translateY(0) scale(1);
+        }
+
+        /* ЗАЩИТА: Невидимый верхний слой «стекла» над картинкой */
         .art-card::after {
             content: "";
             position: absolute;
             inset: 0;
             bottom: 0; 
-            z-index: 4; /* Выше картинки, но ниже текстового оверлея */
+            z-index: 4;
             background: transparent;
         }
 
@@ -408,7 +428,7 @@
             border-top: 1px solid rgba(171, 192, 246, 0.2);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            z-index: 5; /* Поверх защитного «стекла» */
+            z-index: 5;
             transform: translateY(100%);
             opacity: 0;
             transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.3s ease;
@@ -442,11 +462,6 @@
             font-weight: 800;
             padding: 7px 14px;
             border-radius: 14px;
-        }
-
-        .art-card.show {
-            opacity: 1;
-            transform: translateY(0) scale(1);
         }
 
         /* ======================================================
@@ -594,7 +609,7 @@
     </header>
 
     <section class="gallery-hero">
-        <img src="asteriks.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
+        <img src="https://astagme.art/asterikslogo.png" alt="Asteriks Logo" class="gallery-logo">
         <h1 class="gallery-title">Artwork Gallery</h1>
         <p class="gallery-text">
             A collection of character illustrations, reference sheets, artworks, and furry commissions created by Asteriks.
@@ -619,10 +634,10 @@
     </section>
 
     <main class="gallery-container">
-        <section class="gallery-grid">
+        <section class="gallery-grid" id="galleryGrid">
 
             <div class="art-card" data-category="torso anime" data-price="$60">
-                <img src="asteriks.art/asteriks3.png" alt="Pastel Necomimi Torso">
+                <img src="https://astagme.art/asteriks3.png" alt="Pastel Necomimi Torso">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Necomimi</h3>
@@ -633,7 +648,7 @@
             </div>
 
             <div class="art-card" data-category="torso multi furry" data-price="$90">
-                <img src="asteriks.art/asteriks4.png" alt="City Nights Duo">
+                <img src="https://astagme.art/asteriks4.png" alt="City Nights Duo">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>City Nights Duo</h3>
@@ -644,7 +659,7 @@
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
+                <img src="https://astagme.art/asteriks2.png" alt="Gothic Low-Angle Perspective">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Pastel Goth OC</h3>
@@ -655,7 +670,7 @@
             </div>
 
             <div class="art-card" data-category="fullbody furry" data-price="$80">
-                <img src="asteriks.art/asteriks1.png" alt="Dynamic Feline Motion">
+                <img src="https://astagme.art/asteriks1.png" alt="Dynamic Feline Motion">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Asteriks Identity</h3>
@@ -666,7 +681,7 @@
             </div>
 
             <div class="art-card" data-category="torso anime" data-price="$60">
-                <img src="asteriks.art/asteriks5.png" alt="Chisa Torso Art">
+                <img src="https://astagme.art/asteriks5.png" alt="Chisa Torso Art">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Chisa</h3>
@@ -677,7 +692,7 @@
             </div>
 
             <div class="art-card" data-category="headshot furry" data-price="$30">
-                <img src="asteriks.art/asteriks0.png" alt="Chibi Headshot Art">
+                <img src="https://astagme.art/asteriks0.png" alt="Chibi Headshot Art">
                 <div class="art-overlay">
                     <div class="art-details">
                         <h3>Chibi</h3>
@@ -723,7 +738,7 @@
         const closeBtn = document.getElementById('closeBtn');
         const pageLoader = document.getElementById('pageLoader');
 
-        /* СМАРТ-ФИЛЬТР */
+        /* СМАРТ-ФИЛЬТР (БЕЗ ДЕФЕКТОВ КОЛОНОК) */
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
                 filterButtons.forEach(btn => btn.classList.remove('active'));
@@ -733,21 +748,17 @@
                 let visibleIndex = 0;
 
                 cards.forEach((card) => {
-                    card.classList.remove('show');
+                    const categories = card.dataset.category.split(' ');
                     
-                    setTimeout(() => {
-                        const categories = card.dataset.category.split(' ');
-                        if (filter === 'all' || categories.includes(filter)) {
-                            card.style.display = 'block';
-                            
-                            setTimeout(() => {
-                                card.classList.add('show');
-                            }, visibleIndex * 70); 
-                            visibleIndex++;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    }, 300);
+                    if (filter === 'all' || categories.includes(filter)) {
+                        card.classList.add('show');
+                        // Слегка каскадный эффект проявления для красоты
+                        card.style.transitionDelay = `${visibleIndex * 40}ms`;
+                        visibleIndex++;
+                    } else {
+                        card.classList.remove('show');
+                        card.style.transitionDelay = '0ms';
+                    }
                 });
             });
         });
@@ -764,10 +775,9 @@
             document.body.classList.add('visible'); 
             
             cards.forEach((card, index) => {
-                card.style.display = 'block';
                 setTimeout(() => {
                     card.classList.add('show');
-                }, 150 + (index * 90));
+                }, 150 + (index * 60));
             });
         });
 
