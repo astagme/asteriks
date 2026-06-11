@@ -474,16 +474,16 @@
 
     <header>
         <nav>
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 Asteriks <img src="asteriks.art/asteriksfav.png" alt="" aria-hidden="true">
             </a>
             <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="gallery.html">Gallery</a>
-                <a href="pricing.html">Pricing</a>
-                <a href="about.html">About</a>
+                <a href="/">Home</a>
+                <a href="/gallery">Gallery</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/about">About</a>
             </div>
-            <a href="pricing.html" class="commission-badge">
+            <a href="/pricing" class="commission-badge">
                 OPEN COMMISSIONS
             </a>
         </nav>
@@ -591,11 +591,17 @@
             }
         });
 
-        /* ПЛАВНЫЕ ПЕРЕХОДЫ */
+        /* ПЛАВНЫЕ ПЕРЕХОДЫ ДЛЯ ЧИСТЫХ URL (VERCEL) */
         document.querySelectorAll('a[href]').forEach(link => {
             link.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href && href.endsWith('.html') && !href.startsWith('http')) {
+                
+                // Проверяем, что ссылка внутренняя, не хэш, не внешняя и не протокол
+                const isExternal = href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:');
+                const isAnchor = href.startsWith('#');
+                const isVoid = href.startsWith('javascript:');
+
+                if (href && !isExternal && !isAnchor && !isVoid) {
                     e.preventDefault(); 
                     document.body.style.transition = 'opacity 0.4s ease-in-out, transform 0.4s ease-in-out';
                     document.body.style.opacity = '0';
